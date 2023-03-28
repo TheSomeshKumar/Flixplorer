@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Flickophile</string>
+    <string name="title_shows">Shows</string>
+    <string name="title_movies">Movies</string>
+
+    <string name="error_unexpected_message">Unexpected error occurred. We are working on it.</string>
+    <string name="error_client_unexpected_message">Something technically is wrong. We are working on it.</string>
+    <string name="error_server_unexpected_message">Oops! Something went wrong on the server. We are working on it.</string>
+    <string name="error_timeout_message">Looks like the server is taking to long to respond, this can be caused by either poor connectivity or an error with our servers. Please try again in a while</string>
+    <string name="error_network">Oops! Something went wrong on the server. We are working on it.</string>
+    <string name="loading">Loading…</string>
+    <string name="released_on">Released on %1$s</string>
+    <string name="rated">Rated %1$s</string>
+
+</resources>

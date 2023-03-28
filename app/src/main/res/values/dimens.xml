@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_padding">4dp</dimen>
+    <dimen name="normal_padding">16dp</dimen>
+    <dimen name="height_list_card">220dp</dimen>
+    <dimen name="height_list_backdrop">160dp</dimen>
+</resources>
