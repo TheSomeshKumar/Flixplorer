@@ -1,6 +1,6 @@
 # Flickophile
 
-Playground project based
+Jetpack Compose playground project based
 on [Recommended app architecture](https://developer.android.com/jetpack/guide)
 
 Powered by
@@ -9,8 +9,8 @@ Powered by
 
 ## Features 🕹
 
+- Follows [Guidlines on Recommended Architecture](https://developer.android.com/jetpack/guide)
 - 100% Kotlin
-- Follows [Recommended MVVM Architecture](https://developer.android.com/jetpack/guide)
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - [Coroutines](https://developer.android.com/kotlin/coroutines) - Coroutines provide us an easy way
   to do synchronous and asynchronous programming.
@@ -21,15 +21,16 @@ Powered by
 - [Retrofit](https://github.com/square/retrofit) - Network client by Square
 - [Material You](https://m3.material.io) - Material Design by Google
 - [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - Official pagination library part of the Jetpack component 
-- [Coil](https://coil-kt.github.io/coil/compose/)
+- [Coil](https://coil-kt.github.io/coil/compose/) Image loading library
 
 ## Work In Progress 🚧
 - Animations
 - UI & Unit Tests
 
-## Screenshot 📱
+## Screenshots 📱
 
-<img width="310" alt="M3 Dark Home Screen" src="https://user-images.githubusercontent.com/13759258/217895345-e633e053-0a20-49e2-a247-dfc575a0dcc1.png"><img width="310" alt="M3 Light Home Screen" src="https://user-images.githubusercontent.com/13759258/217895353-369ad9b1-ec82-4f13-b9a9-b97ff1d12c90.png">
+<img width="310" alt="M3 Light Home" src="https://user-images.githubusercontent.com/13759258/228339682-fac59188-9828-4f34-822f-a993fadf347a.png"><img width="310" alt="M3 Dark Home" src="https://user-images.githubusercontent.com/13759258/228339757-03a2bf95-552c-4476-86c7-f097c2f42b76.png"><img width="310" alt="M3 Dark Detail" src="https://user-images.githubusercontent.com/13759258/228339795-46d334e8-b7c3-4bc4-9749-ff518e77ba51.png">
+
 
 ### How to build on your environment
 
