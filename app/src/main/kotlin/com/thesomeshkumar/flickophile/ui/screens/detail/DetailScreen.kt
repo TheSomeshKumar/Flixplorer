@@ -29,6 +29,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -107,10 +108,12 @@ fun DetailContent(
         AsyncImage(
             model = poster.toFullPosterUrl(),
             contentDescription = null,
+            placeholder = painterResource(id = R.drawable.ic_load_placeholder),
+            error = painterResource(id = R.drawable.ic_error_placeholder),
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .height(dimensionResource(id = R.dimen.detail_screen_poster_height))
-                .fillMaxWidth(),
-            contentScale = ContentScale.FillBounds
+                .fillMaxWidth()
         )
 
         FlowRow(

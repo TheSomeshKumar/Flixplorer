@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -72,8 +73,10 @@ fun MediaItem(homeMediaItemUI: HomeMediaItemUI, onItemClicked: (HomeMediaItemUI)
             AsyncImage(
                 model = homeMediaItemUI.backdropPath.toFullPosterUrl(),
                 contentDescription = null,
-                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height)),
-                contentScale = ContentScale.Crop
+                placeholder = painterResource(id = R.drawable.ic_load_placeholder),
+                error = painterResource(id = R.drawable.ic_error_placeholder),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )
             Text(
                 text = homeMediaItemUI.name,
