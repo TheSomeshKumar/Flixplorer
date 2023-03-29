@@ -15,6 +15,5 @@ fun RemoteSourceException.getError(context: Context): String {
 }
 
 fun String.toFullPosterUrl(): String = Constants.TMDB_POSTER_PATH_URL + this
-fun Double.roundTo(decimalPlaces: Int): String {
-    return "%.${decimalPlaces}f".format(this)
-}
+
+fun Double.roundTo(decimalPlaces: Int): String = "%.${decimalPlaces}f".format(this)

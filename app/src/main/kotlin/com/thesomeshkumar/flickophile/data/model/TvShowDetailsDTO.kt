@@ -14,7 +14,7 @@ data class TvShowDetailsDTO(
     @SerializedName("first_air_date")
     val firstAirDate: String,
     @SerializedName("genres")
-    val genres: List<Genre>,
+    val genreDTOS: List<GenreDTO>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")

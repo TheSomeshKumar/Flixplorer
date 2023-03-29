@@ -22,7 +22,7 @@ fun MainScreenNavGraph(
         startDestination = BottomBarScreen.Movies.route
     ) {
         composable(route = BottomBarScreen.Movies.route) {
-            MoviesScreen {
+            MoviesScreen(onItemClick = {
                 navController.navigate(
                     MainScreenRoutes.MediaDetail.withArgs(
                         Constants.MEDIA_TYPE_MOVIE,
@@ -31,7 +31,7 @@ fun MainScreenNavGraph(
                         it.backdropPath.removePrefix("/")
                     )
                 )
-            }
+            })
         }
 
         composable(route = BottomBarScreen.TvShows.route) {

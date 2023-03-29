@@ -16,12 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-sealed interface DetailUiState {
-    data class Success(val details: DetailUI) : DetailUiState
-    data class Error(val remoteSourceException: RemoteSourceException) : DetailUiState
-    object Loading : DetailUiState
-}
-
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
@@ -49,4 +43,10 @@ class DetailViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = DetailUiState.Loading
         )
+}
+
+sealed interface DetailUiState {
+    data class Success(val details: DetailUI) : DetailUiState
+    data class Error(val remoteSourceException: RemoteSourceException) : DetailUiState
+    object Loading : DetailUiState
 }

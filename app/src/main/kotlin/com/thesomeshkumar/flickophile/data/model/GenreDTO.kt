@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class Genre(
+data class GenreDTO(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

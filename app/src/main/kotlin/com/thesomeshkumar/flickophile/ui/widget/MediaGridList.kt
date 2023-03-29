@@ -21,19 +21,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
-import com.thesomeshkumar.flickophile.ui.models.MediaHomeUI
+import com.thesomeshkumar.flickophile.R
+import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 
 @Composable
 fun MediaGridList(
-    list: LazyPagingItems<MediaHomeUI>,
+    list: LazyPagingItems<HomeMediaItemUI>,
     gridCount: Int,
-    onItemClicked: (MediaHomeUI) -> Unit
+    onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
     val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(2) }
 
@@ -60,24 +61,24 @@ fun MediaGridList(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MediaItem(mediaHomeUI: MediaHomeUI, onItemClicked: (MediaHomeUI) -> Unit) {
+fun MediaItem(homeMediaItemUI: HomeMediaItemUI, onItemClicked: (HomeMediaItemUI) -> Unit) {
     ElevatedCard(
-        onClick = { onItemClicked(mediaHomeUI) },
+        onClick = { onItemClicked(homeMediaItemUI) },
         modifier = Modifier
-            .padding(8.dp)
-            .height(220.dp)
+            .padding(dimensionResource(id = R.dimen.normal_padding_half))
+            .height(dimensionResource(id = R.dimen.home_grid_card_height))
     ) {
         Column {
             AsyncImage(
-                model = mediaHomeUI.backdropPath.toFullPosterUrl(),
+                model = homeMediaItemUI.backdropPath.toFullPosterUrl(),
                 contentDescription = null,
-                modifier = Modifier.height(160.dp),
+                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height)),
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = mediaHomeUI.name,
+                text = homeMediaItemUI.name,
                 modifier = Modifier
-                    .padding(4.dp)
+                    .padding(dimensionResource(id = R.dimen.small_padding))
                     .fillMaxSize()
                     .wrapContentHeight(align = Alignment.CenterVertically),
                 textAlign = TextAlign.Start,

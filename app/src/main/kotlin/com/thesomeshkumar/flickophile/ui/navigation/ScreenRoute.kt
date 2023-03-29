@@ -8,20 +8,20 @@ object NavGraph {
 
 sealed class BottomBarScreen(
     val route: String,
-    val title: String,
+    val title: Int,
     val icon: Int
 ) {
 
     object Movies : BottomBarScreen(
         route = "movies",
-        title = "Movies",
+        title = R.string.title_movies,
         icon = R.drawable.ic_home_movie
 
     )
 
     object TvShows : BottomBarScreen(
         route = "tvshows",
-        title = "Tv Shows",
+        title = R.string.title_shows,
         icon = R.drawable.ic_home_tv
     )
 }

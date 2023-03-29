@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="small_padding">4dp</dimen>
+    <dimen name="normal_padding_half">8dp</dimen>
     <dimen name="normal_padding">16dp</dimen>
-    <dimen name="height_list_card">220dp</dimen>
-    <dimen name="height_list_backdrop">160dp</dimen>
+    <dimen name="home_grid_card_height">220dp</dimen>
+    <dimen name="home_grid_poster_height">160dp</dimen>
+    <dimen name="flow_layout_horizontal_space">8dp</dimen>
+    <dimen name="detail_screen_poster_height">220dp</dimen>
+    <dimen name="lottie_error_image_size">200dp</dimen>
+    <dimen name="lottie_loading_image_size">100dp</dimen>
 </resources>

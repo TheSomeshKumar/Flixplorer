@@ -3,9 +3,9 @@ package com.thesomeshkumar.flickophile.data.model // ktlint-disable filename
 import com.thesomeshkumar.flickophile.data.model.MovieDTO.Movie
 import com.thesomeshkumar.flickophile.data.model.TVShowDTO.TVShow
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
-import com.thesomeshkumar.flickophile.ui.models.MediaHomeUI
+import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 
-fun TVShow.mapToUI() = MediaHomeUI(
+fun TVShow.mapToUI() = HomeMediaItemUI(
     id = id,
     name = name,
     posterPath = posterPath ?: "N/A",
@@ -13,7 +13,7 @@ fun TVShow.mapToUI() = MediaHomeUI(
     overview = overview.ifBlank { "N/A" }
 )
 
-fun Movie.mapToUI() = MediaHomeUI(
+fun Movie.mapToUI() = HomeMediaItemUI(
     id = id,
     name = title,
     posterPath = posterPath ?: "N/A",
@@ -23,7 +23,7 @@ fun Movie.mapToUI() = MediaHomeUI(
 
 fun MovieDetailsDTO.mapToUI() = DetailUI(
     backdropPath = backdropPath,
-    genres = genres.mapToUI(),
+    genres = genreDTOS.mapToUI(),
     homepage = homepage,
     id = id,
     originalLanguage = originalLanguage,
@@ -41,7 +41,7 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
     backdropPath = backdropPath,
-    genres = genres.mapToUI(),
+    genres = genreDTOS.mapToUI(),
     homepage = homepage,
     id = id,
     originalLanguage = originalLanguage,
@@ -57,6 +57,6 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     voteCount = voteCount
 )
 
-fun List<Genre>.mapToUI(): List<DetailUI.Genre> = map {
+fun List<GenreDTO>.mapToUI(): List<DetailUI.Genre> = map {
     DetailUI.Genre(id = it.id, name = it.name)
 }

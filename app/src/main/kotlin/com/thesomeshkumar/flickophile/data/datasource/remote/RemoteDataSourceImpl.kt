@@ -14,35 +14,23 @@ import kotlinx.coroutines.flow.Flow
 
 class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
 
-    override fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>> {
-        return Pager(
-            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-            pagingSourceFactory = {
-                PopularMoviesSource(api = apis)
-            }
-        ).flow
-    }
+    override fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>> = Pager(
+        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+        pagingSourceFactory = {
+            PopularMoviesSource(api = apis)
+        }
+    ).flow
 
-    override fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>> {
-        return Pager(
-            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-            pagingSourceFactory = {
-                PopularTvShowSource(api = apis)
-            }
-        ).flow
-    }
+    override fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>> = Pager(
+        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+        pagingSourceFactory = {
+            PopularTvShowSource(api = apis)
+        }
+    ).flow
 
-    override suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO {
-        return apis.getMoviesDetails(movieId)
-//        return handleResponse {
-//            apis.getMoviesDetails(movieId)
-//        }
-    }
+    override suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO =
+        apis.getMoviesDetails(movieId)
 
-    override suspend fun getTvShowDetails(showId: Int): TvShowDetailsDTO {
-        return apis.getTvShowDetails(showId)
-//        return handleResponse {
-//            apis.getTvShowDetails(showId)
-//        }
-    }
+    override suspend fun getTvShowDetails(showId: Int): TvShowDetailsDTO =
+        apis.getTvShowDetails(showId)
 }

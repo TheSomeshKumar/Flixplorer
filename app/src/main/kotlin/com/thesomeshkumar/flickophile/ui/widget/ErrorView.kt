@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -28,12 +28,12 @@ fun ErrorView(errorText: String, modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(dimensionResource(id = R.dimen.normal_padding))
     ) {
         LottieAnimation(
             composition = composition,
             progress = { progress },
-            modifier = Modifier.size(200.dp)
+            modifier = Modifier.size(dimensionResource(id = R.dimen.lottie_error_image_size))
         )
 
         Text(text = errorText, textAlign = TextAlign.Center)
