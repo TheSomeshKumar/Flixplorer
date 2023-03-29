@@ -4,43 +4,44 @@ import com.thesomeshkumar.flickophile.data.model.MovieDTO.Movie
 import com.thesomeshkumar.flickophile.data.model.TVShowDTO.TVShow
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flickophile.util.Constants
 
 fun TVShow.mapToUI() = HomeMediaItemUI(
     id = id,
     name = name,
-    posterPath = posterPath ?: "N/A",
-    backdropPath = backdropPath ?: "N/A",
-    overview = overview.ifBlank { "N/A" }
+    posterPath = posterPath ?: Constants.NONE,
+    backdropPath = backdropPath ?: Constants.NONE,
+    overview = overview.ifBlank { Constants.NONE }
 )
 
 fun Movie.mapToUI() = HomeMediaItemUI(
     id = id,
     name = title,
-    posterPath = posterPath ?: "N/A",
-    backdropPath = backdropPath ?: "N/A",
-    overview = overview.ifBlank { "N/A" }
+    posterPath = posterPath ?: Constants.NONE,
+    backdropPath = backdropPath ?: Constants.NONE,
+    overview = overview.ifBlank { Constants.NONE }
 )
 
 fun MovieDetailsDTO.mapToUI() = DetailUI(
-    backdropPath = backdropPath,
+    backdropPath = backdropPath ?: Constants.NONE,
     genres = genreDTOS.mapToUI(),
     homepage = homepage,
     id = id,
     originalLanguage = originalLanguage,
     originalTitle = originalTitle,
-    overview = overview,
+    overview = overview ?: Constants.NONE,
     popularity = popularity,
-    posterPath = posterPath,
+    posterPath = posterPath ?: Constants.NONE,
     releaseDate = releaseDate,
     status = status,
-    tagline = tagline,
+    tagline = tagline ?: Constants.NONE,
     title = title,
     voteAverage = voteAverage,
     voteCount = voteCount
 )
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
-    backdropPath = backdropPath,
+    backdropPath = backdropPath ?: Constants.NONE,
     genres = genreDTOS.mapToUI(),
     homepage = homepage,
     id = id,
@@ -48,7 +49,7 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     originalTitle = originalName,
     overview = overview,
     popularity = popularity,
-    posterPath = posterPath,
+    posterPath = posterPath ?: Constants.NONE,
     releaseDate = firstAirDate,
     status = status,
     tagline = tagline,

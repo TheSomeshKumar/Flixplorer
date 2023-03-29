@@ -8,11 +8,11 @@ data class MovieDetailsDTO(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any,
+    val belongsToCollection: BelongsToCollection,
     @SerializedName("budget")
-    val budget: Int,
+    val budget: Long,
     @SerializedName("genres")
     val genreDTOS: List<GenreDTO>,
     @SerializedName("homepage")
@@ -26,11 +26,11 @@ data class MovieDetailsDTO(
     @SerializedName("original_title")
     val originalTitle: String,
     @SerializedName("overview")
-    val overview: String,
+    val overview: String?,
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: Any,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")
@@ -38,15 +38,15 @@ data class MovieDetailsDTO(
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
-    val revenue: Int,
+    val revenue: Long,
     @SerializedName("runtime")
-    val runtime: Int,
+    val runtime: Int = 0,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")
-    val tagline: String,
+    val tagline: String?,
     @SerializedName("title")
     val title: String,
     @SerializedName("video")
@@ -54,8 +54,20 @@ data class MovieDetailsDTO(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Long
 ) {
+
+    @Keep
+    data class BelongsToCollection(
+        @SerializedName("backdrop_path")
+        val backdropPath: String,
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("name")
+        val name: String,
+        @SerializedName("poster_path")
+        val posterPath: String
+    )
 
     @Keep
     data class ProductionCompany(

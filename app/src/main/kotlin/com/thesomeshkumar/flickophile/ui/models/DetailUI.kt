@@ -12,13 +12,13 @@ data class DetailUI(
     val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    val posterPath: Any,
+    val posterPath: String?,
     val releaseDate: String,
     val status: String,
     val tagline: String,
     val title: String,
     val voteAverage: Double,
-    val voteCount: Int
+    val voteCount: Long
 ) {
     data class Genre(
         val id: Int,
