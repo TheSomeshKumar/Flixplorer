@@ -21,7 +21,7 @@ import com.thesomeshkumar.flickophile.util.getError
 @Composable
 fun TvShowScreen(
     viewModel: TvShowViewModel = hiltViewModel(),
-    onClick: (HomeMediaItemUI) -> Unit
+    onItemClick: (HomeMediaItemUI) -> Unit
 ) {
     val tvShowUiState: LazyPagingItems<HomeMediaItemUI> =
         viewModel.uiState.collectAsLazyPagingItems()
@@ -31,7 +31,7 @@ fun TvShowScreen(
             list = tvShowUiState,
             gridCount = Constants.HOME_GRID_COUNT
         ) {
-            onClick(it)
+            onItemClick(it)
         }
 
         when (tvShowUiState.loadState.refresh) {

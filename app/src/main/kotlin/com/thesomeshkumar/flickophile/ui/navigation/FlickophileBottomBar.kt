@@ -1,5 +1,8 @@
 package com.thesomeshkumar.flickophile.ui.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -25,7 +28,11 @@ fun FlickophileBottomBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
-    if (bottomBarDestination) {
+    AnimatedVisibility(
+        visible = bottomBarDestination,
+        enter = slideInVertically { it },
+        exit = slideOutVertically { it }
+    ) {
         NavigationBar {
             screens.forEach { screen ->
                 AddItem(
