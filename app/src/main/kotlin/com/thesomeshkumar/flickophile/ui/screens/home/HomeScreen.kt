@@ -22,6 +22,7 @@ import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.ui.navigation.BottomBarScreen
 import com.thesomeshkumar.flickophile.ui.navigation.FlickophileBottomBar
 import com.thesomeshkumar.flickophile.ui.navigation.MainScreenNavGraph
+import com.thesomeshkumar.flickophile.ui.navigation.MainScreenRoutes
 import com.thesomeshkumar.flickophile.ui.widget.FlickTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +44,9 @@ fun HomeScreen(navController: NavHostController = rememberAnimatedNavController(
             enter = slideInVertically(animationSpec = spring(visibilityThreshold = IntOffset.Zero)),
             exit = slideOutVertically(animationSpec = spring(visibilityThreshold = IntOffset.Zero))
         ) {
-            FlickTopAppBar(stringResource(id = R.string.app_name))
+            FlickTopAppBar(stringResource(id = R.string.app_name), onSettingsClick = {
+                navController.navigate(MainScreenRoutes.SettingsScreen.route)
+            })
         }
     }, bottomBar = { FlickophileBottomBar(navController = navController) }) { padding ->
         MainScreenNavGraph(

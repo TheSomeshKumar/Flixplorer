@@ -2,6 +2,7 @@ package com.thesomeshkumar.flickophile.ui.widget
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FlickTopAppBar(
     title: String,
+    onSettingsClick: (() -> Unit)? = null,
     onNavigationUp: (() -> Unit)? = null
 ) {
     CenterAlignedTopAppBar(
@@ -40,6 +42,15 @@ fun FlickTopAppBar(
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
-        )
+        ),
+        actions = {
+            onSettingsClick?.let { settingsClickAction ->
+                IconButton(onClick = {
+                    settingsClickAction()
+                }) {
+                    Icon(imageVector = Icons.Filled.Settings, contentDescription = "Settings")
+                }
+            }
+        }
     )
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FlickophileAppBar(
+fun FlickMediumAppBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
     onNavigationUp: () -> Unit

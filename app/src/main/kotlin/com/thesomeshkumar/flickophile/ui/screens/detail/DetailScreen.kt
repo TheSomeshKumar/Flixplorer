@@ -37,7 +37,7 @@ import coil.compose.AsyncImage
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.widget.ErrorView
-import com.thesomeshkumar.flickophile.ui.widget.FlickophileAppBar
+import com.thesomeshkumar.flickophile.ui.widget.FlickMediumAppBar
 import com.thesomeshkumar.flickophile.util.getError
 import com.thesomeshkumar.flickophile.util.roundTo
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
@@ -57,7 +57,7 @@ fun DetailsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            FlickophileAppBar(
+            FlickMediumAppBar(
                 title = name,
                 scrollBehavior = scrollBehavior,
                 onNavigationUp = onNavigationUp

@@ -42,6 +42,8 @@ sealed class MainScreenRoutes(internal open val route: String) {
             .replace("{$ARG_MEDIA_POSTER}", poster)
     }
 
+    object SettingsScreen : MainScreenRoutes(route = "settings")
+
     companion object {
         const val ARG_MEDIA_TYPE: String = "type"
         const val ARG_MEDIA_ID: String = "id"

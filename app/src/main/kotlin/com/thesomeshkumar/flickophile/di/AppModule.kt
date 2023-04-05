@@ -1,6 +1,8 @@
 package com.thesomeshkumar.flickophile.di
 
+import android.app.Application
 import com.thesomeshkumar.flickophile.BuildConfig
+import com.thesomeshkumar.flickophile.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flickophile.data.datasource.remote.ApiService
 import com.thesomeshkumar.flickophile.data.datasource.remote.RemoteDataSourceImpl
 import com.thesomeshkumar.flickophile.data.repository.FlickophileRepository
@@ -81,4 +83,9 @@ object AppModule {
         val remoteDataSourceImpl = RemoteDataSourceImpl(api)
         return FlickophileRepository(remoteDataSourceImpl)
     }
+
+    @Provides
+    @Singleton
+    fun providesDataStore(application: Application): UserPreferences =
+        UserPreferences(application.applicationContext)
 }

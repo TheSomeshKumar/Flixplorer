@@ -11,5 +11,7 @@
     <string name="loading">Loading…</string>
     <string name="released_on">Released on %1$s</string>
     <string name="rated">Rated %1$s</string>
+    <string name="setting_material_you">Material You</string>
+    <string name="setting_theme">Theme</string>
 
 </resources>

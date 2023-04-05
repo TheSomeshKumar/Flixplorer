@@ -9,6 +9,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.thesomeshkumar.flickophile.ui.screens.detail.DetailsScreen
 import com.thesomeshkumar.flickophile.ui.screens.movie.MoviesScreen
+import com.thesomeshkumar.flickophile.ui.screens.settings.SettingsScreen
 import com.thesomeshkumar.flickophile.ui.screens.tvshow.TvShowScreen
 import com.thesomeshkumar.flickophile.util.Constants
 
@@ -65,6 +66,12 @@ fun MainScreenNavGraph(
                 navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_POSTER) ?: ""
 
             DetailsScreen(name, posterUrl, onNavigationUp = {
+                navController.popBackStack()
+            })
+        }
+
+        composable(route = MainScreenRoutes.SettingsScreen.route) {
+            SettingsScreen(onNavigationUp = {
                 navController.popBackStack()
             })
         }
