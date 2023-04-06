@@ -2,6 +2,7 @@ package com.thesomeshkumar.flickophile.data.repository
 
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.thesomeshkumar.flickophile.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flickophile.data.datasource.remote.RemoteDataSource
 import com.thesomeshkumar.flickophile.data.model.mapToUI
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class FlickophileRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val userPreferences: UserPreferences
 ) {
     fun getPopularMovies(): Flow<PagingData<HomeMediaItemUI>> =
         remoteDataSource.getPopularMovies().map {
@@ -38,5 +40,21 @@ class FlickophileRepository @Inject constructor(
                 emit(remoteDataSource.getTvShowDetails(movieId).mapToUI())
             }
         }
+    }
+
+    fun readUseMaterial3(): Flow<Boolean> {
+        return userPreferences.useMaterial3
+    }
+
+    fun readUseDarkMode(): Flow<String> {
+        return userPreferences.useDarkMode
+    }
+
+    suspend fun updateUseMaterial3(useMaterial3: Boolean) {
+        userPreferences.updateUseMaterial3(useMaterial3)
+    }
+
+    suspend fun updateUseDarkMode(useDarkMode: String) {
+        userPreferences.updateUseDarkMode(useDarkMode)
     }
 }

@@ -1,5 +1,6 @@
 package com.thesomeshkumar.flickophile.ui.screens.settings
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,10 +26,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.data.datasource.local.AppTheme
@@ -43,20 +42,21 @@ fun SettingsScreen(
     settingViewModel: SettingsViewModel = hiltViewModel(),
     onNavigationUp: () -> Unit
 ) {
+    val useMaterial3 = settingViewModel.useMaterial3.value.collectAsState(initial = true)
+    val useDarkMode =
+        settingViewModel.useDarkMode.value.collectAsState(initial = AppTheme.FOLLOW_SYSTEM.string)
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
 
+    val rotateAnimation = animateFloatAsState(targetValue = if (openBottomSheet) 180f else 0f)
     Scaffold(
         topBar = {
-            FlickTopAppBar(title = "Settings", onNavigationUp = { onNavigationUp() })
+            FlickTopAppBar(
+                title = stringResource(R.string.title_settings),
+                onNavigationUp = { onNavigationUp() }
+            )
         }
     ) { paddingValues ->
-
-        val useMaterial3 = settingViewModel.useMaterial3.value.collectAsState(initial = true)
-        val useDarkMode =
-            settingViewModel.useDarkMode.value.collectAsState(
-                initial = AppTheme.FOLLOW_SYSTEM.string
-            )
 
         Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
             Column(
@@ -68,11 +68,11 @@ fun SettingsScreen(
                     settingTitle = stringResource(R.string.setting_theme),
                     settingActionComponent = {
                         Icon(
-                            Icons.Default.ArrowForward,
-                            contentDescription = "Theme",
+                            painter = painterResource(id = R.drawable.ic_chevron_down),
+                            contentDescription = stringResource(R.string.setting_theme),
                             modifier = Modifier.clickable {
                                 openBottomSheet = !openBottomSheet
-                            }
+                            }.rotate(rotateAnimation.value)
                         )
                     }
                 )
@@ -82,7 +82,7 @@ fun SettingsScreen(
                     settingTitle = stringResource(R.string.setting_material_you),
                     settingActionComponent = {
                         Switch(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier,
                             checked = useMaterial3.value,
                             onCheckedChange = {
                                 settingViewModel.updateUseM3(useMaterial3.value.not())
@@ -95,14 +95,10 @@ fun SettingsScreen(
         }
         if (openBottomSheet) {
             ThemeSelectorBottomSheet(
-                openBottomSheet = {
-                    openBottomSheet = false
-                },
+                openBottomSheet = { openBottomSheet = false },
                 bottomSheetState = bottomSheetState,
                 darkModeState = useDarkMode,
-                onModeChange = { selectedMode ->
-                    settingViewModel.updateUseDarkMode(selectedMode)
-                }
+                onModeChange = { selectedMode -> settingViewModel.updateUseDarkMode(selectedMode) }
             )
         }
     }

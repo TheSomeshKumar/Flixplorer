@@ -78,10 +78,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFlickophileRepository(
-        api: ApiService
+        api: ApiService,
+        userPreferences: UserPreferences
     ): FlickophileRepository {
         val remoteDataSourceImpl = RemoteDataSourceImpl(api)
-        return FlickophileRepository(remoteDataSourceImpl)
+        return FlickophileRepository(remoteDataSourceImpl, userPreferences)
     }
 
     @Provides
