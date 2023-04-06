@@ -19,12 +19,13 @@ Powered by
   is a type of coroutine that emits multiple values sequentially.
 - [Hilt](https://dagger.dev/hilt/) - Dependency Injection framework by Google 
 - [Retrofit](https://github.com/square/retrofit) - Network client by Square
-- [Material You](https://m3.material.io) - Material Design by Google
-- [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - Official pagination library part of the Jetpack component 
-- [Coil](https://coil-kt.github.io/coil/compose/) Image loading library
+- [Material You](https://m3.material.io) and Dark theme Support - It has support for Material You & Light/Dark mode that can be toggled from preference screen
+- [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - Pagination library for Jetpack compose 
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) Preferences like API with coroutine & Flow support
+- [Coil](https://coil-kt.github.io/coil/compose/) Image loading library for Compose
 
 ## Work In Progress 🚧
-- Animations
+- ~~Animations~~✅
 - UI & Unit Tests
 
 ## Screenshots 📱
