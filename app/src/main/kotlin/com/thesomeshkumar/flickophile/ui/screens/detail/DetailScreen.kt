@@ -1,4 +1,8 @@
-@file:OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class
+)
 
 package com.thesomeshkumar.flickophile.ui.screens.detail
 
@@ -99,10 +103,11 @@ fun DetailsScreen(
 @Composable
 fun DetailContent(
     poster: String,
-    details: DetailUI
+    details: DetailUI,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
     ) {
         AsyncImage(

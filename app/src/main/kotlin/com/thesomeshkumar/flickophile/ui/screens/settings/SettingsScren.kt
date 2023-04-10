@@ -95,9 +95,9 @@ fun SettingsScreen(
         }
         if (openBottomSheet) {
             ThemeSelectorBottomSheet(
-                openBottomSheet = { openBottomSheet = false },
                 bottomSheetState = bottomSheetState,
                 darkModeState = useDarkMode,
+                openBottomSheet = { openBottomSheet = false },
                 onModeChange = { selectedMode -> settingViewModel.updateUseDarkMode(selectedMode) }
             )
         }
@@ -107,10 +107,11 @@ fun SettingsScreen(
 @Composable
 fun SettingsItem(
     settingTitle: String,
+    modifier: Modifier = Modifier,
     settingActionComponent: @Composable () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(dimensionResource(id = R.dimen.setting_item_height)),
         horizontalArrangement = Arrangement.SpaceBetween,

@@ -12,6 +12,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 fun FlickMediumAppBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
+    modifier: Modifier = Modifier,
     onNavigationUp: () -> Unit
 ) {
     MediumTopAppBar(
@@ -43,6 +45,7 @@ fun FlickMediumAppBar(
         // material TopAppBar https://m3.material.io/components/top-app-bar/overview
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
-        )
+        ),
+        modifier = modifier
     )
 }

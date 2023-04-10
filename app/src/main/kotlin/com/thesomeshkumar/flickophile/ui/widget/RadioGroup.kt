@@ -18,11 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.thesomeshkumar.flickophile.data.datasource.local.AppTheme
 
 @Composable
-fun DarkModeRadioGroup(darkModeState: State<String>, onModeChange: (String) -> Unit) {
-    val radioOptions: List<String> = AppTheme.getList()
+fun DarkModeRadioGroup(
+    radioOptions: List<String>,
+    darkModeState: State<String>,
+    radioGroupModifier: Modifier = Modifier,
+    radioButtonModifier: Modifier = Modifier,
+    onModeChange: (String) -> Unit
+) {
     val (selectedOption: String, onOptionSelected: (String) -> Unit) = remember {
         mutableStateOf(
             radioOptions.first {
@@ -31,10 +35,10 @@ fun DarkModeRadioGroup(darkModeState: State<String>, onModeChange: (String) -> U
         )
     }
 
-    Column(Modifier.selectableGroup()) {
+    Column(radioGroupModifier.selectableGroup()) {
         radioOptions.forEach { text ->
             Row(
-                Modifier
+                radioButtonModifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .selectable(

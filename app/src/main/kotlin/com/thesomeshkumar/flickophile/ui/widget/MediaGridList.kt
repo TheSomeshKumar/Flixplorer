@@ -35,17 +35,20 @@ import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 fun MediaGridList(
     list: LazyPagingItems<HomeMediaItemUI>,
     gridCount: Int,
+    modifier: Modifier = Modifier,
+    listItemModifier: Modifier = Modifier,
     onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
     val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(2) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(gridCount),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier
     ) {
         items(list.itemCount) { index ->
             list[index]?.let {
-                MediaItem(it, onItemClicked)
+                MediaItem(it, listItemModifier, onItemClicked)
             }
         }
         if (list.loadState.append == LoadState.Loading) {
@@ -62,10 +65,14 @@ fun MediaGridList(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MediaItem(homeMediaItemUI: HomeMediaItemUI, onItemClicked: (HomeMediaItemUI) -> Unit) {
+fun MediaItem(
+    homeMediaItemUI: HomeMediaItemUI,
+    modifier: Modifier = Modifier,
+    onItemClicked: (HomeMediaItemUI) -> Unit
+) {
     ElevatedCard(
         onClick = { onItemClicked(homeMediaItemUI) },
-        modifier = Modifier
+        modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
     ) {
