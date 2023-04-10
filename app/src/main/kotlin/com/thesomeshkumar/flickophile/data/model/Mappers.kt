@@ -5,6 +5,7 @@ import com.thesomeshkumar.flickophile.data.model.TVShowDTO.TVShow
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.util.Constants
+import com.thesomeshkumar.flickophile.util.toYear
 
 fun TVShow.mapToUI() = HomeMediaItemUI(
     id = id,
@@ -32,12 +33,13 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
     overview = overview ?: Constants.NONE,
     popularity = popularity,
     posterPath = posterPath ?: Constants.NONE,
-    releaseDate = releaseDate,
+    releaseDate = releaseDate.toYear(),
     status = status,
     tagline = tagline ?: Constants.NONE,
     title = title,
     voteAverage = voteAverage,
-    voteCount = voteCount
+    voteCount = voteCount,
+    runtime = runtime
 )
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
@@ -50,14 +52,17 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     overview = overview,
     popularity = popularity,
     posterPath = posterPath ?: Constants.NONE,
-    releaseDate = firstAirDate,
+    releaseDate = firstAirDate.toYear(),
     status = status,
     tagline = tagline,
     title = name,
     voteAverage = voteAverage,
-    voteCount = voteCount
+    voteCount = voteCount,
+    runtime = episodeRunTime.first()
 )
 
-fun List<GenreDTO>.mapToUI(): List<DetailUI.Genre> = map {
-    DetailUI.Genre(id = it.id, name = it.name)
+fun List<GenreDTO>.mapToUI(): DetailUI.Genre {
+    return map {
+        DetailUI.Genre(id = it.id, name = it.name)
+    }.firstOrNull() ?: DetailUI.Genre(0, Constants.NONE)
 }

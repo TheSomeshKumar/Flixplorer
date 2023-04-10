@@ -3,6 +3,7 @@ package com.thesomeshkumar.flickophile.util
 import android.content.Context
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.data.common.RemoteSourceException
+import java.time.LocalDate
 import okhttp3.ResponseBody
 
 fun RemoteSourceException.getError(context: Context): String {
@@ -17,3 +18,14 @@ fun RemoteSourceException.getError(context: Context): String {
 fun String.toFullPosterUrl(): String = Constants.TMDB_POSTER_PATH_URL + this
 
 fun Double.roundTo(decimalPlaces: Int): String = "%.${decimalPlaces}f".format(this)
+
+fun Int.minuteToRelativeTime(): String {
+    val hours: Int = this / 60
+    val minutes: Int = this % 60
+    return String.format("%dh:%02dm", hours, minutes)
+}
+
+fun String.toYear(): String {
+    val localDate = LocalDate.parse(this)
+    return localDate.year.toString()
+}

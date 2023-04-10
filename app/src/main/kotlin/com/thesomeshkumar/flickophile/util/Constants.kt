@@ -8,4 +8,5 @@ object Constants {
     const val MEDIA_TYPE_MOVIE = "MOVIES"
     const val MEDIA_TYPE_TV_SHOW = "TV"
     const val HOME_GRID_COUNT: Int = 2
+    const val POINT_SEPARATOR: String = "•"
 }

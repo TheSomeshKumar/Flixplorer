@@ -1,16 +1,11 @@
-@file:OptIn(
-    ExperimentalLayoutApi::class,
-    ExperimentalMaterial3Api::class,
-    ExperimentalLayoutApi::class
-)
+@file:OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 
 package com.thesomeshkumar.flickophile.ui.screens.detail
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +15,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ElevatedAssistChip
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -42,11 +37,12 @@ import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.widget.ErrorView
 import com.thesomeshkumar.flickophile.ui.widget.FlickMediumAppBar
+import com.thesomeshkumar.flickophile.ui.widget.PointSeparator
 import com.thesomeshkumar.flickophile.util.getError
+import com.thesomeshkumar.flickophile.util.minuteToRelativeTime
 import com.thesomeshkumar.flickophile.util.roundTo
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
     name: String,
@@ -58,16 +54,13 @@ fun DetailsScreen(
         rememberTopAppBarState()
     )
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            FlickMediumAppBar(
-                title = name,
-                scrollBehavior = scrollBehavior,
-                onNavigationUp = onNavigationUp
-            )
-        }
-    ) { paddingValues ->
+    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+        FlickMediumAppBar(
+            title = name,
+            scrollBehavior = scrollBehavior,
+            onNavigationUp = onNavigationUp
+        )
+    }) { paddingValues ->
         val detailUIState = viewModel.uiState.collectAsStateWithLifecycle()
         Box(
             modifier = Modifier
@@ -90,9 +83,10 @@ fun DetailsScreen(
                 }
 
                 is DetailUiState.Error -> {
-                    val error = (detailUIState.value as DetailUiState.Error)
-                        .remoteSourceException
-                        .getError(LocalContext.current)
+                    val error =
+                        (detailUIState.value as DetailUiState.Error).remoteSourceException.getError(
+                            LocalContext.current
+                        )
                     ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
                 }
             }
@@ -107,8 +101,7 @@ fun DetailContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         AsyncImage(
             model = poster.toFullPosterUrl(),
@@ -121,41 +114,36 @@ fun DetailContent(
                 .fillMaxWidth()
         )
 
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.flow_layout_horizontal_space)
-            ),
-            modifier = Modifier.padding(
+        Column(
+            modifier = modifier.padding(
                 horizontal = dimensionResource(id = R.dimen.normal_padding_half)
             )
         ) {
-            details.genres.forEach { genre ->
-                ElevatedAssistChip(
-                    onClick = { },
-                    label = { Text(genre.name) }
+            Row(
+                modifier = Modifier.padding(
+                    top = dimensionResource(id = R.dimen.normal_padding_half)
                 )
+            ) {
+                Text(text = details.genres.name)
+                PointSeparator()
+                Text(text = details.releaseDate)
+                PointSeparator()
+                Text(text = stringResource(R.string.rated, (details.voteAverage / 2).roundTo(1)))
+                PointSeparator()
+                Text(text = details.runtime.minuteToRelativeTime())
             }
 
-            ElevatedAssistChip(
-                onClick = { },
-                label = {
-                    Text(text = stringResource(R.string.released_on, details.releaseDate))
-                }
+            Divider(
+                modifier = Modifier.padding(
+                    vertical = dimensionResource(id = R.dimen.normal_padding_half)
+                )
             )
-            ElevatedAssistChip(
-                onClick = { },
-                label = {
-                    Text(
-                        text = stringResource(R.string.rated, details.voteAverage.roundTo(1))
-                    )
-                }
+
+            Text(
+                text = details.overview,
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
-        Text(
-            text = details.overview,
-            modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.normal_padding_half))
-                .fillMaxWidth()
-        )
     }
 }
