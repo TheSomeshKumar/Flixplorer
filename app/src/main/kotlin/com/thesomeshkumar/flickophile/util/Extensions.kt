@@ -1,6 +1,8 @@
 package com.thesomeshkumar.flickophile.util
 
 import android.content.Context
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.data.common.RemoteSourceException
 import java.time.LocalDate
@@ -28,4 +30,23 @@ fun Int.minuteToRelativeTime(): String {
 fun String.toYear(): String {
     val localDate = LocalDate.parse(this)
     return localDate.year.toString()
+}
+
+fun Iterable<LazyPagingItems<*>>.isAnyRefreshing(): Boolean =
+    any { it.loadState.refresh is LoadState.Loading }
+
+fun Iterable<LazyPagingItems<*>>.hasItems(): Boolean =
+    any { it.itemCount > 0 }
+
+fun Iterable<LazyPagingItems<*>>.isAnyError(): Pair<Boolean, LoadState.Error?> {
+    return if (any { it.loadState.refresh is LoadState.Error }) {
+        val errorList: LazyPagingItems<*>? = this.find { it.loadState.refresh is LoadState.Error }
+        true to errorList?.loadState?.refresh as LoadState.Error
+    } else {
+        false to null
+    }
+}
+
+fun Iterable<LazyPagingItems<*>>.refreshAll() {
+    return forEach { it.refresh() }
 }

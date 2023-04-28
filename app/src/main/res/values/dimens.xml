@@ -3,7 +3,8 @@
     <dimen name="small_padding">4dp</dimen>
     <dimen name="normal_padding_half">8dp</dimen>
     <dimen name="normal_padding">16dp</dimen>
-    <dimen name="home_grid_card_height">220dp</dimen>
+    <dimen name="home_grid_card_height">210dp</dimen>
+    <dimen name="home_grid_card_width">130dp</dimen>
     <dimen name="home_grid_poster_height">160dp</dimen>
     <dimen name="flow_layout_horizontal_space">8dp</dimen>
     <dimen name="detail_screen_poster_height">220dp</dimen>

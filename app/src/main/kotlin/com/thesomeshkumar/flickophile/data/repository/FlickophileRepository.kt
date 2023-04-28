@@ -17,31 +17,6 @@ class FlickophileRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val userPreferences: UserPreferences
 ) {
-    fun getPopularMovies(): Flow<PagingData<HomeMediaItemUI>> =
-        remoteDataSource.getPopularMovies().map {
-            it.map { movieDto ->
-                movieDto.mapToUI()
-            }
-        }
-
-    fun getPopularTvShows(): Flow<PagingData<HomeMediaItemUI>> =
-        remoteDataSource.getPopularTvShows().map {
-            it.map { tvShowDto ->
-                tvShowDto.mapToUI()
-            }
-        }
-
-    fun getMediaDetails(mediaType: String, movieId: Int): Flow<DetailUI> = flow {
-        when (mediaType) {
-            Constants.MEDIA_TYPE_MOVIE -> {
-                emit(remoteDataSource.getMovieDetails(movieId).mapToUI())
-            }
-            Constants.MEDIA_TYPE_TV_SHOW -> {
-                emit(remoteDataSource.getTvShowDetails(movieId).mapToUI())
-            }
-        }
-    }
-
     fun readUseMaterial3(): Flow<Boolean> {
         return userPreferences.useMaterial3
     }
@@ -56,5 +31,66 @@ class FlickophileRepository @Inject constructor(
 
     suspend fun updateUseDarkMode(useDarkMode: String) {
         userPreferences.updateUseDarkMode(useDarkMode)
+    }
+
+    fun getUpcomingMovies(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getUpcomingMovies().map {
+            it.map { movieDto ->
+                movieDto.mapToUI()
+            }
+        }
+
+    fun getNowPlayingMovies(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getNowPlayingMovies().map {
+            it.map { movieDto ->
+                movieDto.mapToUI()
+            }
+        }
+
+    fun getPopularMovies(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getPopularMovies().map {
+            it.map { movieDto ->
+                movieDto.mapToUI()
+            }
+        }
+
+    fun getTopMovies(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getTopMovies().map {
+            it.map { movieDto ->
+                movieDto.mapToUI()
+            }
+        }
+
+    fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getAiringTodayTvShows().map {
+            it.map { tvShowDto ->
+                tvShowDto.mapToUI()
+            }
+        }
+
+    fun getPopularTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getPopularTvShows().map {
+            it.map { tvShowDto ->
+                tvShowDto.mapToUI()
+            }
+        }
+
+    fun getTopRatedTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+        remoteDataSource.getTopRatedTvShows().map {
+            it.map { tvShowDto ->
+                tvShowDto.mapToUI()
+            }
+        }
+
+    fun getMediaDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = flow {
+        when (mediaType) {
+            Constants.MEDIA_TYPE_MOVIE -> {
+                emit(remoteDataSource.getMovieDetails(mediaId).mapToUI())
+            }
+
+            Constants.MEDIA_TYPE_TV_SHOW -> {
+                emit(remoteDataSource.getTvShowDetails(mediaId).mapToUI())
+            }
+        }
     }
 }

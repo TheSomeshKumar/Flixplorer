@@ -8,8 +8,14 @@ import com.thesomeshkumar.flickophile.data.model.TvShowDetailsDTO
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
+    fun getUpcomingMovies(): Flow<PagingData<MovieDTO.Movie>>
+    fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>>
-    fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
+    fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>>
     suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO
-    suspend fun getTvShowDetails(movieId: Int): TvShowDetailsDTO
+
+    fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
+    fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
+    fun getTopRatedTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
+    suspend fun getTvShowDetails(tvShowId: Int): TvShowDetailsDTO
 }

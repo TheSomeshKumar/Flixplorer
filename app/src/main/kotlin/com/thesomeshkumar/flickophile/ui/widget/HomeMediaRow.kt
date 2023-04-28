@@ -1,17 +1,15 @@
 package com.thesomeshkumar.flickophile.ui.widget
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
@@ -32,32 +31,40 @@ import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 
 @Composable
-fun MediaGridList(
+fun HomeMediaRow(
+    title: String,
     list: LazyPagingItems<HomeMediaItemUI>,
-    gridCount: Int,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
     onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
-    val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(2) }
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(gridCount),
-        horizontalArrangement = Arrangement.Center,
-        modifier = modifier
-    ) {
-        items(list.itemCount) { index ->
-            list[index]?.let {
-                MediaItem(it, listItemModifier, onItemClicked)
-            }
+    Column {
+        if (list.itemCount > 0) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.normal_padding_half))
+            )
         }
-        if (list.loadState.append == LoadState.Loading) {
-            item(span = span) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
+
+        LazyRow(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            state = rememberLazyListState()
+        ) {
+            items(list.itemCount) { index ->
+                list[index]?.let {
+                    HomeMediaItem(it, listItemModifier, onItemClicked)
+                }
+            }
+            if (list.loadState.append == LoadState.Loading) {
+                item {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                    )
+                }
             }
         }
     }
@@ -65,7 +72,7 @@ fun MediaGridList(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MediaItem(
+fun HomeMediaItem(
     homeMediaItemUI: HomeMediaItemUI,
     modifier: Modifier = Modifier,
     onItemClicked: (HomeMediaItemUI) -> Unit
@@ -74,6 +81,7 @@ fun MediaItem(
         onClick = { onItemClicked(homeMediaItemUI) },
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
+            .width(dimensionResource(id = R.dimen.home_grid_card_width))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
     ) {
         Column {
@@ -91,8 +99,10 @@ fun MediaItem(
                     .padding(dimensionResource(id = R.dimen.small_padding))
                     .fillMaxSize()
                     .wrapContentHeight(align = Alignment.CenterVertically),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.bodyMedium
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyMedium,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
 
             )
         }
