@@ -28,7 +28,7 @@ fun ThemeSelectorBottomSheet(
         DarkModeRadioGroup(
             radioOptions = AppTheme.getList(),
             darkModeState = darkModeState,
-            radioGroupModifier = radioGroupModifier,
+            modifier = radioGroupModifier,
             radioButtonModifier = radioButtonModifier,
             onModeChange = onModeChange
         )

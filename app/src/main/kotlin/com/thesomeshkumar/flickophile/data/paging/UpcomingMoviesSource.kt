@@ -20,7 +20,7 @@ class UpcomingMoviesSource @Inject constructor(
             val nextPage = params.key ?: 1
             val popularMovies = api.getUpcomingMovies(nextPage)
             LoadResult.Page(
-                data = popularMovies.results,
+                data = popularMovies.results.shuffled(),
                 prevKey = if (nextPage == 1) null else nextPage - 1,
                 nextKey = if (popularMovies.results.isEmpty()) null else popularMovies.page + 1
             )

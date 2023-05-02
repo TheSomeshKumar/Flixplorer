@@ -20,7 +20,7 @@ class AiringTodayTvShowSource @Inject constructor(
             val nextPage = params.key ?: 1
             val popularTvShows = api.getAiringTodayTvShows(nextPage)
             LoadResult.Page(
-                data = popularTvShows.results,
+                data = popularTvShows.results.shuffled(),
                 prevKey = if (nextPage == 1) null else nextPage - 1,
                 nextKey = if (popularTvShows.results.isEmpty()) null else popularTvShows.page + 1
             )

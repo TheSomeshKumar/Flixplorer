@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 fun DarkModeRadioGroup(
     radioOptions: List<String>,
     darkModeState: State<String>,
-    radioGroupModifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
     radioButtonModifier: Modifier = Modifier,
     onModeChange: (String) -> Unit
 ) {
@@ -35,7 +35,7 @@ fun DarkModeRadioGroup(
         )
     }
 
-    Column(radioGroupModifier.selectableGroup()) {
+    Column(modifier.selectableGroup()) {
         radioOptions.forEach { text ->
             Row(
                 radioButtonModifier
@@ -54,7 +54,7 @@ fun DarkModeRadioGroup(
             ) {
                 RadioButton(
                     selected = (text == selectedOption),
-                    onClick = null // null recommended for accessibility with screenreaders
+                    onClick = null // null recommended for accessibility with screen-readers
                 )
                 Text(
                     text = text,

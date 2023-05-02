@@ -21,6 +21,7 @@ import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.data.common.RemoteSourceException
 import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.ui.widget.ErrorView
+import com.thesomeshkumar.flickophile.ui.widget.HomeMediaCarousel
 import com.thesomeshkumar.flickophile.ui.widget.HomeMediaRow
 import com.thesomeshkumar.flickophile.ui.widget.LoadingView
 import com.thesomeshkumar.flickophile.util.getError
@@ -76,11 +77,11 @@ fun TvShowScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                HomeMediaRow(
-                    title = stringResource(R.string.airing_today),
-                    list = airingTodayTvShowLazyItems,
+                HomeMediaCarousel(
+                    airingTodayTvShowLazyItems,
                     onItemClicked = { onItemClick(it) }
                 )
+
                 HomeMediaRow(
                     title = stringResource(R.string.popular),
                     list = popularTvShowsLazyItems,

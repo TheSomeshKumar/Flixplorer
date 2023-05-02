@@ -64,4 +64,6 @@ val flick_color_dark_surfaceTint = Color(0xFFB1C6FF)
 val flick_color_dark_outlineVariant = Color(0xFF44464F)
 val flick_color_dark_scrim = Color(0xFF000000)
 
+val flick_color_translucent_black = Color(0xE6000000)
+
 val seed = Color(0xFF273047)

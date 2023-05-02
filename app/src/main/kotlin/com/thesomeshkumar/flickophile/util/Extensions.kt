@@ -1,11 +1,17 @@
 package com.thesomeshkumar.flickophile.util
 
 import android.content.Context
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.util.lerp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.data.common.RemoteSourceException
 import java.time.LocalDate
+import kotlin.math.absoluteValue
 import okhttp3.ResponseBody
 
 fun RemoteSourceException.getError(context: Context): String {
@@ -50,3 +56,18 @@ fun Iterable<LazyPagingItems<*>>.isAnyError(): Pair<Boolean, LoadState.Error?> {
 fun Iterable<LazyPagingItems<*>>.refreshAll() {
     return forEach { it.refresh() }
 }
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.carouselTransition(page: Int, pagerState: PagerState) =
+    graphicsLayer {
+        val pageOffset =
+            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+
+        val transformation = lerp(
+            start = 0.8f,
+            stop = 1f,
+            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+        )
+        alpha = transformation
+        scaleY = transformation
+    }
