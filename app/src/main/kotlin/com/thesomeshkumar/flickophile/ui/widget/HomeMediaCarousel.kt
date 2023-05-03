@@ -57,7 +57,7 @@ fun HomeMediaCarousel(
                 var key by remember { mutableStateOf(0) }
                 LaunchedEffect(key1 = key) {
                     launch {
-                        delay(timeMillis = 2_500)
+                        delay(timeMillis = 3_000)
                         val nextPage = (currentPage + 1).mod(pageCount)
                         animateScrollToPage(page = nextPage)
                         key = nextPage
