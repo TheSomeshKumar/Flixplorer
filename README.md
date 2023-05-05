@@ -30,7 +30,7 @@ Powered by
 
 ## Screenshots 📱
 
-<img width="260" alt="M3 Light Home" src="https://user-images.githubusercontent.com/13759258/229272310-09fa9436-3576-4b9e-9207-ea2efa14528c.png"><img width="260" alt="M3 Dark Home" src="https://user-images.githubusercontent.com/13759258/229272471-0ff5120c-ecec-4ebb-844f-498a11eac916.png"><img width="260" alt="M3 Dark Detail" src="https://user-images.githubusercontent.com/13759258/229272304-0a42e0b6-d66a-434d-808d-94bc3f5f267a.png"> 
+<img width="260" alt="M3 Light Home" src="https://user-images.githubusercontent.com/13759258/236567050-9500cea2-d946-4c02-9ad6-cdcc10649d80.png"><img width="260" alt="M3 Dark Home" src="https://user-images.githubusercontent.com/13759258/236567103-eedd9dba-7d3a-44ed-8914-76c5d9060735.png"><img width="260" alt="M3 Dark Detail" src="https://user-images.githubusercontent.com/13759258/236567137-653bec70-df46-4010-ad68-692f0825048a.png"> 
 
 ### How to build on your environment
 
