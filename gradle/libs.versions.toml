@@ -1,27 +1,27 @@
 [versions]
-agp = "8.0.1"
+agp = "8.1.0-beta01"
 kotlin = "1.8.20"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
-hilt = "2.46"
+hilt = "2.46.1"
 hilt-navigation = "1.0.0"
-core-ktx = "1.10.0"
-compose-bom = "2023.05.00"
+core-ktx = "1.10.1"
+compose-bom = "2023.05.01"
 compose-navigation = "2.5.3"
 activity-compose = "1.7.1"
 compose-material3 = "1.1.0-rc01"
 datastore-preference = "1.0.0"
-junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
 lifecycle-runtime = "2.6.1"
 lottie = "6.0.0"
 coil = "2.3.0"
-coroutines = "1.6.4"
+coroutines = "1.7.1"
 desuger = "2.0.3"
 paging = "3.1.1"
-paging-compose = "1.0.0-alpha18"
+paging-compose = "1.0.0-alpha19"
 accompanist-animation = "0.25.0"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -34,7 +34,6 @@ datastore = { group = "androidx.datastore", name = "datastore-preferences", vers
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 
@@ -64,6 +63,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
