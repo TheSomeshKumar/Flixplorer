@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.0-beta01"
+agp = "8.0.1"
 kotlin = "1.8.20"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
