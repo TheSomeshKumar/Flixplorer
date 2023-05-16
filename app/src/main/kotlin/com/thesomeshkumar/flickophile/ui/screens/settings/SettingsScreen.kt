@@ -44,7 +44,7 @@ fun SettingsScreen(
 ) {
     val useMaterial3 = settingViewModel.useMaterial3.value.collectAsState(initial = true)
     val useDarkMode =
-        settingViewModel.useDarkMode.value.collectAsState(initial = AppTheme.FOLLOW_SYSTEM.string)
+        settingViewModel.useDarkMode.value.collectAsState(initial = AppTheme.SYSTEM_DEFAULT.string)
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
 

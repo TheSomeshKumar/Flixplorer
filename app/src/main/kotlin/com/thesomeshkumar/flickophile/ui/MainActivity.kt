@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 initial = true
             )
             val darkThemePref: State<String> = viewModel.useDarkMode.value.collectAsState(
-                initial = AppTheme.FOLLOW_SYSTEM.string
+                initial = AppTheme.SYSTEM_DEFAULT.string
             )
             val useDarkMode = when (darkThemePref.value) {
                 AppTheme.LIGHT.string -> false

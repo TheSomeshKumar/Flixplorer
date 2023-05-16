@@ -89,7 +89,7 @@ fun HomeMediaItem(
                 model = homeMediaItemUI.backdropPath.toFullPosterUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
-                error = painterResource(id = R.drawable.ic_error_placeholder),
+                error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )

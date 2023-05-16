@@ -22,7 +22,7 @@ class UserPreferences(private val context: Context) {
         preferences[USE_MATERIAL3] ?: true
     }
     val useDarkMode: Flow<String> = context.dataStore.data.map { preferences ->
-        preferences[USE_DARK_MODE] ?: AppTheme.FOLLOW_SYSTEM.string
+        preferences[USE_DARK_MODE] ?: AppTheme.SYSTEM_DEFAULT.string
     }
 
     suspend fun updateUseMaterial3(useM3: Boolean) {

@@ -11,7 +11,7 @@
     <dimen name="detail_screen_poster_height">220dp</dimen>
     <dimen name="setting_item_height">50dp</dimen>
     <dimen name="lottie_error_image_size">200dp</dimen>
-    <dimen name="lottie_loading_image_size">100dp</dimen>
+    <dimen name="lottie_loading_image_size">50dp</dimen>
     <dimen name="dot_indicator_size">8dp</dimen>
     <dimen name="dot_indicator_padding">2dp</dimen>
     <dimen name="dot_indicator_row_height">15dp</dimen>

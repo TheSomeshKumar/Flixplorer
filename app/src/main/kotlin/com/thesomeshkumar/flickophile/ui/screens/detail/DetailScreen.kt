@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -37,6 +36,7 @@ import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.widget.ErrorView
 import com.thesomeshkumar.flickophile.ui.widget.FlickMediumAppBar
+import com.thesomeshkumar.flickophile.ui.widget.LoadingView
 import com.thesomeshkumar.flickophile.ui.widget.PointSeparator
 import com.thesomeshkumar.flickophile.util.getError
 import com.thesomeshkumar.flickophile.util.minuteToRelativeTime
@@ -69,7 +69,7 @@ fun DetailsScreen(
         ) {
             when (detailUIState.value) {
                 is DetailUiState.Loading -> {
-                    CircularProgressIndicator(
+                    LoadingView(
                         modifier = Modifier
                             .fillMaxSize()
                             .wrapContentWidth(Alignment.CenterHorizontally)
@@ -107,7 +107,7 @@ fun DetailContent(
             model = poster.toFullPosterUrl(),
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.ic_load_placeholder),
-            error = painterResource(id = R.drawable.ic_error_placeholder),
+            error = painterResource(id = R.drawable.ic_load_error),
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .height(dimensionResource(id = R.dimen.detail_screen_poster_height))
