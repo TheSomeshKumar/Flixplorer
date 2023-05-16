@@ -37,6 +37,7 @@ import coil.compose.AsyncImage
 import com.thesomeshkumar.flickophile.R
 import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.ui.theme.flick_color_translucent_black
+import com.thesomeshkumar.flickophile.util.Constants
 import com.thesomeshkumar.flickophile.util.carouselTransition
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 import kotlinx.coroutines.delay
@@ -57,7 +58,7 @@ fun HomeMediaCarousel(
                 var key by remember { mutableStateOf(0) }
                 LaunchedEffect(key1 = key) {
                     launch {
-                        delay(timeMillis = 3_000)
+                        delay(timeMillis = Constants.CAROUSEL_AUTO_SCROLL_TIMER)
                         val nextPage = (currentPage + 1).mod(pageCount)
                         animateScrollToPage(page = nextPage)
                         key = nextPage

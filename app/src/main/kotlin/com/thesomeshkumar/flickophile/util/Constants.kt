@@ -8,4 +8,5 @@ object Constants {
     const val MEDIA_TYPE_MOVIE = "MOVIES"
     const val MEDIA_TYPE_TV_SHOW = "TV"
     const val POINT_SEPARATOR: String = "•"
+    const val CAROUSEL_AUTO_SCROLL_TIMER: Long = 3000L
 }
