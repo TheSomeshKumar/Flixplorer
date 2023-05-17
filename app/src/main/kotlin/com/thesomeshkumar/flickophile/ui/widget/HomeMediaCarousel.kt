@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -94,8 +93,8 @@ fun HomeMediaCarousel(
         DotIndicators(
             pageCount = pageCount,
             pagerState = pagerState,
-            selectedColor = Color.DarkGray,
-            unselectedColor = Color.LightGray
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
         )
     }
 }
@@ -135,17 +134,17 @@ fun CarouselItem(item: HomeMediaItemUI) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BoxScope.DotIndicators(
+fun DotIndicators(
     pageCount: Int,
     pagerState: PagerState,
-    selectedColor: Color,
-    unselectedColor: Color
+    selectedColor: Color = Color.DarkGray,
+    unselectedColor: Color = Color.LightGray,
+    modifier: Modifier
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .height(dimensionResource(id = R.dimen.dot_indicator_row_height))
-            .fillMaxWidth()
-            .align(Alignment.BottomCenter),
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
         repeat(pageCount) { iteration ->
