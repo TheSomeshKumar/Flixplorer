@@ -40,7 +40,7 @@ data class MovieDetailsDTO(
     @SerializedName("revenue")
     val revenue: Long,
     @SerializedName("runtime")
-    val runtime: Int = 0,
+    val runtime: Int?,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,
     @SerializedName("status")

@@ -5,6 +5,7 @@ import com.thesomeshkumar.flickophile.data.model.TVShowDTO.TVShow
 import com.thesomeshkumar.flickophile.ui.models.DetailUI
 import com.thesomeshkumar.flickophile.ui.models.HomeMediaItemUI
 import com.thesomeshkumar.flickophile.util.Constants
+import com.thesomeshkumar.flickophile.util.minuteToRelativeTime
 import com.thesomeshkumar.flickophile.util.toYear
 
 fun TVShow.mapToUI() = HomeMediaItemUI(
@@ -39,12 +40,12 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
     title = title,
     voteAverage = voteAverage,
     voteCount = voteCount,
-    runtime = runtime
+    runtime = runtime?.minuteToRelativeTime()
 )
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
     backdropPath = backdropPath ?: Constants.NONE,
-    genres = genreDTOS.mapToUI(),
+    genres = genres.mapToUI(),
     homepage = homepage,
     id = id,
     originalLanguage = originalLanguage,
@@ -58,7 +59,7 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     title = name,
     voteAverage = voteAverage,
     voteCount = voteCount,
-    runtime = episodeRunTime.first()
+    runtime = episodeRunTime.firstOrNull()?.minuteToRelativeTime()
 )
 
 fun List<GenreDTO>.mapToUI(): DetailUI.Genre {

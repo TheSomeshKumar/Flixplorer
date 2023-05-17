@@ -19,7 +19,7 @@ data class DetailUI(
     val title: String,
     val voteAverage: Double,
     val voteCount: Long,
-    val runtime: Int
+    val runtime: String?
 ) {
     data class Genre(
         val id: Int,

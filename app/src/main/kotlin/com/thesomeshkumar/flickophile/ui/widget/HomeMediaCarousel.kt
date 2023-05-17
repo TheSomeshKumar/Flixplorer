@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
@@ -47,21 +49,23 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeMediaCarousel(
     list: LazyPagingItems<HomeMediaItemUI>,
+    totalItem: Int = 10,
+    pagerState: PagerState = rememberPagerState(),
+    autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
     onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
-    val pageCount = list.itemCount.coerceAtMost(10)
-    val pagerState = rememberPagerState()
+    val pageCount = list.itemCount.coerceAtMost(totalItem)
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
     if (isDragged.not()) {
         with(pagerState) {
             if (pageCount > 0) {
-                var key by remember { mutableStateOf(0) }
-                LaunchedEffect(key1 = key) {
+                var currentPageKey by remember { mutableStateOf(0) }
+                LaunchedEffect(key1 = currentPageKey) {
                     launch {
-                        delay(timeMillis = Constants.CAROUSEL_AUTO_SCROLL_TIMER)
+                        delay(timeMillis = autoScrollDuration)
                         val nextPage = (currentPage + 1).mod(pageCount)
                         animateScrollToPage(page = nextPage)
-                        key = nextPage
+                        currentPageKey = nextPage
                     }
                 }
             }
@@ -75,7 +79,7 @@ fun HomeMediaCarousel(
             contentPadding = PaddingValues(
                 horizontal = dimensionResource(id = R.dimen.double_padding)
             ),
-            pageSpacing = dimensionResource(id = R.dimen.small_padding)
+            pageSpacing = dimensionResource(id = R.dimen.normal_padding)
         ) { page ->
             val item: HomeMediaItemUI = list[page]!!
             Card(
@@ -87,26 +91,12 @@ fun HomeMediaCarousel(
             }
         }
 
-        Row(
-            modifier = Modifier
-                .height(dimensionResource(id = R.dimen.dot_indicator_row_height))
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            repeat(pageCount) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
-                Box(
-                    modifier = Modifier
-                        .padding(dimensionResource(id = R.dimen.dot_indicator_padding))
-                        .clip(CircleShape)
-                        .background(color)
-                        .size(dimensionResource(id = R.dimen.dot_indicator_size))
-
-                )
-            }
-        }
+        DotIndicators(
+            pageCount = pageCount,
+            pagerState = pagerState,
+            selectedColor = Color.DarkGray,
+            unselectedColor = Color.LightGray
+        )
     }
 }
 
@@ -137,8 +127,38 @@ fun CarouselItem(item: HomeMediaItemUI) {
                 .background(gradient)
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.normal_padding),
-                    vertical = dimensionResource(id = R.dimen.double_padding)
+                    vertical = dimensionResource(id = R.dimen.normal_padding)
                 )
         )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun BoxScope.DotIndicators(
+    pageCount: Int,
+    pagerState: PagerState,
+    selectedColor: Color,
+    unselectedColor: Color
+) {
+    Row(
+        modifier = Modifier
+            .height(dimensionResource(id = R.dimen.dot_indicator_row_height))
+            .fillMaxWidth()
+            .align(Alignment.BottomCenter),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        repeat(pageCount) { iteration ->
+            val color =
+                if (pagerState.currentPage == iteration) selectedColor else unselectedColor
+            Box(
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.dot_indicator_padding))
+                    .clip(CircleShape)
+                    .background(color)
+                    .size(dimensionResource(id = R.dimen.dot_indicator_size))
+
+            )
+        }
     }
 }

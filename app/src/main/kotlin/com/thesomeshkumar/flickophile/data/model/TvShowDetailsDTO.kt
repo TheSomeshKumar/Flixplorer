@@ -2,9 +2,12 @@ package com.thesomeshkumar.flickophile.data.model
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import com.thesomeshkumar.flickophile.ui.models.DetailUI
 
 @Keep
 data class TvShowDetailsDTO(
+    @SerializedName("adult")
+    val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("created_by")
@@ -14,7 +17,7 @@ data class TvShowDetailsDTO(
     @SerializedName("first_air_date")
     val firstAirDate: String,
     @SerializedName("genres")
-    val genreDTOS: List<GenreDTO>,
+    val genres: List<GenreDTO>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -26,13 +29,13 @@ data class TvShowDetailsDTO(
     @SerializedName("last_air_date")
     val lastAirDate: String,
     @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: LastEpisodeToAir,
+    val lastEpisodeToAir: LastEpisodeToAir?,
     @SerializedName("name")
     val name: String,
+    @SerializedName("next_episode_to_air")
+    val nextEpisodeToAir: NextEpisodeToAir?,
     @SerializedName("networks")
     val networks: List<Network>,
-    @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: Any,
     @SerializedName("number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")
@@ -70,40 +73,73 @@ data class TvShowDetailsDTO(
 ) {
     @Keep
     data class CreatedBy(
-        @SerializedName("credit_id")
-        val creditId: String,
-        @SerializedName("gender")
-        val gender: Int,
         @SerializedName("id")
         val id: Int,
+        @SerializedName("credit_id")
+        val creditId: String,
         @SerializedName("name")
         val name: String,
+        @SerializedName("gender")
+        val gender: Int,
         @SerializedName("profile_path")
-        val profilePath: String
+        val profilePath: String?
     )
+
 
     @Keep
     data class LastEpisodeToAir(
-        @SerializedName("air_date")
-        val airDate: String,
-        @SerializedName("episode_number")
-        val episodeNumber: Int,
         @SerializedName("id")
         val id: Int,
         @SerializedName("name")
         val name: String,
         @SerializedName("overview")
         val overview: String,
+        @SerializedName("vote_average")
+        val voteAverage: Int,
+        @SerializedName("vote_count")
+        val voteCount: Int,
+        @SerializedName("air_date")
+        val airDate: String,
+        @SerializedName("episode_number")
+        val episodeNumber: Int,
         @SerializedName("production_code")
         val productionCode: String,
+        @SerializedName("runtime")
+        val runtime: Int,
         @SerializedName("season_number")
         val seasonNumber: Int,
+        @SerializedName("show_id")
+        val showId: Int,
         @SerializedName("still_path")
-        val stillPath: String,
+        val stillPath: String?
+    )
+
+    @Keep
+    data class NextEpisodeToAir(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("name")
+        val name: String,
+        @SerializedName("overview")
+        val overview: String,
         @SerializedName("vote_average")
-        val voteAverage: Double,
+        val voteAverage: Int,
         @SerializedName("vote_count")
-        val voteCount: Int
+        val voteCount: Int,
+        @SerializedName("air_date")
+        val airDate: String,
+        @SerializedName("episode_number")
+        val episodeNumber: Int,
+        @SerializedName("production_code")
+        val productionCode: String,
+        @SerializedName("runtime")
+        val runtime: Int,
+        @SerializedName("season_number")
+        val seasonNumber: Int,
+        @SerializedName("show_id")
+        val showId: Int,
+        @SerializedName("still_path")
+        val stillPath: String?
     )
 
     @Keep
@@ -123,7 +159,7 @@ data class TvShowDetailsDTO(
         @SerializedName("id")
         val id: Int,
         @SerializedName("logo_path")
-        val logoPath: String,
+        val logoPath: String?,
         @SerializedName("name")
         val name: String,
         @SerializedName("origin_country")

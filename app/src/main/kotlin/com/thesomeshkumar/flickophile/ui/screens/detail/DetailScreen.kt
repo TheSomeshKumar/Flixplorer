@@ -39,7 +39,6 @@ import com.thesomeshkumar.flickophile.ui.widget.FlickMediumAppBar
 import com.thesomeshkumar.flickophile.ui.widget.LoadingView
 import com.thesomeshkumar.flickophile.ui.widget.PointSeparator
 import com.thesomeshkumar.flickophile.util.getError
-import com.thesomeshkumar.flickophile.util.minuteToRelativeTime
 import com.thesomeshkumar.flickophile.util.roundTo
 import com.thesomeshkumar.flickophile.util.toFullPosterUrl
 
@@ -129,8 +128,10 @@ fun DetailContent(
                 Text(text = details.releaseDate)
                 PointSeparator()
                 Text(text = stringResource(R.string.rated, (details.voteAverage / 2).roundTo(1)))
-                PointSeparator()
-                Text(text = details.runtime.minuteToRelativeTime())
+                if (!details.runtime.isNullOrBlank()) {
+                    PointSeparator()
+                    Text(text = details.runtime)
+                }
             }
 
             Divider(

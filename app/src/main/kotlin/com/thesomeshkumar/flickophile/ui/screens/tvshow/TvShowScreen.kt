@@ -1,6 +1,7 @@
 package com.thesomeshkumar.flickophile.ui.screens.tvshow
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ fun TvShowScreen(
     TvShowScreenContent(tvShowUiState, scrollState, onItemClick)
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun TvShowScreenContent(
