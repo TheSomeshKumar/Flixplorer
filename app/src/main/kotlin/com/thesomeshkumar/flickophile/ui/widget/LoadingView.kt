@@ -31,7 +31,7 @@ fun LoadingView(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.loading),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineMedium
+            style = MaterialTheme.typography.bodyLarge
         )
     }
 }
