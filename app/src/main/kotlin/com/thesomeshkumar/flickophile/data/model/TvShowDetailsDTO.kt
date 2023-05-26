@@ -2,7 +2,6 @@ package com.thesomeshkumar.flickophile.data.model
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
-import com.thesomeshkumar.flickophile.ui.models.DetailUI
 
 @Keep
 data class TvShowDetailsDTO(
@@ -84,7 +83,6 @@ data class TvShowDetailsDTO(
         @SerializedName("profile_path")
         val profilePath: String?
     )
-
 
     @Keep
     data class LastEpisodeToAir(

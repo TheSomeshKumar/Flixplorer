@@ -16,12 +16,15 @@ object RequestErrorHandler {
             is HttpException -> {
                 handleHttpException(throwable)
             }
+
             is SocketTimeoutException -> {
                 RemoteSourceException.Timeout(R.string.error_timeout_message)
             }
+
             is IOException -> {
                 RemoteSourceException.Connection(R.string.error_network)
             }
+
             else -> {
                 RemoteSourceException.Unexpected(R.string.error_unexpected_message)
             }
@@ -33,9 +36,11 @@ object RequestErrorHandler {
             in HTTP_CODE_CLIENT_START..HTTP_CODE_CLIENT_END -> {
                 RemoteSourceException.Client(R.string.error_client_unexpected_message)
             }
+
             in HTTP_CODE_SERVER_START..HTTP_CODE_SERVER_END -> {
                 RemoteSourceException.Server(R.string.error_server_unexpected_message)
             }
+
             else -> {
                 RemoteSourceException.Unexpected(R.string.error_unexpected_message)
             }
