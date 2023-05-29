@@ -82,7 +82,8 @@ fun MoviesScreenContent(
                     .verticalScroll(scrollState)
             ) {
                 HomeMediaCarousel(
-                    upcomingMoviesLazyItems,
+                    list = upcomingMoviesLazyItems,
+                    carouselLabel = stringResource(R.string.upcoming_movies),
                     onItemClicked = { onItemClick(it) }
                 )
 

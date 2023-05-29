@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,12 +50,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeMediaCarousel(
     list: LazyPagingItems<HomeMediaItemUI>,
-    totalItem: Int = 10,
+    totalItemsToShow: Int = 10,
+    carouselLabel: String = "",
     pagerState: PagerState = rememberPagerState(),
     autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
     onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
-    val pageCount = list.itemCount.coerceAtMost(totalItem)
+    val pageCount = list.itemCount.coerceAtMost(totalItemsToShow)
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
     if (isDragged.not()) {
         with(pagerState) {
@@ -71,31 +74,37 @@ fun HomeMediaCarousel(
         }
     }
 
-    Box {
-        HorizontalPager(
-            pageCount = pageCount,
-            state = pagerState,
-            contentPadding = PaddingValues(
-                horizontal = dimensionResource(id = R.dimen.double_padding)
-            ),
-            pageSpacing = dimensionResource(id = R.dimen.normal_padding)
-        ) { page ->
-            val item: HomeMediaItemUI = list[page]!!
-            Card(
-                onClick = { onItemClicked(item) },
-                modifier = Modifier
-                    .carouselTransition(page, pagerState)
-            ) {
-                CarouselItem(item)
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Box {
+            HorizontalPager(
+                pageCount = pageCount,
+                state = pagerState,
+                contentPadding = PaddingValues(
+                    horizontal = dimensionResource(id = R.dimen.double_padding)
+                ),
+                pageSpacing = dimensionResource(id = R.dimen.normal_padding)
+            ) { page ->
+                val item: HomeMediaItemUI = list[page]!!
+                Card(
+                    onClick = { onItemClicked(item) },
+                    modifier = Modifier
+                        .carouselTransition(page, pagerState)
+                ) {
+                    CarouselItem(item)
+                }
             }
+
+            DotIndicators(
+                pageCount = pageCount,
+                pagerState = pagerState,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+            )
         }
 
-        DotIndicators(
-            pageCount = pageCount,
-            pagerState = pagerState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-        )
+        if (carouselLabel.isNotBlank()) {
+            Text(text = carouselLabel, style = MaterialTheme.typography.labelSmall)
+        }
     }
 }
 

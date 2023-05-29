@@ -80,7 +80,8 @@ fun TvShowScreenContent(
                     .verticalScroll(scrollState)
             ) {
                 HomeMediaCarousel(
-                    airingTodayTvShowLazyItems,
+                    list = airingTodayTvShowLazyItems,
+                    carouselLabel = stringResource(R.string.upcoming_tv_shows),
                     onItemClicked = { onItemClick(it) }
                 )
 
