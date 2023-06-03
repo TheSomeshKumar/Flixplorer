@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Flickophile</string>
+    <string name="app_name">Flixplorer</string>
     <string name="title_shows">Shows</string>
     <string name="title_movies">Movies</string>
     <string name="title_settings">Settings</string>
@@ -10,6 +10,8 @@
     <string name="on_the_air">On The Air</string>
     <string name="top_rated">Top Rated</string>
     <string name="popular">Popular</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="upcoming_tv_shows">Upcoming Tv Shows</string>
 
     <string name="released_on">Released on %1$s</string>
     <string name="rated">%1$s⭐</string>

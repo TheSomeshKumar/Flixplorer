@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.thesomeshkumar.flickophile"
+    namespace = "com.thesomeshkumar.flixplorer"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.thesomeshkumar.flickophile"
+        applicationId = "com.thesomeshkumar.flixplorer"
         minSdk = 23
         targetSdk = 33
         versionCode = 1
@@ -77,7 +77,6 @@ dependencies {
     implementation(libs.datastore)
 
     implementation(libs.compose.material3)
-    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.ui.util)
@@ -107,7 +106,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
