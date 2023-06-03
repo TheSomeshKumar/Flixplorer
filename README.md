@@ -1,4 +1,4 @@
-# Flickophile
+# Flixplorer
 
 Jetpack Compose playground project based
 on [Recommended app architecture](https://developer.android.com/jetpack/guide)

@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.thesomeshkumar.flickophile"
+    namespace = "com.thesomeshkumar.flixplorer"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.thesomeshkumar.flickophile"
+        applicationId = "com.thesomeshkumar.flixplorer"
         minSdk = 23
         targetSdk = 33
         versionCode = 1
