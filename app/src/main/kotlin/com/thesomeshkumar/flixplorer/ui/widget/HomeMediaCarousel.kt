@@ -88,13 +88,6 @@ fun HomeMediaCarousel(
                     CarouselItem(item)
                 }
             }
-
-//            DotIndicators(
-//                pageCount = pageCount,
-//                pagerState = pagerState,
-//                modifier = Modifier
-//                    .align(Alignment.BottomCenter)
-//            )
         }
 
         if (carouselLabel.isNotBlank()) {
