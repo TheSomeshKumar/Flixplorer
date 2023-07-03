@@ -1,36 +1,36 @@
 package com.thesomeshkumar.flixplorer.ui.navigation
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.thesomeshkumar.flixplorer.ui.screens.detail.DetailsScreen
 import com.thesomeshkumar.flixplorer.ui.screens.movie.MoviesScreen
 import com.thesomeshkumar.flixplorer.ui.screens.settings.SettingsScreen
 import com.thesomeshkumar.flixplorer.ui.screens.tvshow.TvShowScreen
 import com.thesomeshkumar.flixplorer.util.Constants
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreenNavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    AnimatedNavHost(
+    NavHost(
         modifier = modifier,
         navController = navController,
         route = NavGraph.BOTTOM_BAR_GRAPH,
         startDestination = BottomBarScreen.Movies.route,
-        enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Up) },
-        exitTransition = { slideOutOfContainer(towards = AnimatedContentScope.SlideDirection.Up) },
+        enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up) },
+        exitTransition = {
+            slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Up)
+        },
         popEnterTransition = {
-            slideIntoContainer(towards = AnimatedContentScope.SlideDirection.Down)
+            slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
         },
         popExitTransition = {
-            slideOutOfContainer(towards = AnimatedContentScope.SlideDirection.Down)
+            slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
         }
 
     ) {

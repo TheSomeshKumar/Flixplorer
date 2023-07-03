@@ -88,7 +88,6 @@ dependencies {
     implementation(libs.hilt.navigation)
     kapt(libs.hilt.compiler)
 
-    implementation(libs.accompanist.navigation.animation)
     coreLibraryDesugaring(libs.desuger)
 
     implementation(libs.coroutine)

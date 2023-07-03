@@ -19,7 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,16 +47,16 @@ fun HomeMediaCarousel(
     list: LazyPagingItems<HomeMediaItemUI>,
     totalItemsToShow: Int = 10,
     carouselLabel: String = "",
-    pagerState: PagerState = rememberPagerState(),
     autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
     onItemClicked: (HomeMediaItemUI) -> Unit
 ) {
     val pageCount = list.itemCount.coerceAtMost(totalItemsToShow)
+    val pagerState: PagerState = rememberPagerState(pageCount = { pageCount })
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
     if (isDragged.not()) {
         with(pagerState) {
             if (pageCount > 0) {
-                var currentPageKey by remember { mutableStateOf(0) }
+                var currentPageKey by remember { mutableIntStateOf(0) }
                 LaunchedEffect(key1 = currentPageKey) {
                     launch {
                         delay(timeMillis = autoScrollDuration)
@@ -72,20 +72,21 @@ fun HomeMediaCarousel(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box {
             HorizontalPager(
-                pageCount = pageCount,
                 state = pagerState,
                 contentPadding = PaddingValues(
                     horizontal = dimensionResource(id = R.dimen.double_padding)
                 ),
                 pageSpacing = dimensionResource(id = R.dimen.normal_padding)
-            ) { page ->
-                val item: HomeMediaItemUI = list[page]!!
-                Card(
-                    onClick = { onItemClicked(item) },
-                    modifier = Modifier
-                        .carouselTransition(page, pagerState)
-                ) {
-                    CarouselItem(item)
+            ) { page: Int ->
+                val item: HomeMediaItemUI? = list[page]
+                item?.let {
+                    Card(
+                        onClick = { onItemClicked(it) },
+                        modifier = Modifier
+                            .carouselTransition(page, pagerState)
+                    ) {
+                        CarouselItem(it)
+                    }
                 }
             }
         }
