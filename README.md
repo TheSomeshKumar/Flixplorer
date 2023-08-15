@@ -5,7 +5,9 @@ on [Recommended app architecture](https://developer.android.com/jetpack/guide)
 
 Powered by
 
-<img width="260" alt="TMDB Logo" src="https://user-images.githubusercontent.com/13759258/213716452-837c217d-49ac-442c-b7eb-5f1a76dff614.png">
+<img width="260" alt="TMDB Logo" src="https://github.com/TheSomeshKumar/Flixplorer/assets/13759258/a1bf8723-f5b7-43a7-8118-22bc1e203301">
+
+
 
 ## Features 🕹
 
