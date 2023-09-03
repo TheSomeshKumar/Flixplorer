@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.onStart
 sealed class Result<out T> {
     data class Success<out T>(val response: T) : Result<T>()
     data class Error(val remoteSourceException: RemoteSourceException) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+    data object Loading : Result<Nothing>()
 }
 
 fun <T> Flow<T>.asResult(): Flow<Result<T>> = this

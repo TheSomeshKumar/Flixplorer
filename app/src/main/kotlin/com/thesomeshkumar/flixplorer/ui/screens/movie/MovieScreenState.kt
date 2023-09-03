@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 @Stable
-data class MovieScreenUIState(
+data class MovieScreenState(
     val upcoming: Flow<PagingData<HomeMediaItemUI>>,
     val nowPlaying: Flow<PagingData<HomeMediaItemUI>>,
     val popular: Flow<PagingData<HomeMediaItemUI>>,
     val topRated: Flow<PagingData<HomeMediaItemUI>>
 ) {
     companion object {
-        val default: MovieScreenUIState = MovieScreenUIState(
+        val default: MovieScreenState = MovieScreenState(
             upcoming = emptyFlow(),
             nowPlaying = emptyFlow(),
             popular = emptyFlow(),

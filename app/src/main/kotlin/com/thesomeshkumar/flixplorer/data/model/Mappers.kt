@@ -2,8 +2,11 @@ package com.thesomeshkumar.flixplorer.data.model // ktlint-disable filename
 
 import com.thesomeshkumar.flixplorer.data.model.MovieDTO.Movie
 import com.thesomeshkumar.flixplorer.data.model.TVShowDTO.TVShow
+import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
+import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.minuteToRelativeTime
 import com.thesomeshkumar.flixplorer.util.toYear
@@ -26,7 +29,7 @@ fun Movie.mapToUI() = HomeMediaItemUI(
 
 fun MovieDetailsDTO.mapToUI() = DetailUI(
     backdropPath = backdropPath ?: Constants.NONE,
-    genres = genreDTOS.mapToUI(),
+    genres = genres.mapToUI(),
     homepage = homepage,
     id = id,
     originalLanguage = originalLanguage,
@@ -66,4 +69,40 @@ fun List<GenreDTO>.mapToUI(): DetailUI.Genre {
     return map {
         DetailUI.Genre(id = it.id, name = it.name)
     }.firstOrNull() ?: DetailUI.Genre(0, Constants.NONE)
+}
+
+fun CreditsDTO.mapToUI() = CreditUI(
+    id = id,
+    cast = cast.take(10).mapCast(),
+    crew = crew.take(10).mapCrew()
+)
+
+fun List<CreditsDTO.Crew>.mapCrew(): List<PeopleUI> {
+    return map { crew: CreditsDTO.Crew ->
+        PeopleUI(
+            id = crew.id,
+            creditId = crew.creditId,
+            name = crew.name,
+            role = crew.job,
+            profilePath = crew.profilePath
+        )
+    }
+}
+
+fun List<CreditsDTO.Cast>.mapCast(): List<PeopleUI> {
+    return map { cast: CreditsDTO.Cast ->
+        PeopleUI(
+            id = cast.id,
+            creditId = cast.creditId,
+            name = cast.name,
+            role = cast.character,
+            profilePath = cast.profilePath
+        )
+    }
+}
+
+fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
+    return map { video ->
+        VideoUI(video.id, video.key, video.name, video.type)
+    }
 }

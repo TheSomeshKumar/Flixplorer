@@ -93,7 +93,7 @@ data class TvShowDetailsDTO(
         @SerializedName("overview")
         val overview: String,
         @SerializedName("vote_average")
-        val voteAverage: Int,
+        val voteAverage: Double,
         @SerializedName("vote_count")
         val voteCount: Int,
         @SerializedName("air_date")
@@ -121,7 +121,7 @@ data class TvShowDetailsDTO(
         @SerializedName("overview")
         val overview: String,
         @SerializedName("vote_average")
-        val voteAverage: Int,
+        val voteAverage: Double,
         @SerializedName("vote_count")
         val voteCount: Int,
         @SerializedName("air_date")

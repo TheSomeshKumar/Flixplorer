@@ -110,8 +110,9 @@ fun CarouselItem(item: HomeMediaItemUI) {
                 .height(dimensionResource(id = R.dimen.home_grid_poster_height))
                 .fillMaxWidth()
         )
-        val gradient =
+        val gradient = remember {
             Brush.verticalGradient(listOf(Color.Transparent, flix_color_translucent_black))
+        }
 
         Text(
             text = item.name,

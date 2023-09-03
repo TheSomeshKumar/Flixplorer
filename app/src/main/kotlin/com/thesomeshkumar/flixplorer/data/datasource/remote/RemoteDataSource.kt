@@ -1,10 +1,12 @@
 package com.thesomeshkumar.flixplorer.data.datasource.remote
 
 import androidx.paging.PagingData
+import com.thesomeshkumar.flixplorer.data.model.CreditsDTO
 import com.thesomeshkumar.flixplorer.data.model.MovieDTO
 import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
 import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
 import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.VideoDTO
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
@@ -12,10 +14,14 @@ interface RemoteDataSource {
     fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>>
-    suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO
+    fun getMovieDetails(movieId: Int): Flow<MovieDetailsDTO>
+    fun getMovieCredits(movieId: Int): Flow<CreditsDTO>
 
     fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
     fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
     fun getTopRatedTvShows(): Flow<PagingData<TVShowDTO.TVShow>>
-    suspend fun getTvShowDetails(tvShowId: Int): TvShowDetailsDTO
+    fun getTvShowDetails(tvShowId: Int): Flow<TvShowDetailsDTO>
+    fun getTvShowCredits(tvShowId: Int): Flow<CreditsDTO>
+
+    fun getVideos(showType: String, showId: Int): Flow<VideoDTO>
 }

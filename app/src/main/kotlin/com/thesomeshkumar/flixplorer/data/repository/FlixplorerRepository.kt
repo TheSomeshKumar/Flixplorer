@@ -5,12 +5,13 @@ import androidx.paging.map
 import com.thesomeshkumar.flixplorer.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flixplorer.data.datasource.remote.RemoteDataSource
 import com.thesomeshkumar.flixplorer.data.model.mapToUI
+import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class FlixplorerRepository @Inject constructor(
@@ -54,12 +55,11 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getTopMovies(): Flow<PagingData<HomeMediaItemUI>> =
-        remoteDataSource.getTopMovies().map {
-            it.map { movieDto ->
-                movieDto.mapToUI()
-            }
+    fun getTopMovies(): Flow<PagingData<HomeMediaItemUI>> = remoteDataSource.getTopMovies().map {
+        it.map { movieDto ->
+            movieDto.mapToUI()
         }
+    }
 
     fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaItemUI>> =
         remoteDataSource.getAiringTodayTvShows().map {
@@ -82,15 +82,49 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getMediaDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = flow {
-        when (mediaType) {
-            Constants.MEDIA_TYPE_MOVIE -> {
-                emit(remoteDataSource.getMovieDetails(mediaId).mapToUI())
-            }
+    fun getMediaDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = when (mediaType) {
+        Constants.MEDIA_TYPE_MOVIE -> {
+            remoteDataSource.getMovieDetails(mediaId).map { it.mapToUI() }
+        }
 
-            Constants.MEDIA_TYPE_TV_SHOW -> {
-                emit(remoteDataSource.getTvShowDetails(mediaId).mapToUI())
-            }
+        Constants.MEDIA_TYPE_TV_SHOW -> {
+            remoteDataSource.getTvShowDetails(mediaId)
+                .map {
+                    it.mapToUI()
+                }
+        }
+
+        else -> {
+            throw IllegalArgumentException(
+                "Unknown mediaType! It can only be" +
+                    " Constants.MEDIA_TYPE_MOVIE or Constants.MEDIA_TYPE_TV_SHOW"
+            )
         }
     }
+
+    fun getMediaCredits(mediaType: String, mediaId: Int): Flow<CreditUI> = when (mediaType) {
+        Constants.MEDIA_TYPE_MOVIE -> {
+            remoteDataSource.getMovieCredits(mediaId).map { it.mapToUI() }
+        }
+
+        Constants.MEDIA_TYPE_TV_SHOW -> {
+            remoteDataSource.getTvShowCredits(mediaId).map { it.mapToUI() }
+        }
+
+        else -> {
+            throw IllegalArgumentException(
+                "Unknown mediaType! It can only be" +
+                    " Constants.MEDIA_TYPE_MOVIE or Constants.MEDIA_TYPE_TV_SHOW"
+            )
+        }
+    }
+
+    fun getVideos(showType: String, showId: Int): Flow<List<VideoUI>> =
+        remoteDataSource.getVideos(showType, showId).map { videoResponse ->
+            videoResponse.videos
+                .filter {
+                    it.site == "YouTube" && (it.type == "Trailer" || it.type == "Teaser")
+                }
+                .mapToUI()
+        }
 }

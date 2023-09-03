@@ -45,7 +45,7 @@ fun MoviesScreen(
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun MoviesScreenContent(
-    movieState: MovieScreenUIState,
+    movieState: MovieScreenState,
     scrollState: ScrollState,
     onItemClick: (HomeMediaItemUI) -> Unit
 ) {
@@ -109,6 +109,7 @@ fun MoviesScreenContent(
             LoadingView(modifier = Modifier.fillMaxSize())
         }
 
+        // Todo: Possible UI rewrite to handle each API error in their own UI container
         isLoadingError.first -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 val loadStateError = isLoadingError.second!!

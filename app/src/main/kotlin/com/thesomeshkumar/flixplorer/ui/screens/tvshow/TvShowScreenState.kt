@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 @Stable
-data class TvShowScreenUIState(
+data class TvShowScreenState(
     val airingToday: Flow<PagingData<HomeMediaItemUI>>,
     val popular: Flow<PagingData<HomeMediaItemUI>>,
     val topRated: Flow<PagingData<HomeMediaItemUI>>
 ) {
     companion object {
-        val default: TvShowScreenUIState = TvShowScreenUIState(
+        val default: TvShowScreenState = TvShowScreenState(
             airingToday = emptyFlow(),
             popular = emptyFlow(),
             topRated = emptyFlow()

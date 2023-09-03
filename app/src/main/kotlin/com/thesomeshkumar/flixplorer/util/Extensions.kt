@@ -1,6 +1,9 @@
 package com.thesomeshkumar.flixplorer.util
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.Modifier
@@ -24,6 +27,7 @@ fun RemoteSourceException.getError(context: Context): String {
 }
 
 fun String.toFullPosterUrl(): String = Constants.TMDB_POSTER_PATH_URL + this
+fun String.toYoutubeThumbUrl(): String = Constants.YOUTUBE_THUMB_URL + this + "/0.jpg"
 
 fun Double.roundTo(decimalPlaces: Int): String = "%.${decimalPlaces}f".format(this)
 
@@ -71,3 +75,14 @@ fun Modifier.carouselTransition(page: Int, pagerState: PagerState) =
         alpha = transformation
         scaleY = transformation
     }
+
+fun Context.openYoutubeLink(url: String) {
+    val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + url))
+    val intentBrowser =
+        Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + url))
+    try {
+        this.startActivity(intentApp)
+    } catch (ex: ActivityNotFoundException) {
+        this.startActivity(intentBrowser)
+    }
+}
