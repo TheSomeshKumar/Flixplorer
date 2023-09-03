@@ -5,10 +5,8 @@ import androidx.paging.map
 import com.thesomeshkumar.flixplorer.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flixplorer.data.datasource.remote.RemoteDataSource
 import com.thesomeshkumar.flixplorer.data.model.mapToUI
-import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
-import com.thesomeshkumar.flixplorer.ui.models.VideoUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -34,55 +32,55 @@ class FlixplorerRepository @Inject constructor(
         userPreferences.updateUseDarkMode(useDarkMode)
     }
 
-    fun getUpcomingMovies(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getUpcomingMovies(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getUpcomingMovies().map {
             it.map { movieDto ->
                 movieDto.mapToUI()
             }
         }
 
-    fun getNowPlayingMovies(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getNowPlayingMovies(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getNowPlayingMovies().map {
             it.map { movieDto ->
                 movieDto.mapToUI()
             }
         }
 
-    fun getPopularMovies(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getPopularMovies(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getPopularMovies().map {
             it.map { movieDto ->
                 movieDto.mapToUI()
             }
         }
 
-    fun getTopMovies(): Flow<PagingData<HomeMediaItemUI>> = remoteDataSource.getTopMovies().map {
+    fun getTopMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource.getTopMovies().map {
         it.map { movieDto ->
             movieDto.mapToUI()
         }
     }
 
-    fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getAiringTodayTvShows().map {
             it.map { tvShowDto ->
                 tvShowDto.mapToUI()
             }
         }
 
-    fun getPopularTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getPopularTvShows(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getPopularTvShows().map {
             it.map { tvShowDto ->
                 tvShowDto.mapToUI()
             }
         }
 
-    fun getTopRatedTvShows(): Flow<PagingData<HomeMediaItemUI>> =
+    fun getTopRatedTvShows(): Flow<PagingData<HomeMediaUI>> =
         remoteDataSource.getTopRatedTvShows().map {
             it.map { tvShowDto ->
                 tvShowDto.mapToUI()
             }
         }
 
-    fun getMediaDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = when (mediaType) {
+    fun getDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = when (mediaType) {
         Constants.MEDIA_TYPE_MOVIE -> {
             remoteDataSource.getMovieDetails(mediaId).map { it.mapToUI() }
         }
@@ -101,30 +99,4 @@ class FlixplorerRepository @Inject constructor(
             )
         }
     }
-
-    fun getMediaCredits(mediaType: String, mediaId: Int): Flow<CreditUI> = when (mediaType) {
-        Constants.MEDIA_TYPE_MOVIE -> {
-            remoteDataSource.getMovieCredits(mediaId).map { it.mapToUI() }
-        }
-
-        Constants.MEDIA_TYPE_TV_SHOW -> {
-            remoteDataSource.getTvShowCredits(mediaId).map { it.mapToUI() }
-        }
-
-        else -> {
-            throw IllegalArgumentException(
-                "Unknown mediaType! It can only be" +
-                    " Constants.MEDIA_TYPE_MOVIE or Constants.MEDIA_TYPE_TV_SHOW"
-            )
-        }
-    }
-
-    fun getVideos(showType: String, showId: Int): Flow<List<VideoUI>> =
-        remoteDataSource.getVideos(showType, showId).map { videoResponse ->
-            videoResponse.videos
-                .filter {
-                    it.site == "YouTube" && (it.type == "Trailer" || it.type == "Teaser")
-                }
-                .mapToUI()
-        }
 }

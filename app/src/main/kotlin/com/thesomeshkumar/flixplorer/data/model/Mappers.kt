@@ -1,17 +1,16 @@
-package com.thesomeshkumar.flixplorer.data.model // ktlint-disable filename
+package com.thesomeshkumar.flixplorer.data.model
 
-import com.thesomeshkumar.flixplorer.data.model.MovieDTO.Movie
-import com.thesomeshkumar.flixplorer.data.model.TVShowDTO.TVShow
 import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.GenreUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
 import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.minuteToRelativeTime
 import com.thesomeshkumar.flixplorer.util.toYear
 
-fun TVShow.mapToUI() = HomeMediaItemUI(
+fun TVShowDTO.TVShow.mapToUI() = HomeMediaUI(
     id = id,
     name = name,
     posterPath = posterPath ?: Constants.NONE,
@@ -19,7 +18,7 @@ fun TVShow.mapToUI() = HomeMediaItemUI(
     overview = overview.ifBlank { Constants.NONE }
 )
 
-fun Movie.mapToUI() = HomeMediaItemUI(
+fun MovieDTO.Movie.mapToUI() = HomeMediaUI(
     id = id,
     name = title,
     posterPath = posterPath ?: Constants.NONE,
@@ -43,7 +42,9 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
     title = title,
     voteAverage = voteAverage,
     voteCount = voteCount,
-    runtime = runtime?.minuteToRelativeTime()
+    runtime = runtime?.minuteToRelativeTime(),
+    videos = videos.videos.mapToUI(),
+    credits = credits.mapToUI()
 )
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
@@ -62,17 +63,18 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     title = name,
     voteAverage = voteAverage,
     voteCount = voteCount,
-    runtime = episodeRunTime.firstOrNull()?.minuteToRelativeTime()
+    runtime = episodeRunTime.firstOrNull()?.minuteToRelativeTime(),
+    videos = videos.videos.mapToUI(),
+    credits = credits.mapToUI()
 )
 
-fun List<GenreDTO>.mapToUI(): DetailUI.Genre {
+fun List<GenreDTO>.mapToUI(): GenreUI {
     return map {
-        DetailUI.Genre(id = it.id, name = it.name)
-    }.firstOrNull() ?: DetailUI.Genre(0, Constants.NONE)
+        GenreUI(id = it.id, name = it.name)
+    }.firstOrNull() ?: GenreUI(0, Constants.NONE)
 }
 
 fun CreditsDTO.mapToUI() = CreditUI(
-    id = id,
     cast = cast.take(10).mapCast(),
     crew = crew.take(10).mapCrew()
 )
@@ -102,7 +104,11 @@ fun List<CreditsDTO.Cast>.mapCast(): List<PeopleUI> {
 }
 
 fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
-    return map { video ->
+    return this.sortedWith(
+        compareByDescending {
+            it.type == "Trailer"
+        }
+    ).map { video ->
         VideoUI(video.id, video.key, video.name, video.type)
     }
 }

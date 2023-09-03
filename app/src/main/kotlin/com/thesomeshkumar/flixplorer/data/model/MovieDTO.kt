@@ -9,6 +9,7 @@ data class MovieDTO(
     @SerializedName("total_results") val totalResults: Int,
     @SerializedName("total_pages") val totalPages: Int
 ) {
+
     @Keep
     data class Movie(
         @SerializedName("adult") val adult: Boolean,

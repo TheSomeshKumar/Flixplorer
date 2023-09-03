@@ -27,16 +27,16 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
-import com.thesomeshkumar.flixplorer.util.toFullPosterUrl
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @Composable
 fun HomeMediaRow(
     title: String,
-    list: LazyPagingItems<HomeMediaItemUI>,
+    list: LazyPagingItems<HomeMediaUI>,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaItemUI) -> Unit
+    onItemClicked: (HomeMediaUI) -> Unit
 ) {
     Column {
         if (list.itemCount > 0) {
@@ -73,12 +73,12 @@ fun HomeMediaRow(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeMediaItem(
-    homeMediaItemUI: HomeMediaItemUI,
+    homeMediaUI: HomeMediaUI,
     modifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaItemUI) -> Unit
+    onItemClicked: (HomeMediaUI) -> Unit
 ) {
     ElevatedCard(
-        onClick = { onItemClicked(homeMediaItemUI) },
+        onClick = { onItemClicked(homeMediaUI) },
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
             .width(dimensionResource(id = R.dimen.home_grid_card_width))
@@ -86,7 +86,7 @@ fun HomeMediaItem(
     ) {
         Column {
             AsyncImage(
-                model = homeMediaItemUI.backdropPath.toFullPosterUrl(),
+                model = homeMediaUI.backdropPath.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
@@ -94,7 +94,7 @@ fun HomeMediaItem(
                 modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )
             Text(
-                text = homeMediaItemUI.name,
+                text = homeMediaUI.name,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.small_padding))
                     .fillMaxSize()

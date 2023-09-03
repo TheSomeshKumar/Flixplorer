@@ -38,9 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.ui.theme.flix_color_translucent_black
 import com.thesomeshkumar.flixplorer.ui.widget.ErrorView
 import com.thesomeshkumar.flixplorer.ui.widget.FlixMediumAppBar
@@ -51,12 +49,13 @@ import com.thesomeshkumar.flixplorer.ui.widget.VideoRow
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.openYoutubeLink
 import com.thesomeshkumar.flixplorer.util.roundTo
-import com.thesomeshkumar.flixplorer.util.toFullPosterUrl
+import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
     name: String,
+    backdrop: String,
     poster: String,
     viewModel: DetailViewModel = hiltViewModel(),
     onNavigationUp: () -> Unit
@@ -65,45 +64,35 @@ fun DetailsScreen(
         rememberTopAppBarState()
     )
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            FlixMediumAppBar(
-                title = name,
-                scrollBehavior = scrollBehavior,
-                onNavigationUp = onNavigationUp
-            )
-        }
-    ) { paddingValues ->
+    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+        FlixMediumAppBar(
+            title = name,
+            scrollBehavior = scrollBehavior,
+            onNavigationUp = onNavigationUp
+        )
+    }) { paddingValues ->
         val consolidatedDetailUiState = viewModel.uiState.collectAsStateWithLifecycle()
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = paddingValues.calculateTopPadding())
+            modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding())
         ) {
             when (consolidatedDetailUiState.value) {
-                is ConsolidatedDetailUiState.Loading -> {
+                is DetailUiState.Loading -> {
                     LoadingView(
-                        modifier = Modifier
-                            .fillMaxSize()
+                        modifier = Modifier.fillMaxSize()
                             .wrapContentWidth(Alignment.CenterHorizontally)
                             .wrapContentHeight(Alignment.CenterVertically)
                     )
                 }
 
-                is ConsolidatedDetailUiState.Success -> {
+                is DetailUiState.Success -> {
                     val details: DetailUI =
-                        (consolidatedDetailUiState.value as ConsolidatedDetailUiState.Success).details
-                    val credits: CreditUI =
-                        (consolidatedDetailUiState.value as ConsolidatedDetailUiState.Success).credit
-                    val videos: List<VideoUI> =
-                        (consolidatedDetailUiState.value as ConsolidatedDetailUiState.Success).videos
-                    DetailContent(poster, details, credits, videos)
+                        (consolidatedDetailUiState.value as DetailUiState.Success).details
+                    DetailContent(backdrop, poster, details)
                 }
 
-                is ConsolidatedDetailUiState.Error -> {
+                is DetailUiState.Error -> {
                     val error =
-                        (consolidatedDetailUiState.value as ConsolidatedDetailUiState.Error).remoteSourceException.getError(
+                        (consolidatedDetailUiState.value as DetailUiState.Error).remoteSourceException.getError(
                             LocalContext.current
                         )
                     ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
@@ -115,10 +104,9 @@ fun DetailsScreen(
 
 @Composable
 fun DetailContent(
+    backdrop: String,
     poster: String,
     details: DetailUI,
-    credits: CreditUI,
-    videos: List<VideoUI>,
     modifier: Modifier = Modifier
 ) {
     val gradient = remember {
@@ -128,16 +116,15 @@ fun DetailContent(
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
-        Box() {
+        Box {
+            val backdropHeight = dimensionResource(id = R.dimen.detail_screen_poster_height)
             AsyncImage(
-                model = poster.toFullPosterUrl(),
+                model = backdrop.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .height(dimensionResource(id = R.dimen.detail_screen_poster_height))
-                    .fillMaxWidth()
+                modifier = Modifier.height(backdropHeight).fillMaxWidth()
             )
 
             Row(
@@ -150,9 +137,15 @@ fun DetailContent(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Bottom
             ) {
-                Text(text = details.genres.name, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = details.genres.name,
+                    style = MaterialTheme.typography.titleMedium
+                )
                 PointSeparator()
-                Text(text = details.releaseDate, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = details.releaseDate,
+                    style = MaterialTheme.typography.titleMedium
+                )
                 PointSeparator()
                 Text(
                     text = stringResource(R.string.rated, (details.voteAverage / 2).roundTo(1)),
@@ -160,7 +153,10 @@ fun DetailContent(
                 )
                 if (!details.runtime.isNullOrBlank()) {
                     PointSeparator()
-                    Text(text = details.runtime, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = details.runtime,
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
             }
         }
@@ -179,19 +175,19 @@ fun DetailContent(
 
             PeopleRow(
                 title = stringResource(R.string.casts),
-                list = credits.cast,
+                list = details.credits.cast,
                 onItemClicked = {}
             )
 
             PeopleRow(
                 title = stringResource(R.string.crew),
-                list = credits.crew,
+                list = details.credits.crew,
                 onItemClicked = {}
             )
 
             VideoRow(
                 title = stringResource(R.string.trailer),
-                list = videos,
+                list = details.videos,
                 onItemClicked = {
                     context.openYoutubeLink(it.key)
                 }

@@ -6,8 +6,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class CreditsDTO(
     val cast: List<Cast>,
-    val crew: List<Crew>,
-    val id: Int
+    val crew: List<Crew>
 ) {
     @Keep
     data class Cast(

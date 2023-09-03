@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
-import com.thesomeshkumar.flixplorer.util.toFullPosterUrl
+import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @Composable
 fun PeopleRow(
@@ -71,7 +71,7 @@ fun PeopleItem(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
-                model = peopleItem.profilePath?.toFullPosterUrl(),
+                model = peopleItem.profilePath?.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
