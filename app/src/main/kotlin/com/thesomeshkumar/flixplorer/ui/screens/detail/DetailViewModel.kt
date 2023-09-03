@@ -7,16 +7,13 @@ import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import com.thesomeshkumar.flixplorer.data.common.Result
 import com.thesomeshkumar.flixplorer.data.common.asResult
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
-import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,9 +22,9 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val flixRepository: FlixplorerRepository
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<ConsolidatedDetailUiState> =
-        MutableStateFlow(ConsolidatedDetailUiState.Loading)
-    val uiState: StateFlow<ConsolidatedDetailUiState> = _uiState.asStateFlow()
+    private val _uiState: MutableStateFlow<DetailUiState> =
+        MutableStateFlow(DetailUiState.Loading)
+    val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
     init {
         val mediaType = savedStateHandle.get<String>(MainScreenRoutes.ARG_MEDIA_TYPE)
@@ -42,27 +39,14 @@ class DetailViewModel @Inject constructor(
 
     private fun getDetails(mediaType: String, mediaId: Int) {
         viewModelScope.launch {
-            combine(
-                flixRepository.getMediaDetails(mediaType, mediaId),
-                flixRepository.getMediaCredits(mediaType, mediaId),
-                flixRepository.getVideos(mediaType, mediaId)
-            ) { details: DetailUI, credits: CreditUI, videos: List<VideoUI> ->
-                Triple(details, credits, videos)
-            }
+            flixRepository.getDetails(mediaType, mediaId)
                 .asResult()
                 .collect { result ->
                     _uiState.update {
                         when (result) {
-                            is Result.Loading -> { ConsolidatedDetailUiState.Loading }
-
-                            is Result.Success -> {
-                                val (detail, credit, videos) = result.response
-                                ConsolidatedDetailUiState.Success(detail, credit, videos)
-                            }
-
-                            is Result.Error -> {
-                                ConsolidatedDetailUiState.Error(result.remoteSourceException)
-                            }
+                            is Result.Loading -> DetailUiState.Loading
+                            is Result.Success -> DetailUiState.Success(result.response)
+                            is Result.Error -> DetailUiState.Error(result.remoteSourceException)
                         }
                     }
                 }
@@ -70,10 +54,8 @@ class DetailViewModel @Inject constructor(
     }
 }
 
-sealed interface ConsolidatedDetailUiState {
-    data class Success(val details: DetailUI, val credit: CreditUI, val videos: List<VideoUI>) :
-        ConsolidatedDetailUiState
-
-    data class Error(val remoteSourceException: RemoteSourceException) : ConsolidatedDetailUiState
-    data object Loading : ConsolidatedDetailUiState
+sealed interface DetailUiState {
+    data class Success(val details: DetailUI) : DetailUiState
+    data class Error(val remoteSourceException: RemoteSourceException) : DetailUiState
+    data object Loading : DetailUiState
 }

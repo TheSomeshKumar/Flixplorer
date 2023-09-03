@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.ui.widget.ErrorView
 import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaCarousel
 import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaRow
@@ -33,7 +33,7 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 @Composable
 fun MoviesScreen(
     viewModel: MoviesViewModel = hiltViewModel(),
-    onItemClick: (HomeMediaItemUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit
 ) {
     val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -47,7 +47,7 @@ fun MoviesScreen(
 fun MoviesScreenContent(
     movieState: MovieScreenState,
     scrollState: ScrollState,
-    onItemClick: (HomeMediaItemUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit
 ) {
     val upcomingMoviesLazyItems = movieState.upcoming.collectAsLazyPagingItems()
     val nowPlayingMoviesLazyItems = movieState.nowPlaying.collectAsLazyPagingItems()

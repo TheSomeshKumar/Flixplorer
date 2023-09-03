@@ -41,7 +41,8 @@ fun MainScreenNavGraph(
                         Constants.MEDIA_TYPE_MOVIE,
                         it.id.toString(),
                         it.name,
-                        it.backdropPath.removePrefix("/")
+                        it.backdropPath.removePrefix("/"),
+                        it.posterPath.removePrefix("/")
                     )
                 )
             })
@@ -54,7 +55,8 @@ fun MainScreenNavGraph(
                         Constants.MEDIA_TYPE_TV_SHOW,
                         it.id.toString(),
                         it.name,
-                        it.backdropPath.removePrefix("/")
+                        it.backdropPath.removePrefix("/"),
+                        it.posterPath.removePrefix("/")
                     )
                 )
             })
@@ -62,10 +64,12 @@ fun MainScreenNavGraph(
 
         composable(route = MainScreenRoutes.MediaDetail.route) { navBackStackEntry ->
             val name = navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_NAME) ?: ""
-            val posterUrl =
+            val backdrop =
+                navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_BACKDROP) ?: ""
+            val poster =
                 navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_POSTER) ?: ""
 
-            DetailsScreen(name, posterUrl, onNavigationUp = {
+            DetailsScreen(name, backdrop, poster, onNavigationUp = {
                 navController.popBackStack()
             })
         }

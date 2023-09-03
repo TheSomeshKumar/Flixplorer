@@ -3,12 +3,10 @@ package com.thesomeshkumar.flixplorer.data.datasource.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.thesomeshkumar.flixplorer.data.model.CreditsDTO
 import com.thesomeshkumar.flixplorer.data.model.MovieDTO
 import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
 import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
 import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.VideoDTO
 import com.thesomeshkumar.flixplorer.data.paging.AiringTodayTvShowSource
 import com.thesomeshkumar.flixplorer.data.paging.NowPlayingMoviesSource
 import com.thesomeshkumar.flixplorer.data.paging.PopularMoviesSource
@@ -54,10 +52,6 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
         emit(apis.getMoviesDetails(movieId))
     }
 
-    override fun getMovieCredits(movieId: Int): Flow<CreditsDTO> = flow {
-        emit(apis.getMovieCredits(movieId))
-    }
-
     override fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>> = Pager(
         config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
         pagingSourceFactory = {
@@ -81,13 +75,5 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
 
     override fun getTvShowDetails(tvShowId: Int): Flow<TvShowDetailsDTO> = flow {
         emit(apis.getTvShowDetails(tvShowId))
-    }
-
-    override fun getTvShowCredits(tvShowId: Int): Flow<CreditsDTO> = flow {
-        emit(apis.getTvShowCredits(tvShowId))
-    }
-
-    override fun getVideos(showType: String, showId: Int): Flow<VideoDTO> = flow {
-        emit(apis.getVideos(showType, showId))
     }
 }

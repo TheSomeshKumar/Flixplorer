@@ -33,22 +33,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.ui.theme.flix_color_translucent_black
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.carouselTransition
-import com.thesomeshkumar.flixplorer.util.toFullPosterUrl
+import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeMediaCarousel(
-    list: LazyPagingItems<HomeMediaItemUI>,
+    list: LazyPagingItems<HomeMediaUI>,
     totalItemsToShow: Int = 10,
     carouselLabel: String = "",
     autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
-    onItemClicked: (HomeMediaItemUI) -> Unit
+    onItemClicked: (HomeMediaUI) -> Unit
 ) {
     val pageCount = list.itemCount.coerceAtMost(totalItemsToShow)
     val pagerState: PagerState = rememberPagerState(pageCount = { pageCount })
@@ -78,7 +78,7 @@ fun HomeMediaCarousel(
                 ),
                 pageSpacing = dimensionResource(id = R.dimen.normal_padding)
             ) { page: Int ->
-                val item: HomeMediaItemUI? = list[page]
+                val item: HomeMediaUI? = list[page]
                 item?.let {
                     Card(
                         onClick = { onItemClicked(it) },
@@ -98,10 +98,10 @@ fun HomeMediaCarousel(
 }
 
 @Composable
-fun CarouselItem(item: HomeMediaItemUI) {
+fun CarouselItem(item: HomeMediaUI) {
     Box {
         AsyncImage(
-            model = item.backdropPath.toFullPosterUrl(),
+            model = item.backdropPath.toFullImageUrl(),
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.ic_load_placeholder),
             error = painterResource(id = R.drawable.ic_load_error),

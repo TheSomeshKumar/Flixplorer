@@ -33,12 +33,20 @@ sealed class MainScreenRoutes(internal open val route: String) {
                 "/{$ARG_MEDIA_TYPE}" +
                 "/{$ARG_MEDIA_ID}" +
                 "/{$ARG_MEDIA_NAME}" +
+                "/{$ARG_MEDIA_BACKDROP}" +
                 "/{$ARG_MEDIA_POSTER}"
         ) {
-        fun withArgs(type: String, id: String, name: String, poster: String): String = route
+        fun withArgs(
+            type: String,
+            id: String,
+            name: String,
+            backdrop: String,
+            poster: String
+        ): String = route
             .replace("{$ARG_MEDIA_TYPE}", type)
             .replace("{$ARG_MEDIA_ID}", id)
             .replace("{$ARG_MEDIA_NAME}", name)
+            .replace("{$ARG_MEDIA_BACKDROP}", backdrop)
             .replace("{$ARG_MEDIA_POSTER}", poster)
     }
 
@@ -48,6 +56,7 @@ sealed class MainScreenRoutes(internal open val route: String) {
         const val ARG_MEDIA_TYPE: String = "type"
         const val ARG_MEDIA_ID: String = "id"
         const val ARG_MEDIA_NAME: String = "name"
+        const val ARG_MEDIA_BACKDROP: String = "backdrop"
         const val ARG_MEDIA_POSTER: String = "poster"
     }
 }

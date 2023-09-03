@@ -75,7 +75,7 @@ fun VideoItem(
                 AsyncImage(
                     model = videoItem.key.toYoutubeThumbUrl(),
                     contentDescription = null,
-                    contentScale = ContentScale.FillWidth,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .height(dimensionResource(id = R.dimen.video_item_height))
                 )
@@ -87,14 +87,14 @@ fun VideoItem(
             }
 
             Text(
-                text = videoItem.type,
+                text = videoItem.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.small_padding)),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                maxLines = 2
 
             )
         }

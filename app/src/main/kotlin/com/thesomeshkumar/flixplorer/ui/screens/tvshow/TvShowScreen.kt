@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaItemUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.ui.widget.ErrorView
 import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaCarousel
 import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaRow
@@ -33,7 +33,7 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 @Composable
 fun TvShowScreen(
     viewModel: TvShowViewModel = hiltViewModel(),
-    onItemClick: (HomeMediaItemUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit
 ) {
     val tvShowUiState by viewModel.tvShowState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -47,7 +47,7 @@ fun TvShowScreen(
 fun TvShowScreenContent(
     tvShowUiState: TvShowScreenState,
     scrollState: ScrollState,
-    onItemClick: (HomeMediaItemUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit
 ) {
     val airingTodayTvShowLazyItems = tvShowUiState.airingToday.collectAsLazyPagingItems()
     val popularTvShowsLazyItems = tvShowUiState.popular.collectAsLazyPagingItems()

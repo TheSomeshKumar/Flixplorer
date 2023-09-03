@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 @Keep
 data class DetailUI(
     val backdropPath: String,
-    val genres: Genre,
     val homepage: String,
     val id: Int,
     val originalLanguage: String,
@@ -19,10 +18,8 @@ data class DetailUI(
     val title: String,
     val voteAverage: Double,
     val voteCount: Long,
-    val runtime: String?
-) {
-    data class Genre(
-        val id: Int,
-        val name: String
-    )
-}
+    val runtime: String?,
+    val genres: GenreUI,
+    val videos: List<VideoUI>,
+    val credits: CreditUI
+)
