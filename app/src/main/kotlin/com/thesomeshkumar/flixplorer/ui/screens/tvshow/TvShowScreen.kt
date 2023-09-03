@@ -45,7 +45,7 @@ fun TvShowScreen(
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun TvShowScreenContent(
-    tvShowUiState: TvShowScreenUIState,
+    tvShowUiState: TvShowScreenState,
     scrollState: ScrollState,
     onItemClick: (HomeMediaItemUI) -> Unit
 ) {

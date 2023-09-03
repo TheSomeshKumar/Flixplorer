@@ -15,14 +15,14 @@ import kotlinx.coroutines.flow.stateIn
 class MoviesViewModel @Inject constructor(private val flixRepository: FlixplorerRepository) :
     ViewModel() {
 
-    val moviesState: StateFlow<MovieScreenUIState> = flow {
+    val moviesState: StateFlow<MovieScreenState> = flow {
         emit(
-            MovieScreenUIState(
+            MovieScreenState(
                 upcoming = flixRepository.getUpcomingMovies().cachedIn(viewModelScope),
                 nowPlaying = flixRepository.getNowPlayingMovies().cachedIn(viewModelScope),
                 popular = flixRepository.getPopularMovies().cachedIn(viewModelScope),
                 topRated = flixRepository.getTopMovies().cachedIn(viewModelScope)
             )
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), MovieScreenUIState.default)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, MovieScreenState.default)
 }

@@ -15,13 +15,13 @@ import kotlinx.coroutines.flow.stateIn
 class TvShowViewModel @Inject constructor(flixRepository: FlixplorerRepository) :
     ViewModel() {
 
-    val tvShowState: StateFlow<TvShowScreenUIState> = flow {
+    val tvShowState: StateFlow<TvShowScreenState> = flow {
         emit(
-            TvShowScreenUIState(
+            TvShowScreenState(
                 airingToday = flixRepository.getAiringTodayTvShows().cachedIn(viewModelScope),
                 popular = flixRepository.getPopularTvShows().cachedIn(viewModelScope),
                 topRated = flixRepository.getTopRatedTvShows().cachedIn(viewModelScope)
             )
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TvShowScreenUIState.default)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, TvShowScreenState.default)
 }

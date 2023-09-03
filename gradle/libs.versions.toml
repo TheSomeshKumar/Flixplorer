@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.0"
+agp = "8.1.1"
 kotlin = "1.9.0"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
@@ -54,6 +54,7 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-video = { group = "io.coil-kt", name = "coil-video", version.ref = "coil" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
 #Test

@@ -99,6 +99,7 @@ dependencies {
     implementation(libs.okhttp.interceptor)
 
     implementation(libs.coil)
+    implementation(libs.coil.video)
     implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
