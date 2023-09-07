@@ -7,16 +7,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedAssistChip
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,6 +42,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -45,6 +56,7 @@ import com.thesomeshkumar.flixplorer.ui.widget.FlixMediumAppBar
 import com.thesomeshkumar.flixplorer.ui.widget.LoadingView
 import com.thesomeshkumar.flixplorer.ui.widget.PeopleRow
 import com.thesomeshkumar.flixplorer.ui.widget.PointSeparator
+import com.thesomeshkumar.flixplorer.ui.widget.RatingBar
 import com.thesomeshkumar.flixplorer.ui.widget.VideoRow
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.openYoutubeLink
@@ -102,6 +114,7 @@ fun DetailsScreen(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DetailContent(
     backdrop: String,
@@ -116,7 +129,8 @@ fun DetailContent(
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
-        Box {
+        ConstraintLayout {
+            val (backdropRef, posterRef, detailRef) = createRefs()
             val backdropHeight = dimensionResource(id = R.dimen.detail_screen_poster_height)
             AsyncImage(
                 model = backdrop.toFullImageUrl(),
@@ -125,42 +139,120 @@ fun DetailContent(
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.height(backdropHeight).fillMaxWidth()
+                    .constrainAs(backdropRef) {}
             )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(gradient)
-                    .height(dimensionResource(id = R.dimen.detail_screen_poster_height) / 2)
-                    .align(Alignment.BottomCenter)
-                    .padding(dimensionResource(id = R.dimen.normal_padding)),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                modifier = Modifier.height(backdropHeight.div(1.5f)).width(backdropHeight.div(2f))
+                    .padding(start = dimensionResource(id = R.dimen.normal_padding))
+                    .constrainAs(posterRef) {
+                        top.linkTo(backdropRef.bottom)
+                        bottom.linkTo(backdropRef.bottom)
+                        start.linkTo(backdropRef.start)
+                    }
             ) {
-                Text(
-                    text = details.genres.name,
-                    style = MaterialTheme.typography.titleMedium
+                AsyncImage(
+                    model = poster.toFullImageUrl(),
+                    contentDescription = null,
+                    placeholder = painterResource(id = R.drawable.ic_load_placeholder),
+                    error = painterResource(id = R.drawable.ic_load_error),
+                    contentScale = ContentScale.FillBounds
+
                 )
-                PointSeparator()
-                Text(
-                    text = details.releaseDate,
-                    style = MaterialTheme.typography.titleMedium
+            }
+
+            FlowRow(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier
+                    .padding(2.dp)
+                    .constrainAs(detailRef) {
+                        top.linkTo(backdropRef.bottom)
+                        start.linkTo(posterRef.end)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    }
+            ) {
+                ElevatedAssistChip(
+                    onClick = {},
+                    label = {
+                        Text(
+                            text = details.genres.name
+                        )
+                    }
                 )
-                PointSeparator()
-                Text(
-                    text = stringResource(R.string.rated, (details.voteAverage / 2).roundTo(1)),
-                    style = MaterialTheme.typography.titleMedium
+
+                ElevatedAssistChip(
+                    onClick = {},
+                    label = {
+                        Text(
+                            text = details.releaseDate
+                        )
+                    }
                 )
+
                 if (!details.runtime.isNullOrBlank()) {
-                    PointSeparator()
+                    ElevatedAssistChip(
+                        leadingIcon = {
+                            Icon(
+                                Icons.Rounded.Schedule,
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {},
+                        label = {
+                            Text(
+                                text = details.runtime.toString()
+                            )
+                        }
+                    )
+                }
+                RatingBar(rating = (details.voteAverage / 2).toFloat(), modifier.height(20.dp))
+            }
+        }
+        if (false) {
+            Box {
+                val backdropHeight = dimensionResource(id = R.dimen.detail_screen_poster_height)
+                AsyncImage(
+                    model = backdrop.toFullImageUrl(),
+                    contentDescription = null,
+                    placeholder = painterResource(id = R.drawable.ic_load_placeholder),
+                    error = painterResource(id = R.drawable.ic_load_error),
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.height(backdropHeight).fillMaxWidth()
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth().background(gradient)
+                        .height(dimensionResource(id = R.dimen.detail_screen_poster_height) / 2)
+                        .align(Alignment.BottomCenter)
+                        .padding(dimensionResource(id = R.dimen.normal_padding)),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.Bottom
+                ) {
                     Text(
-                        text = details.runtime,
+                        text = details.genres.name,
                         style = MaterialTheme.typography.titleMedium
                     )
+                    PointSeparator()
+                    Text(
+                        text = details.releaseDate,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    PointSeparator()
+                    Text(
+                        text = stringResource(R.string.rated, (details.voteAverage / 2).roundTo(1)),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    if (!details.runtime.isNullOrBlank()) {
+                        PointSeparator()
+                        Text(
+                            text = details.runtime,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
                 }
             }
         }
-
         Column(
             modifier = modifier.padding(
                 horizontal = dimensionResource(id = R.dimen.normal_padding_half)

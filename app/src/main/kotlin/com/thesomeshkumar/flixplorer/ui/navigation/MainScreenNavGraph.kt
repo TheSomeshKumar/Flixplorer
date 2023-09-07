@@ -52,11 +52,11 @@ fun MainScreenNavGraph(
             TvShowScreen(onItemClick = {
                 navController.navigate(
                     MainScreenRoutes.MediaDetail.withArgs(
-                        Constants.MEDIA_TYPE_TV_SHOW,
-                        it.id.toString(),
-                        it.name,
-                        it.backdropPath.removePrefix("/"),
-                        it.posterPath.removePrefix("/")
+                        type = Constants.MEDIA_TYPE_TV_SHOW,
+                        id = it.id.toString(),
+                        name = it.name,
+                        backdrop = it.backdropPath.removePrefix("/"),
+                        poster = it.posterPath.removePrefix("/")
                     )
                 )
             })

@@ -86,11 +86,11 @@ fun HomeMediaItem(
     ) {
         Column {
             AsyncImage(
-                model = homeMediaUI.backdropPath.toFullImageUrl(),
+                model = homeMediaUI.posterPath.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )
             Text(
