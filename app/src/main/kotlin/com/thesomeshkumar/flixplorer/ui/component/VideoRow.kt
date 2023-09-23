@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -51,7 +51,7 @@ fun VideoRow(
             state = rememberLazyListState()
         ) {
             items(list.size) { index ->
-                VideoItem(list[index], listItemModifier, onItemClicked)
+                VideoThumbCard(list[index], listItemModifier, onItemClicked)
             }
         }
     }
@@ -59,7 +59,7 @@ fun VideoRow(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VideoItem(
+fun VideoThumbCard(
     videoItem: VideoUI,
     modifier: Modifier = Modifier,
     onItemClicked: (VideoUI) -> Unit

@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.datasource.local.AppTheme
-import com.thesomeshkumar.flixplorer.ui.widget.FlixTopAppBar
+import com.thesomeshkumar.flixplorer.ui.component.FlixTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,9 +70,11 @@ fun SettingsScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_chevron_down),
                             contentDescription = stringResource(R.string.setting_theme),
-                            modifier = Modifier.clickable {
-                                openBottomSheet = !openBottomSheet
-                            }.rotate(rotateAnimation.value)
+                            modifier = Modifier
+                                .clickable {
+                                    openBottomSheet = !openBottomSheet
+                                }
+                                .rotate(rotateAnimation.value)
                         )
                     }
                 )

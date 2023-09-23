@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

@@ -1,17 +1,13 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,27 +19,27 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @Composable
-fun HomeMediaRow(
+fun PeopleRow(
     title: String,
-    list: LazyPagingItems<HomeMediaUI>,
+    list: List<PeopleUI>,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit
+    onItemClicked: (PeopleUI) -> Unit
 ) {
     Column {
-        if (list.itemCount > 0) {
+        if (list.isNotEmpty()) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.normal_padding_half))
+                modifier = Modifier.padding(
+                    vertical = dimensionResource(id = R.dimen.normal_padding_half)
+                )
             )
         }
 
@@ -52,19 +48,8 @@ fun HomeMediaRow(
             verticalAlignment = Alignment.CenterVertically,
             state = rememberLazyListState()
         ) {
-            items(list.itemCount) { index ->
-                list[index]?.let {
-                    HomeMediaItem(it, listItemModifier, onItemClicked)
-                }
-            }
-            if (list.loadState.append == LoadState.Loading) {
-                item {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                }
+            items(list.size) { index ->
+                PeopleCard(list[index], listItemModifier, onItemClicked)
             }
         }
     }
@@ -72,37 +57,51 @@ fun HomeMediaRow(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeMediaItem(
-    homeMediaUI: HomeMediaUI,
+fun PeopleCard(
+    peopleItem: PeopleUI,
     modifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit
+    onItemClicked: (PeopleUI) -> Unit
 ) {
-    ElevatedCard(
-        onClick = { onItemClicked(homeMediaUI) },
+    Card(
+        onClick = { onItemClicked(peopleItem) },
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
             .width(dimensionResource(id = R.dimen.home_grid_card_width))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
     ) {
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
-                model = homeMediaUI.posterPath.toFullImageUrl(),
+                model = peopleItem.profilePath?.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
-            )
-            Text(
-                text = homeMediaUI.name,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.small_padding))
-                    .fillMaxSize()
-                    .wrapContentHeight(align = Alignment.CenterVertically),
+                    .height(dimensionResource(id = R.dimen.home_grid_poster_height))
+            )
+
+            Text(
+                text = peopleItem.name,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(id = R.dimen.small_padding))
+                    .weight(1f),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 2
+                maxLines = 1
+
+            )
+            Text(
+                text = peopleItem.role,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(id = R.dimen.small_padding))
+                    .weight(1f),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.labelMedium,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
 
             )
         }

@@ -65,6 +65,6 @@ val flix_color_dark_outlineVariant = Color(0xFF44464F)
 val flix_color_dark_scrim = Color(0xFF000000)
 
 val flix_color_translucent_black = Color(0xE6000000)
-val flix_color_rating_filled = Color(0xFFB6AB2C)
+val flix_color_rating_filled = Color(0xFFFFDF00)
 
 val seed = Color(0xFF273047)

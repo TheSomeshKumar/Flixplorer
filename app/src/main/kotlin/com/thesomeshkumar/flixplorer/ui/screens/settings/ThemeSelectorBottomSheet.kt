@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import com.thesomeshkumar.flixplorer.data.datasource.local.AppTheme
-import com.thesomeshkumar.flixplorer.ui.widget.DarkModeRadioGroup
+import com.thesomeshkumar.flixplorer.ui.component.DarkModeRadioGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -106,7 +106,7 @@ fun List<CreditsDTO.Cast>.mapCast(): List<PeopleUI> {
 fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
     return this.sortedWith(
         compareByDescending {
-            it.type == "Trailer"
+            it.type == Constants.VIDEO_TYPE_TRAILER
         }
     ).map { video ->
         VideoUI(video.id, video.key, video.name, video.type)

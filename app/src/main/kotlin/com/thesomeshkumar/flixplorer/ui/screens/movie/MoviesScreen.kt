@@ -20,11 +20,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
+import com.thesomeshkumar.flixplorer.ui.component.ErrorView
+import com.thesomeshkumar.flixplorer.ui.component.HomeMediaCarousel
+import com.thesomeshkumar.flixplorer.ui.component.HomeMediaRow
+import com.thesomeshkumar.flixplorer.ui.component.LoadingView
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
-import com.thesomeshkumar.flixplorer.ui.widget.ErrorView
-import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaCarousel
-import com.thesomeshkumar.flixplorer.ui.widget.HomeMediaRow
-import com.thesomeshkumar.flixplorer.ui.widget.LoadingView
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.hasItems
 import com.thesomeshkumar.flixplorer.util.isAnyError

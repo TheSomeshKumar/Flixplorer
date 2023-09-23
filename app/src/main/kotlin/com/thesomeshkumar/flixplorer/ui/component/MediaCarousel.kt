@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -85,7 +85,7 @@ fun HomeMediaCarousel(
                         modifier = Modifier
                             .carouselTransition(page, pagerState)
                     ) {
-                        CarouselItem(it)
+                        CarouselBox(it)
                     }
                 }
             }
@@ -98,7 +98,7 @@ fun HomeMediaCarousel(
 }
 
 @Composable
-fun CarouselItem(item: HomeMediaUI) {
+fun CarouselBox(item: HomeMediaUI) {
     Box {
         AsyncImage(
             model = item.backdropPath.toFullImageUrl(),

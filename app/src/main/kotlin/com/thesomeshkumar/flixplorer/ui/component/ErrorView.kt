@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +34,8 @@ fun ErrorView(errorText: String, modifier: Modifier = Modifier) {
         LottieAnimation(
             composition = composition,
             progress = { progress },
-            modifier = Modifier.testTag("LottieView")
+            modifier = Modifier
+                .testTag("LottieView")
                 .size(dimensionResource(id = R.dimen.lottie_error_image_size))
         )
 

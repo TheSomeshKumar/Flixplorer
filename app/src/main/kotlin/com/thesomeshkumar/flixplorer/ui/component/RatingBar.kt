@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -116,7 +116,9 @@ private val starPath = { size: Float ->
 @Composable
 fun RatingBarPreview() {
     Column(
-        Modifier.fillMaxSize().background(Color.White)
+        Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         RatingBar(
             3.8f,

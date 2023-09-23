@@ -8,6 +8,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,12 +19,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.thesomeshkumar.flixplorer.R
+import com.thesomeshkumar.flixplorer.ui.component.FlixTopAppBar
 import com.thesomeshkumar.flixplorer.ui.navigation.BottomBarScreen
 import com.thesomeshkumar.flixplorer.ui.navigation.FlixplorerBottomBar
 import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenNavGraph
 import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenRoutes
-import com.thesomeshkumar.flixplorer.ui.widget.FlixTopAppBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
     val screens = listOf(

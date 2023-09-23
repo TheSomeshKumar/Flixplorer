@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.ui.widget
+package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
