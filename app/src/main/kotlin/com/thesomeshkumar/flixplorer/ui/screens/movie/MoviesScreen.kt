@@ -21,9 +21,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import com.thesomeshkumar.flixplorer.ui.component.ErrorView
-import com.thesomeshkumar.flixplorer.ui.component.HomeMediaCarousel
-import com.thesomeshkumar.flixplorer.ui.component.HomeMediaRow
 import com.thesomeshkumar.flixplorer.ui.component.LoadingView
+import com.thesomeshkumar.flixplorer.ui.component.MediaCarousel
+import com.thesomeshkumar.flixplorer.ui.component.MediaRow
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.hasItems
@@ -81,23 +81,23 @@ fun MoviesScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                HomeMediaCarousel(
+                MediaCarousel(
                     list = upcomingMoviesLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_movies),
                     onItemClicked = { onItemClick(it) }
                 )
 
-                HomeMediaRow(
+                MediaRow(
                     title = stringResource(R.string.now_playing),
                     list = nowPlayingMoviesLazyItems,
                     onItemClicked = { onItemClick(it) }
                 )
-                HomeMediaRow(
+                MediaRow(
                     title = stringResource(R.string.popular),
                     list = popularMoviesLazyItems,
                     onItemClicked = { onItemClick(it) }
                 )
-                HomeMediaRow(
+                MediaRow(
                     title = stringResource(R.string.top_rated),
                     list = topRatedMoviesLazyItems,
                     onItemClicked = { onItemClick(it) }

@@ -31,7 +31,7 @@ import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @Composable
-fun HomeMediaRow(
+fun MediaRow(
     title: String,
     list: LazyPagingItems<HomeMediaUI>,
     modifier: Modifier = Modifier,

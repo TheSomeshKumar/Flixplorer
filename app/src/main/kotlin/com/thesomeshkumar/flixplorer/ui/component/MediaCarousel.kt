@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun HomeMediaCarousel(
+fun MediaCarousel(
     list: LazyPagingItems<HomeMediaUI>,
     totalItemsToShow: Int = 10,
     carouselLabel: String = "",
