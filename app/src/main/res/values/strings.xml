@@ -4,17 +4,12 @@
     <string name="title_movies">Movies</string>
     <string name="title_settings">Settings</string>
 
-    <string name="upcoming">Upcoming</string>
     <string name="now_playing">Now Playing</string>
-    <string name="airing_today">Airing Today</string>
-    <string name="on_the_air">On The Air</string>
     <string name="top_rated">Top Rated</string>
     <string name="popular">Popular</string>
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="upcoming_tv_shows">Upcoming Tv Shows</string>
 
-    <string name="released_on">Released on %1$s</string>
-    <string name="rated">%1$s⭐</string>
     <string name="casts">Casts</string>
     <string name="crew">Crew</string>
 

@@ -77,9 +77,9 @@ fun Modifier.carouselTransition(page: Int, pagerState: PagerState) =
     }
 
 fun Context.openYoutubeLink(url: String) {
-    val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + url))
+    val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$url"))
     val intentBrowser =
-        Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + url))
+        Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$url"))
     try {
         this.startActivity(intentApp)
     } catch (ex: ActivityNotFoundException) {

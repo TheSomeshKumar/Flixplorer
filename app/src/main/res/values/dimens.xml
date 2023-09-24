@@ -14,9 +14,4 @@
     <dimen name="video_item_height">110dp</dimen>
 
     <dimen name="lottie_error_image_size">200dp</dimen>
-    <dimen name="lottie_loading_image_size">50dp</dimen>
-
-    <dimen name="dot_indicator_size">8dp</dimen>
-    <dimen name="dot_indicator_padding">2dp</dimen>
-    <dimen name="dot_indicator_row_height">15dp</dimen>
 </resources>
