@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -88,7 +88,7 @@ dependencies {
 
     implementation(libs.hilt)
     implementation(libs.hilt.navigation)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     coreLibraryDesugaring(libs.desuger)
 
