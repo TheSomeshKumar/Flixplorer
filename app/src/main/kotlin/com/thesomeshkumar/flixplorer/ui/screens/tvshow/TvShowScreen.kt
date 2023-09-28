@@ -1,7 +1,6 @@
 package com.thesomeshkumar.flixplorer.ui.screens.tvshow
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,9 +20,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import com.thesomeshkumar.flixplorer.ui.component.ErrorView
-import com.thesomeshkumar.flixplorer.ui.component.HomeMediaCarousel
-import com.thesomeshkumar.flixplorer.ui.component.HomeMediaRow
 import com.thesomeshkumar.flixplorer.ui.component.LoadingView
+import com.thesomeshkumar.flixplorer.ui.component.MediaCarousel
+import com.thesomeshkumar.flixplorer.ui.component.MediaRow
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.hasItems
@@ -41,7 +40,6 @@ fun TvShowScreen(
     TvShowScreenContent(tvShowUiState, scrollState, onItemClick)
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun TvShowScreenContent(
@@ -79,18 +77,18 @@ fun TvShowScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                HomeMediaCarousel(
+                MediaCarousel(
                     list = airingTodayTvShowLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_tv_shows),
                     onItemClicked = { onItemClick(it) }
                 )
 
-                HomeMediaRow(
+                MediaRow(
                     title = stringResource(R.string.popular),
                     list = popularTvShowsLazyItems,
                     onItemClicked = { onItemClick(it) }
                 )
-                HomeMediaRow(
+                MediaRow(
                     title = stringResource(R.string.top_rated),
                     list = topRatedTvShowLazyItems,
                     onItemClicked = { onItemClick(it) }

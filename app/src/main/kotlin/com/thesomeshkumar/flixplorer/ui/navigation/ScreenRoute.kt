@@ -12,14 +12,14 @@ sealed class BottomBarScreen(
     val icon: Int
 ) {
 
-    object Movies : BottomBarScreen(
+    data object Movies : BottomBarScreen(
         route = "movies",
         title = R.string.title_movies,
         icon = R.drawable.ic_home_movie
 
     )
 
-    object TvShows : BottomBarScreen(
+    data object TvShows : BottomBarScreen(
         route = "tvshows",
         title = R.string.title_shows,
         icon = R.drawable.ic_home_tv
@@ -27,7 +27,7 @@ sealed class BottomBarScreen(
 }
 
 sealed class MainScreenRoutes(internal open val route: String) {
-    object MediaDetail :
+    data object MediaDetail :
         MainScreenRoutes(
             route = "mediaDetail" +
                 "/{$ARG_MEDIA_TYPE}" +
@@ -50,7 +50,7 @@ sealed class MainScreenRoutes(internal open val route: String) {
             .replace("{$ARG_MEDIA_POSTER}", poster)
     }
 
-    object SettingsScreen : MainScreenRoutes(route = "settings")
+    data object SettingsScreen : MainScreenRoutes(route = "settings")
 
     companion object {
         const val ARG_MEDIA_TYPE: String = "type"

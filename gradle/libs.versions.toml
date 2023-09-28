@@ -1,6 +1,7 @@
 [versions]
 agp = "8.1.1"
 kotlin = "1.9.0"
+ksp = "1.9.10-1.0.13"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
 hilt = "2.48"
@@ -73,6 +74,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 
 [bundles]

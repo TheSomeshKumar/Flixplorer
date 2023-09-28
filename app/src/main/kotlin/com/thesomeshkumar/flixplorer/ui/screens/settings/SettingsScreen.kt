@@ -48,7 +48,10 @@ fun SettingsScreen(
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
 
-    val rotateAnimation = animateFloatAsState(targetValue = if (openBottomSheet) 180f else 0f)
+    val rotateAnimation = animateFloatAsState(
+        targetValue = if (openBottomSheet) 180f else 0f,
+        label = "chevron-rotate"
+    )
     Scaffold(
         topBar = {
             FlixTopAppBar(
