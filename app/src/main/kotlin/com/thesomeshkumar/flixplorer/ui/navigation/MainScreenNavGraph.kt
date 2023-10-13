@@ -1,6 +1,7 @@
 package com.thesomeshkumar.flixplorer.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -22,15 +23,29 @@ fun MainScreenNavGraph(
         navController = navController,
         route = NavGraph.BOTTOM_BAR_GRAPH,
         startDestination = BottomBarScreen.Movies.route,
-        enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up) },
+        enterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                animationSpec = tween(Constants.ANIM_TIME_MEDIUM)
+            )
+        },
         exitTransition = {
-            slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Up)
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                animationSpec = tween(Constants.ANIM_TIME_MEDIUM)
+            )
         },
         popEnterTransition = {
-            slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                animationSpec = tween(Constants.ANIM_TIME_MEDIUM)
+            )
         },
         popExitTransition = {
-            slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                animationSpec = tween(Constants.ANIM_TIME_MEDIUM)
+            )
         }
 
     ) {
