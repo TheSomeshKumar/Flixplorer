@@ -1,8 +1,5 @@
 package com.thesomeshkumar.flixplorer.ui.navigation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -27,20 +24,13 @@ fun FlixplorerBottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
-    AnimatedVisibility(
-        visible = bottomBarDestination,
-        enter = slideInVertically { it },
-        exit = slideOutVertically { it }
-    ) {
-        NavigationBar {
-            screens.forEach { screen ->
-                AddItem(
-                    screen = screen,
-                    currentDestination = currentDestination,
-                    navController = navController
-                )
-            }
+    NavigationBar {
+        screens.forEach { screen ->
+            AddItem(
+                screen = screen,
+                currentDestination = currentDestination,
+                navController = navController
+            )
         }
     }
 }
@@ -61,9 +51,7 @@ fun RowScope.AddItem(
                 contentDescription = "Navigation Icon"
             )
         },
-        selected = currentDestination?.hierarchy?.any {
-            it.route == screen.route
-        } == true,
+        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id) {

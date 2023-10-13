@@ -1,5 +1,6 @@
 package com.thesomeshkumar.flixplorer.ui.component
 
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
@@ -61,7 +62,10 @@ fun MediaCarousel(
                     launch {
                         delay(timeMillis = autoScrollDuration)
                         val nextPage = (currentPage + 1).mod(pageCount)
-                        animateScrollToPage(page = nextPage)
+                        animateScrollToPage(
+                            page = nextPage,
+                            animationSpec = tween(durationMillis = Constants.ANIM_TIME_LONG)
+                        )
                         currentPageKey = nextPage
                     }
                 }
@@ -82,8 +86,7 @@ fun MediaCarousel(
                 item?.let {
                     Card(
                         onClick = { onItemClicked(it) },
-                        modifier = Modifier
-                            .carouselTransition(page, pagerState)
+                        modifier = Modifier.carouselTransition(page, pagerState)
                     ) {
                         CarouselBox(it)
                     }
@@ -106,8 +109,7 @@ fun CarouselBox(item: HomeMediaUI) {
             placeholder = painterResource(id = R.drawable.ic_load_placeholder),
             error = painterResource(id = R.drawable.ic_load_error),
             contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .height(dimensionResource(id = R.dimen.home_grid_poster_height))
+            modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
                 .fillMaxWidth()
         )
         val gradient = remember {
@@ -119,10 +121,7 @@ fun CarouselBox(item: HomeMediaUI) {
             color = Color.White,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .background(gradient)
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).background(gradient)
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.normal_padding),
                     vertical = dimensionResource(id = R.dimen.small_padding)
