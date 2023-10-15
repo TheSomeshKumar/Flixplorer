@@ -1,26 +1,27 @@
 package com.thesomeshkumar.flixplorer.data.model
 
-import androidx.annotation.Keep
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class TVShowDTO(
-    @SerializedName("page") val page: Int,
-    @SerializedName("results") val results: List<TVShow>,
-    @SerializedName("total_results") val totalResults: Int,
-    @SerializedName("total_pages") val totalPages: Int
+    @SerialName("page") val page: Int,
+    @SerialName("results") val results: List<TVShow>,
+    @SerialName("total_results") val totalResults: Int,
+    @SerialName("total_pages") val totalPages: Int
 ) {
-    @Keep
+    @Serializable
     data class TVShow(
-        @SerializedName("id") val id: Int,
-        @SerializedName("poster_path") val posterPath: String?,
-        @SerializedName("popularity") val popularity: Double,
-        @SerializedName("backdrop_path") val backdropPath: String?,
-        @SerializedName("vote_average") val voteAverage: Double,
-        @SerializedName("overview") val overview: String,
-        @SerializedName("first_air_date") val firstAirDate: String,
-        @SerializedName("original_language") val originalLanguage: String,
-        @SerializedName("vote_count") val voteCount: Int,
-        @SerializedName("name") val name: String,
-        @SerializedName("original_name") val originalName: String
+        @SerialName("id") val id: Int,
+        @SerialName("poster_path") val posterPath: String?,
+        @SerialName("popularity") val popularity: Double,
+        @SerialName("backdrop_path") val backdropPath: String?,
+        @SerialName("vote_average") val voteAverage: Double,
+        @SerialName("overview") val overview: String,
+        @SerialName("first_air_date") val firstAirDate: String,
+        @SerialName("original_language") val originalLanguage: String,
+        @SerialName("vote_count") val voteCount: Int,
+        @SerialName("name") val name: String,
+        @SerialName("original_name") val originalName: String
     )
 }
