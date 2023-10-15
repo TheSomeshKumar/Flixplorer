@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -96,9 +97,10 @@ dependencies {
     implementation(libs.coroutine.android)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofit.gson.converter)
     implementation(libs.okhttp)
     implementation(libs.okhttp.interceptor)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.convertor)
 
     implementation(libs.coil)
     implementation(libs.coil.video)

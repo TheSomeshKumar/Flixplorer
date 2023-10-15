@@ -1,12 +1,10 @@
 package com.thesomeshkumar.flixplorer.data.model
 
-import androidx.annotation.Keep
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Keep
+@Serializable
 data class GenreDTO(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("name")
-    val name: String
+    @SerialName("id") val id: Int,
+    @SerialName("name") val name: String
 )
