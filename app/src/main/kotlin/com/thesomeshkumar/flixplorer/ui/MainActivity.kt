@@ -13,6 +13,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.thesomeshkumar.flixplorer.data.datasource.local.AppTheme
 import com.thesomeshkumar.flixplorer.ui.screens.home.HomeScreen
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val viewModel: SettingsViewModel by viewModels()
 
         setContent {

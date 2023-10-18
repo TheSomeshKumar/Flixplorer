@@ -19,7 +19,6 @@ fun MainScreenNavGraph(
     modifier: Modifier = Modifier
 ) {
     NavHost(
-        modifier = modifier,
         navController = navController,
         route = NavGraph.BOTTOM_BAR_GRAPH,
         startDestination = BottomBarScreen.Movies.route,
@@ -50,7 +49,7 @@ fun MainScreenNavGraph(
 
     ) {
         composable(route = BottomBarScreen.Movies.route) {
-            MoviesScreen(onItemClick = {
+            MoviesScreen(modifier = modifier) {
                 navController.navigate(
                     MainScreenRoutes.MediaDetail.withArgs(
                         Constants.MEDIA_TYPE_MOVIE,
@@ -60,11 +59,11 @@ fun MainScreenNavGraph(
                         it.posterPath.removePrefix("/")
                     )
                 )
-            })
+            }
         }
 
         composable(route = BottomBarScreen.TvShows.route) {
-            TvShowScreen(onItemClick = {
+            TvShowScreen(modifier = modifier) {
                 navController.navigate(
                     MainScreenRoutes.MediaDetail.withArgs(
                         type = Constants.MEDIA_TYPE_TV_SHOW,
@@ -74,7 +73,7 @@ fun MainScreenNavGraph(
                         poster = it.posterPath.removePrefix("/")
                     )
                 )
-            })
+            }
         }
 
         composable(route = MainScreenRoutes.MediaDetail.route) { navBackStackEntry ->

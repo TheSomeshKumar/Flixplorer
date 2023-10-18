@@ -31,13 +31,14 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
 @Composable
 fun MoviesScreen(
+    modifier: Modifier = Modifier,
     viewModel: MoviesViewModel = hiltViewModel(),
     onItemClick: (HomeMediaUI) -> Unit
 ) {
     val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
-    MoviesScreenContent(movieState, scrollState, onItemClick)
+    MoviesScreenContent(movieState, scrollState, modifier, onItemClick)
 }
 
 @SuppressLint("UnrememberedMutableState")
@@ -45,6 +46,7 @@ fun MoviesScreen(
 fun MoviesScreenContent(
     movieState: MovieScreenState,
     scrollState: ScrollState,
+    modifier: Modifier = Modifier,
     onItemClick: (HomeMediaUI) -> Unit
 ) {
     val upcomingMoviesLazyItems = movieState.upcoming.collectAsLazyPagingItems()
@@ -58,26 +60,21 @@ fun MoviesScreenContent(
         popularMoviesLazyItems,
         topRatedMoviesLazyItems
     )
-    val isScreenLoading by
-        derivedStateOf {
-            movieItems.isAnyRefreshing()
-        }
-    val hasItems by
-        derivedStateOf {
-            movieItems.hasItems()
-        }
+    val isScreenLoading by derivedStateOf {
+        movieItems.isAnyRefreshing()
+    }
+    val hasItems by derivedStateOf {
+        movieItems.hasItems()
+    }
 
-    val isLoadingError by
-        derivedStateOf {
-            movieItems.isAnyError()
-        }
+    val isLoadingError by derivedStateOf {
+        movieItems.isAnyError()
+    }
 
     when {
         hasItems -> {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
+                modifier = modifier.fillMaxSize().verticalScroll(scrollState)
             ) {
                 MediaCarousel(
                     list = upcomingMoviesLazyItems,
@@ -111,8 +108,8 @@ fun MoviesScreenContent(
         isLoadingError.first -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 val loadStateError = isLoadingError.second!!
-                val error = (loadStateError.error as RemoteSourceException)
-                    .getError(LocalContext.current)
+                val error =
+                    (loadStateError.error as RemoteSourceException).getError(LocalContext.current)
                 ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
             }
         }

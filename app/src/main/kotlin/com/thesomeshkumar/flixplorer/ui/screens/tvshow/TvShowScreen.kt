@@ -31,13 +31,14 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
 @Composable
 fun TvShowScreen(
+    modifier: Modifier = Modifier,
     viewModel: TvShowViewModel = hiltViewModel(),
     onItemClick: (HomeMediaUI) -> Unit
 ) {
     val tvShowUiState by viewModel.tvShowState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
-    TvShowScreenContent(tvShowUiState, scrollState, onItemClick)
+    TvShowScreenContent(tvShowUiState, scrollState, modifier, onItemClick)
 }
 
 @SuppressLint("UnrememberedMutableState")
@@ -45,6 +46,7 @@ fun TvShowScreen(
 fun TvShowScreenContent(
     tvShowUiState: TvShowScreenState,
     scrollState: ScrollState,
+    modifier: Modifier = Modifier,
     onItemClick: (HomeMediaUI) -> Unit
 ) {
     val airingTodayTvShowLazyItems = tvShowUiState.airingToday.collectAsLazyPagingItems()
@@ -56,26 +58,21 @@ fun TvShowScreenContent(
         popularTvShowsLazyItems,
         topRatedTvShowLazyItems
     )
-    val isScreenLoading by
-        derivedStateOf {
-            tvShowItems.isAnyRefreshing()
-        }
-    val hasItems by
-        derivedStateOf {
-            tvShowItems.hasItems()
-        }
+    val isScreenLoading by derivedStateOf {
+        tvShowItems.isAnyRefreshing()
+    }
+    val hasItems by derivedStateOf {
+        tvShowItems.hasItems()
+    }
 
-    val isLoadingError by
-        derivedStateOf {
-            tvShowItems.isAnyError()
-        }
+    val isLoadingError by derivedStateOf {
+        tvShowItems.isAnyError()
+    }
 
     when {
         hasItems -> {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
+                modifier = modifier.fillMaxSize().verticalScroll(scrollState)
             ) {
                 MediaCarousel(
                     list = airingTodayTvShowLazyItems,
@@ -103,8 +100,8 @@ fun TvShowScreenContent(
         isLoadingError.first -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 val loadStateError = isLoadingError.second!!
-                val error = (loadStateError.error as RemoteSourceException)
-                    .getError(LocalContext.current)
+                val error =
+                    (loadStateError.error as RemoteSourceException).getError(LocalContext.current)
                 ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
             }
         }

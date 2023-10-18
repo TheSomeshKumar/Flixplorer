@@ -1,5 +1,6 @@
 package com.thesomeshkumar.flixplorer.ui.screens.settings
 
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -23,7 +24,7 @@ fun ThemeSelectorBottomSheet(
     ModalBottomSheet(
         onDismissRequest = openBottomSheet,
         sheetState = bottomSheetState,
-        modifier = modifier
+        modifier = modifier.navigationBarsPadding()
     ) {
         DarkModeRadioGroup(
             radioOptions = AppTheme.getList(),
