@@ -75,7 +75,7 @@ fun DetailsScreen(
     }) { paddingValues ->
         val consolidatedDetailUiState = viewModel.uiState.collectAsStateWithLifecycle()
         Box(
-            modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding())
+            modifier = Modifier.fillMaxSize().padding(paddingValues)
         ) {
             when (consolidatedDetailUiState.value) {
                 is DetailUiState.Loading -> {

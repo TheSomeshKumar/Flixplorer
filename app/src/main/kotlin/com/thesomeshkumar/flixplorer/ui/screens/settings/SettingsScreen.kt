@@ -52,19 +52,16 @@ fun SettingsScreen(
         targetValue = if (openBottomSheet) 180f else 0f,
         label = "chevron-rotate"
     )
-    Scaffold(
-        topBar = {
-            FlixTopAppBar(
-                title = stringResource(R.string.title_settings),
-                onNavigationUp = { onNavigationUp() }
-            )
-        }
-    ) { paddingValues ->
+    Scaffold(topBar = {
+        FlixTopAppBar(
+            title = stringResource(R.string.title_settings),
+            onNavigationUp = { onNavigationUp() }
+        )
+    }) { paddingValues ->
 
-        Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
+        Box(modifier = Modifier.padding(paddingValues)) {
             Column(
-                modifier = Modifier
-                    .padding(all = dimensionResource(id = R.dimen.normal_padding))
+                modifier = Modifier.padding(all = dimensionResource(id = R.dimen.normal_padding))
                     .fillMaxSize()
             ) {
                 SettingsItem(
@@ -73,11 +70,9 @@ fun SettingsScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_chevron_down),
                             contentDescription = stringResource(R.string.setting_theme),
-                            modifier = Modifier
-                                .clickable {
-                                    openBottomSheet = !openBottomSheet
-                                }
-                                .rotate(rotateAnimation.value)
+                            modifier = Modifier.clickable {
+                                openBottomSheet = !openBottomSheet
+                            }.rotate(rotateAnimation.value)
                         )
                     }
                 )
@@ -116,8 +111,7 @@ fun SettingsItem(
     settingActionComponent: @Composable () -> Unit
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
             .height(dimensionResource(id = R.dimen.setting_item_height)),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
