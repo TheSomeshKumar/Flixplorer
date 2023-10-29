@@ -54,8 +54,7 @@ class DetailViewModelTest {
     @Test
     fun `when view model initialized with wrong mediaType expect IllegalArgumentException exception`() =
         runTest {
-            expectCatching { createViewModel(mediaType = null) }
-                .isFailure()
+            expectCatching { createViewModel(mediaType = null) }.isFailure()
                 .isA<IllegalArgumentException>()
 
             verify(exactly = 0) { repository.getDetails(any(), any()) }
@@ -70,8 +69,7 @@ class DetailViewModelTest {
         every { repository.getDetails(any(), any()) } returns flowOf(response)
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Success>()
+            expectThat(awaitItem()).isA<DetailUiState.Success>()
                 .get { details.title }
                 .isEqualTo("Expendables")
         }
@@ -82,8 +80,7 @@ class DetailViewModelTest {
         every { repository.getDetails(any(), any()) } returns flow { throw Exception() }
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Error>()
+            expectThat(awaitItem()).isA<DetailUiState.Error>()
                 .get {
                     this.remoteSourceException
                 }
@@ -96,8 +93,7 @@ class DetailViewModelTest {
         every { repository.getDetails(any(), any()) } returns flow { throw IOException() }
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Error>()
+            expectThat(awaitItem()).isA<DetailUiState.Error>()
                 .get {
                     this.remoteSourceException
                 }
@@ -112,8 +108,7 @@ class DetailViewModelTest {
         } returns flow { throw SocketTimeoutException() }
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Error>()
+            expectThat(awaitItem()).isA<DetailUiState.Error>()
                 .get {
                     this.remoteSourceException
                 }
@@ -130,8 +125,7 @@ class DetailViewModelTest {
         }
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Error>()
+            expectThat(awaitItem()).isA<DetailUiState.Error>()
                 .get {
                     this.remoteSourceException
                 }
@@ -148,8 +142,7 @@ class DetailViewModelTest {
         }
         createViewModel()
         viewModel.uiState.test {
-            expectThat(awaitItem())
-                .isA<DetailUiState.Error>()
+            expectThat(awaitItem()).isA<DetailUiState.Error>()
                 .get {
                     this.remoteSourceException
                 }

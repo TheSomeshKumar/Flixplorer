@@ -69,16 +69,13 @@ fun DetailsScreen(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            FlixTopAppBar(
-                title = name,
-                onNavigationUp = onNavigationUp,
-                scrollBehavior = scrollBehavior
-            )
-        }
-    ) { paddingValues ->
+    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+        FlixTopAppBar(
+            title = name,
+            onNavigationUp = onNavigationUp,
+            scrollBehavior = scrollBehavior
+        )
+    }) { paddingValues ->
         val consolidatedDetailUiState = viewModel.uiState.collectAsStateWithLifecycle()
         Box(
             modifier = Modifier
@@ -98,11 +95,7 @@ fun DetailsScreen(
                 is DetailUiState.Success -> {
                     val details: DetailUI =
                         (consolidatedDetailUiState.value as DetailUiState.Success).details
-                    DetailContent(
-                        backdrop,
-                        poster,
-                        details
-                    )
+                    DetailContent(backdrop, poster, details)
                 }
 
                 is DetailUiState.Error -> {
@@ -176,27 +169,17 @@ fun DetailContent(
                         width = Dimension.fillToConstraints
                     }
             ) {
-                ElevatedAssistChip(
-                    onClick = {},
-                    label = { Text(text = details.genres.name) }
-                )
+                ElevatedAssistChip(onClick = {}, label = { Text(text = details.genres.name) })
 
-                ElevatedAssistChip(
-                    onClick = {},
-                    label = { Text(text = details.releaseDate) }
-                )
+                ElevatedAssistChip(onClick = {}, label = { Text(text = details.releaseDate) })
 
                 if (!details.runtime.isNullOrBlank()) {
-                    ElevatedAssistChip(
-                        leadingIcon = {
-                            Icon(
-                                Icons.Rounded.Schedule,
-                                contentDescription = null
-                            )
-                        },
-                        onClick = {},
-                        label = { Text(text = details.runtime.toString()) }
-                    )
+                    ElevatedAssistChip(leadingIcon = {
+                        Icon(
+                            Icons.Rounded.Schedule,
+                            contentDescription = null
+                        )
+                    }, onClick = {}, label = { Text(text = details.runtime.toString()) })
                 }
                 RatingBar(
                     rating = (details.voteAverage / 2).toFloat(),

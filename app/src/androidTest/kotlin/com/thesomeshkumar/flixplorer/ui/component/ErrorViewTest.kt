@@ -21,7 +21,9 @@ class ErrorViewTest {
             ErrorView(errorText = error)
         }
 
-        rule.onNodeWithTag("LottieView").assertIsDisplayed()
-        rule.onNodeWithText(error).assertIsDisplayed()
+        rule.onNodeWithTag("LottieView")
+            .assertIsDisplayed()
+        rule.onNodeWithText(error)
+            .assertIsDisplayed()
     }
 }

@@ -41,47 +41,41 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     val showNavigationState = rememberSaveable { (mutableStateOf(false)) }
     showNavigationState.value = screens.any { it.route == currentDestination?.route }
 
-    Scaffold(
-        topBar = {
-            AnimatedVisibility(
-                visible = showNavigationState.value,
-                enter = slideInVertically(
-                    animationSpec = tween(Constants.ANIM_TIME_SHORT)
-                ) {
-                    -it
-                },
-                exit = slideOutVertically(
-                    animationSpec = tween(Constants.ANIM_TIME_SHORT)
-                ) {
-                    -it
-                }
+    Scaffold(topBar = {
+        AnimatedVisibility(
+            visible = showNavigationState.value,
+            enter = slideInVertically(
+                animationSpec = tween(Constants.ANIM_TIME_SHORT)
             ) {
-                FlixTopAppBar(
-                    stringResource(id = R.string.app_name),
-                    onSettingsClick = {
-                        navController.navigate(MainScreenRoutes.SettingsScreen.route)
-                    }
-                )
-            }
-        },
-        bottomBar = {
-            AnimatedVisibility(
-                visible = showNavigationState.value,
-                enter = slideInVertically(
-                    animationSpec = tween(Constants.ANIM_TIME_SHORT)
-                ) {
-                    it
-                },
-                exit = slideOutVertically(
-                    animationSpec = tween(Constants.ANIM_TIME_SHORT)
-                ) {
-                    it
-                }
+                -it
+            },
+            exit = slideOutVertically(
+                animationSpec = tween(Constants.ANIM_TIME_SHORT)
             ) {
-                FlixplorerBottomBar(navController = navController)
+                -it
             }
+        ) {
+            FlixTopAppBar(stringResource(id = R.string.app_name), onSettingsClick = {
+                navController.navigate(MainScreenRoutes.SettingsScreen.route)
+            })
         }
-    ) { padding: PaddingValues ->
+    }, bottomBar = {
+        AnimatedVisibility(
+            visible = showNavigationState.value,
+            enter = slideInVertically(
+                animationSpec = tween(Constants.ANIM_TIME_SHORT)
+            ) {
+                it
+            },
+            exit = slideOutVertically(
+                animationSpec = tween(Constants.ANIM_TIME_SHORT)
+            ) {
+                it
+            }
+        ) {
+            FlixplorerBottomBar(navController = navController)
+        }
+    }) { padding: PaddingValues ->
         MainScreenNavGraph(
             navController = navController,
             modifier = Modifier.padding(padding)

@@ -91,14 +91,9 @@ fun MainScreenNavGraph(
             val poster =
                 navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_POSTER) ?: ""
 
-            DetailsScreen(
-                name,
-                backdrop,
-                poster,
-                onNavigationUp = {
-                    navController.popBackStack()
-                }
-            )
+            DetailsScreen(name, backdrop, poster, onNavigationUp = {
+                navController.popBackStack()
+            })
         }
 
         composable(route = MainScreenRoutes.SettingsScreen.route) {

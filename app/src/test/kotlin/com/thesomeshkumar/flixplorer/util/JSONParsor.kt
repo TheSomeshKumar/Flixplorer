@@ -23,7 +23,6 @@ inline fun <reified I : Any, reified O : Any> parseJson(
 
 fun Json.jsonStringFromFile(fileName: String): String {
     val inputStream = javaClass.classLoader!!.getResourceAsStream(fileName)
-    return inputStream
-        .bufferedReader()
+    return inputStream.bufferedReader()
         .use(Reader::readText)
 }

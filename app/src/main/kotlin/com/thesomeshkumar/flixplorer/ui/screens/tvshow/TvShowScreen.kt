@@ -58,11 +58,12 @@ fun TvShowScreenContent(
     val popularTvShowsLazyItems = tvShowUiState.popular.collectAsLazyPagingItems()
     val topRatedTvShowLazyItems = tvShowUiState.topRated.collectAsLazyPagingItems()
 
-    val tvShowItems = listOf(
-        airingTodayTvShowLazyItems,
-        popularTvShowsLazyItems,
-        topRatedTvShowLazyItems
-    )
+    val tvShowItems =
+        listOf(
+            airingTodayTvShowLazyItems,
+            popularTvShowsLazyItems,
+            topRatedTvShowLazyItems
+        )
     val isScreenLoading by derivedStateOf {
         tvShowItems.isAnyRefreshing()
     }

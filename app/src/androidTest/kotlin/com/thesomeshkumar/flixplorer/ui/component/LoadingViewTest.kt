@@ -19,7 +19,8 @@ class LoadingViewTest {
             LoadingView()
         }
 
-        rule.onNodeWithTag("LoadingView").assertExists()
+        rule.onNodeWithTag("LoadingView")
+            .assertExists()
         rule.onNodeWithText(rule.activity.getString(R.string.loading), useUnmergedTree = true)
             .assertIsDisplayed()
     }

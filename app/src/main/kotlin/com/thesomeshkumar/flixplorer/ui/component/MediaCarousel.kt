@@ -121,7 +121,9 @@ fun CarouselBox(item: HomeMediaUI) {
             error = painterResource(id = R.drawable.ic_load_error),
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
-                .height(dimensionResource(id = R.dimen.home_grid_poster_height))
+                .height(
+                    dimensionResource(id = R.dimen.home_grid_poster_height)
+                )
                 .fillMaxWidth()
         )
         val gradient = remember {
