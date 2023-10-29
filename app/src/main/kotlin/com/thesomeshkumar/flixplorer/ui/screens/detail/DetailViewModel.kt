@@ -22,13 +22,14 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val flixRepository: FlixplorerRepository
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<DetailUiState> =
-        MutableStateFlow(DetailUiState.Loading)
+    private val _uiState: MutableStateFlow<DetailUiState> = MutableStateFlow(DetailUiState.Loading)
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
     init {
         val mediaType = savedStateHandle.get<String>(MainScreenRoutes.ARG_MEDIA_TYPE)
-        val mediaId = savedStateHandle.get<String>(MainScreenRoutes.ARG_MEDIA_ID)?.toInt()
+        val mediaId = savedStateHandle
+            .get<String>(MainScreenRoutes.ARG_MEDIA_ID)
+            ?.toInt()
 
         if (mediaType != null && mediaId != null) {
             getDetails(mediaType, mediaId)
@@ -37,9 +38,10 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getDetails(mediaType: String, mediaId: Int) {
+    fun getDetails(mediaType: String, mediaId: Int) {
         viewModelScope.launch {
-            flixRepository.getDetails(mediaType, mediaId)
+            flixRepository
+                .getDetails(mediaType, mediaId)
                 .asResult()
                 .collect { result ->
                     _uiState.update {

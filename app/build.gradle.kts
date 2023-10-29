@@ -55,11 +55,16 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE-notice.md,LICENSE.md}"
         }
     }
 
     testOptions {
+        packaging {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
         unitTests.apply {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
@@ -106,9 +111,14 @@ dependencies {
     implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
+    testImplementation(libs.coroutine.test)
+    testImplementation(libs.turbin)
+    testImplementation(libs.strikt)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)

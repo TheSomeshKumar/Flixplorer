@@ -30,10 +30,10 @@ class MainActivity : ComponentActivity() {
         val viewModel: SettingsViewModel by viewModels()
 
         setContent {
-            val useMaterial3: State<Boolean> = viewModel.useMaterial3.value.collectAsState(
+            val useMaterial3: State<Boolean> = viewModel.useMaterial3.collectAsState(
                 initial = true
             )
-            val darkThemePref: State<String> = viewModel.useDarkMode.value.collectAsState(
+            val darkThemePref: State<String> = viewModel.useDarkMode.collectAsState(
                 initial = AppTheme.SYSTEM_DEFAULT.string
             )
             val useDarkMode = when (darkThemePref.value) {
