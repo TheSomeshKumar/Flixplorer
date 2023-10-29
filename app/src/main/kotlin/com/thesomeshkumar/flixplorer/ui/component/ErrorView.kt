@@ -20,7 +20,10 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.thesomeshkumar.flixplorer.R
 
 @Composable
-fun ErrorView(errorText: String, modifier: Modifier = Modifier) {
+fun ErrorView(
+    errorText: String,
+    modifier: Modifier = Modifier
+) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_error))
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -39,6 +42,9 @@ fun ErrorView(errorText: String, modifier: Modifier = Modifier) {
                 .size(dimensionResource(id = R.dimen.lottie_error_image_size))
         )
 
-        Text(text = errorText, textAlign = TextAlign.Center)
+        Text(
+            text = errorText,
+            textAlign = TextAlign.Center
+        )
     }
 }

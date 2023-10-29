@@ -10,7 +10,8 @@ import dagger.hilt.android.HiltAndroidApp
 class FlixplorerApp : Application(), ImageLoaderFactory {
 
     override fun newImageLoader(): ImageLoader {
-        return ImageLoader.Builder(this)
+        return ImageLoader
+            .Builder(this)
             .crossfade(true)
             .components {
                 add(VideoFrameDecoder.Factory())

@@ -39,7 +39,10 @@ fun RatingBar(
                 step.rem(rating) < 1 -> rating - (step - 1f)
                 else -> 0f
             }
-            RatingStar(stepRating, color)
+            RatingStar(
+                stepRating,
+                color
+            )
         }
     }
 }
@@ -96,16 +99,25 @@ private val starPath = { size: Float ->
         var y: Float = cy
         val step = Math.PI / 5
 
-        moveTo(cx, cy - outerRadius)
+        moveTo(
+            cx,
+            cy - outerRadius
+        )
         repeat(5) {
             x = (cx + cos(rot) * outerRadius).toFloat()
             y = (cy + sin(rot) * outerRadius).toFloat()
-            lineTo(x, y)
+            lineTo(
+                x,
+                y
+            )
             rot += step
 
             x = (cx + cos(rot) * innerRadius).toFloat()
             y = (cy + sin(rot) * innerRadius).toFloat()
-            lineTo(x, y)
+            lineTo(
+                x,
+                y
+            )
             rot += step
         }
         close()

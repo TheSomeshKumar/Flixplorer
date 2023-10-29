@@ -63,20 +63,32 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     title = name,
     voteAverage = voteAverage,
     voteCount = voteCount,
-    runtime = episodeRunTime.firstOrNull()?.minuteToRelativeTime(),
+    runtime = episodeRunTime
+        .firstOrNull()
+        ?.minuteToRelativeTime(),
     videos = videos.videos.mapToUI(),
     credits = credits.mapToUI()
 )
 
 fun List<GenreDTO>.mapToUI(): GenreUI {
     return map {
-        GenreUI(id = it.id, name = it.name)
-    }.firstOrNull() ?: GenreUI(0, Constants.NONE)
+        GenreUI(
+            id = it.id,
+            name = it.name
+        )
+    }.firstOrNull() ?: GenreUI(
+        0,
+        Constants.NONE
+    )
 }
 
 fun CreditsDTO.mapToUI() = CreditUI(
-    cast = cast.take(10).mapCast(),
-    crew = crew.take(10).mapCrew()
+    cast = cast
+        .take(10)
+        .mapCast(),
+    crew = crew
+        .take(10)
+        .mapCrew()
 )
 
 fun List<CreditsDTO.Crew>.mapCrew(): List<PeopleUI> {
@@ -104,11 +116,18 @@ fun List<CreditsDTO.Cast>.mapCast(): List<PeopleUI> {
 }
 
 fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
-    return this.sortedWith(
-        compareByDescending {
-            it.type == Constants.VIDEO_TYPE_TRAILER
+    return this
+        .sortedWith(
+            compareByDescending {
+                it.type == Constants.VIDEO_TYPE_TRAILER
+            }
+        )
+        .map { video ->
+            VideoUI(
+                video.id,
+                video.key,
+                video.name,
+                video.type
+            )
         }
-    ).map { video ->
-        VideoUI(video.id, video.key, video.name, video.type)
-    }
 }

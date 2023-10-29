@@ -18,11 +18,23 @@ class MoviesViewModel @Inject constructor(private val flixRepository: Flixplorer
     val moviesState: StateFlow<MovieScreenState> = flow {
         emit(
             MovieScreenState(
-                upcoming = flixRepository.getUpcomingMovies().cachedIn(viewModelScope),
-                nowPlaying = flixRepository.getNowPlayingMovies().cachedIn(viewModelScope),
-                popular = flixRepository.getPopularMovies().cachedIn(viewModelScope),
-                topRated = flixRepository.getTopMovies().cachedIn(viewModelScope)
+                upcoming = flixRepository
+                    .getUpcomingMovies()
+                    .cachedIn(viewModelScope),
+                nowPlaying = flixRepository
+                    .getNowPlayingMovies()
+                    .cachedIn(viewModelScope),
+                popular = flixRepository
+                    .getPopularMovies()
+                    .cachedIn(viewModelScope),
+                topRated = flixRepository
+                    .getTopMovies()
+                    .cachedIn(viewModelScope)
             )
         )
-    }.stateIn(viewModelScope, SharingStarted.Lazily, MovieScreenState.default)
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        MovieScreenState.default
+    )
 }

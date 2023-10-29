@@ -88,7 +88,10 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getDetails(mediaType: String, mediaId: Int): Flow<DetailUI> = when (mediaType) {
+    fun getDetails(
+        mediaType: String,
+        mediaId: Int
+    ): Flow<DetailUI> = when (mediaType) {
         Constants.MEDIA_TYPE_MOVIE -> {
             remoteDataSource
                 .getMovieDetails(mediaId)

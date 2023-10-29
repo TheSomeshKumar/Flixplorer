@@ -29,12 +29,7 @@ sealed class BottomBarScreen(
 sealed class MainScreenRoutes(internal open val route: String) {
     data object MediaDetail :
         MainScreenRoutes(
-            route = "mediaDetail" +
-                "/{$ARG_MEDIA_TYPE}" +
-                "/{$ARG_MEDIA_ID}" +
-                "/{$ARG_MEDIA_NAME}" +
-                "/{$ARG_MEDIA_BACKDROP}" +
-                "/{$ARG_MEDIA_POSTER}"
+            route = "mediaDetail" + "/{$ARG_MEDIA_TYPE}" + "/{$ARG_MEDIA_ID}" + "/{$ARG_MEDIA_NAME}" + "/{$ARG_MEDIA_BACKDROP}" + "/{$ARG_MEDIA_POSTER}"
         ) {
         fun withArgs(
             type: String,
@@ -43,11 +38,26 @@ sealed class MainScreenRoutes(internal open val route: String) {
             backdrop: String,
             poster: String
         ): String = route
-            .replace("{$ARG_MEDIA_TYPE}", type)
-            .replace("{$ARG_MEDIA_ID}", id)
-            .replace("{$ARG_MEDIA_NAME}", name)
-            .replace("{$ARG_MEDIA_BACKDROP}", backdrop)
-            .replace("{$ARG_MEDIA_POSTER}", poster)
+            .replace(
+                "{$ARG_MEDIA_TYPE}",
+                type
+            )
+            .replace(
+                "{$ARG_MEDIA_ID}",
+                id
+            )
+            .replace(
+                "{$ARG_MEDIA_NAME}",
+                name
+            )
+            .replace(
+                "{$ARG_MEDIA_BACKDROP}",
+                backdrop
+            )
+            .replace(
+                "{$ARG_MEDIA_POSTER}",
+                poster
+            )
     }
 
     data object SettingsScreen : MainScreenRoutes(route = "settings")

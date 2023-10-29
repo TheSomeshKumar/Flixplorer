@@ -54,7 +54,11 @@ fun MediaRow(
         ) {
             items(list.itemCount) { index ->
                 list[index]?.let {
-                    MediaCard(it, listItemModifier, onItemClicked)
+                    MediaCard(
+                        it,
+                        listItemModifier,
+                        onItemClicked
+                    )
                 }
             }
             if (list.loadState.append == LoadState.Loading) {
@@ -91,7 +95,9 @@ fun MediaCard(
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
+                modifier = Modifier.height(
+                    dimensionResource(id = R.dimen.home_grid_poster_height)
+                )
             )
             Text(
                 text = homeMediaUI.name,

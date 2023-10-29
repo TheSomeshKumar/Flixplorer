@@ -20,58 +20,65 @@ import kotlinx.coroutines.flow.flow
 
 class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
 
-    override fun getUpcomingMovies(): Flow<PagingData<MovieDTO.Movie>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            UpcomingMoviesSource(api = apis)
-        }
-    ).flow
+    override fun getUpcomingMovies(): Flow<PagingData<MovieDTO.Movie>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                UpcomingMoviesSource(api = apis)
+            }
+        ).flow
 
-    override fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            NowPlayingMoviesSource(api = apis)
-        }
-    ).flow
+    override fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                NowPlayingMoviesSource(api = apis)
+            }
+        ).flow
 
-    override fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            PopularMoviesSource(api = apis)
-        }
-    ).flow
+    override fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                PopularMoviesSource(api = apis)
+            }
+        ).flow
 
-    override fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            TopRatedMoviesSource(api = apis)
-        }
-    ).flow
+    override fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                TopRatedMoviesSource(api = apis)
+            }
+        ).flow
 
     override fun getMovieDetails(movieId: Int): Flow<MovieDetailsDTO> = flow {
         emit(apis.getMoviesDetails(movieId))
     }
 
-    override fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            AiringTodayTvShowSource(api = apis)
-        }
-    ).flow
+    override fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                AiringTodayTvShowSource(api = apis)
+            }
+        ).flow
 
-    override fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            PopularTvShowSource(api = apis)
-        }
-    ).flow
+    override fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                PopularTvShowSource(api = apis)
+            }
+        ).flow
 
-    override fun getTopRatedTvShows(): Flow<PagingData<TVShowDTO.TVShow>> = Pager(
-        config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-        pagingSourceFactory = {
-            TopRatedTvShowSource(api = apis)
-        }
-    ).flow
+    override fun getTopRatedTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
+            pagingSourceFactory = {
+                TopRatedTvShowSource(api = apis)
+            }
+        ).flow
 
     override fun getTvShowDetails(tvShowId: Int): Flow<TvShowDetailsDTO> = flow {
         emit(apis.getTvShowDetails(tvShowId))

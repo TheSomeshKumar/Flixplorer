@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class
+)
 
 package com.thesomeshkumar.flixplorer.ui.screens.detail
 
@@ -66,21 +69,27 @@ fun DetailsScreen(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-        FlixTopAppBar(
-            title = name,
-            onNavigationUp = onNavigationUp,
-            scrollBehavior = scrollBehavior
-        )
-    }) { paddingValues ->
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            FlixTopAppBar(
+                title = name,
+                onNavigationUp = onNavigationUp,
+                scrollBehavior = scrollBehavior
+            )
+        }
+    ) { paddingValues ->
         val consolidatedDetailUiState = viewModel.uiState.collectAsStateWithLifecycle()
         Box(
-            modifier = Modifier.fillMaxSize().padding(paddingValues)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
             when (consolidatedDetailUiState.value) {
                 is DetailUiState.Loading -> {
                     LoadingView(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
                             .wrapContentWidth(Alignment.CenterHorizontally)
                             .wrapContentHeight(Alignment.CenterVertically)
                     )
@@ -89,7 +98,11 @@ fun DetailsScreen(
                 is DetailUiState.Success -> {
                     val details: DetailUI =
                         (consolidatedDetailUiState.value as DetailUiState.Success).details
-                    DetailContent(backdrop, poster, details)
+                    DetailContent(
+                        backdrop,
+                        poster,
+                        details
+                    )
                 }
 
                 is DetailUiState.Error -> {
@@ -97,7 +110,10 @@ fun DetailsScreen(
                         (consolidatedDetailUiState.value as DetailUiState.Error).remoteSourceException.getError(
                             LocalContext.current
                         )
-                    ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
+                    ErrorView(
+                        errorText = error,
+                        modifier = Modifier.fillMaxSize()
+                    )
                 }
             }
         }
@@ -123,12 +139,16 @@ fun DetailContent(
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.height(backdropHeight).fillMaxWidth()
+                modifier = Modifier
+                    .height(backdropHeight)
+                    .fillMaxWidth()
                     .constrainAs(backdropRef) {}
             )
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                modifier = Modifier.height(backdropHeight.div(1.5f)).width(backdropHeight.div(2f))
+                modifier = Modifier
+                    .height(backdropHeight.div(1.5f))
+                    .width(backdropHeight.div(2f))
                     .padding(start = dimensionResource(id = R.dimen.normal_padding))
                     .constrainAs(posterRef) {
                         top.linkTo(backdropRef.bottom)
@@ -147,26 +167,41 @@ fun DetailContent(
 
             FlowRow(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.padding(vertical = 1.dp).constrainAs(detailRef) {
-                    top.linkTo(backdropRef.bottom)
-                    start.linkTo(posterRef.end)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
-                }
+                modifier = Modifier
+                    .padding(vertical = 1.dp)
+                    .constrainAs(detailRef) {
+                        top.linkTo(backdropRef.bottom)
+                        start.linkTo(posterRef.end)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    }
             ) {
-                ElevatedAssistChip(onClick = {}, label = { Text(text = details.genres.name) })
+                ElevatedAssistChip(
+                    onClick = {},
+                    label = { Text(text = details.genres.name) }
+                )
 
-                ElevatedAssistChip(onClick = {}, label = { Text(text = details.releaseDate) })
+                ElevatedAssistChip(
+                    onClick = {},
+                    label = { Text(text = details.releaseDate) }
+                )
 
                 if (!details.runtime.isNullOrBlank()) {
-                    ElevatedAssistChip(leadingIcon = {
-                        Icon(
-                            Icons.Rounded.Schedule,
-                            contentDescription = null
-                        )
-                    }, onClick = {}, label = { Text(text = details.runtime.toString()) })
+                    ElevatedAssistChip(
+                        leadingIcon = {
+                            Icon(
+                                Icons.Rounded.Schedule,
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {},
+                        label = { Text(text = details.runtime.toString()) }
+                    )
                 }
-                RatingBar(rating = (details.voteAverage / 2).toFloat(), modifier.height(20.dp))
+                RatingBar(
+                    rating = (details.voteAverage / 2).toFloat(),
+                    modifier.height(20.dp)
+                )
             }
         }
 

@@ -51,7 +51,11 @@ fun VideoRow(
             state = rememberLazyListState()
         ) {
             items(list.size) { index ->
-                VideoThumbCard(list[index], listItemModifier, onItemClicked)
+                VideoThumbCard(
+                    list[index],
+                    listItemModifier,
+                    onItemClicked
+                )
             }
         }
     }
@@ -76,8 +80,9 @@ fun VideoThumbCard(
                     model = videoItem.key.toYoutubeThumbUrl(),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .height(dimensionResource(id = R.dimen.video_item_height))
+                    modifier = Modifier.height(
+                        dimensionResource(id = R.dimen.video_item_height)
+                    )
                 )
 
                 Image(

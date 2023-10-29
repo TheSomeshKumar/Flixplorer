@@ -21,12 +21,10 @@ fun LoadingView(modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .padding(dimensionResource(id = R.dimen.normal_padding))
+        modifier = modifier.padding(dimensionResource(id = R.dimen.normal_padding))
     ) {
         CircularProgressIndicator(
-            Modifier
-                .testTag("LoadingView")
+            Modifier.testTag("LoadingView")
         )
         Text(
             text = stringResource(R.string.loading),

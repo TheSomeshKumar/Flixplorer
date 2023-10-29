@@ -49,7 +49,11 @@ fun PeopleRow(
             state = rememberLazyListState()
         ) {
             items(list.size) { index ->
-                PeopleCard(list[index], listItemModifier, onItemClicked)
+                PeopleCard(
+                    list[index],
+                    listItemModifier,
+                    onItemClicked
+                )
             }
         }
     }
@@ -76,8 +80,9 @@ fun PeopleCard(
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(dimensionResource(id = R.dimen.home_grid_poster_height))
+                modifier = Modifier.height(
+                    dimensionResource(id = R.dimen.home_grid_poster_height)
+                )
             )
 
             Text(

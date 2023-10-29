@@ -38,7 +38,12 @@ fun MoviesScreen(
     val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
-    MoviesScreenContent(movieState, scrollState, modifier, onItemClick)
+    MoviesScreenContent(
+        movieState,
+        scrollState,
+        modifier,
+        onItemClick
+    )
 }
 
 @SuppressLint("UnrememberedMutableState")
@@ -74,7 +79,9 @@ fun MoviesScreenContent(
     when {
         hasItems -> {
             Column(
-                modifier = modifier.fillMaxSize().verticalScroll(scrollState)
+                modifier = modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
             ) {
                 MediaCarousel(
                     list = upcomingMoviesLazyItems,
@@ -106,11 +113,17 @@ fun MoviesScreenContent(
 
         // Todo: Possible UI rewrite to handle each API error in their own UI container
         isLoadingError.first -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 val loadStateError = isLoadingError.second!!
                 val error =
                     (loadStateError.error as RemoteSourceException).getError(LocalContext.current)
-                ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
+                ErrorView(
+                    errorText = error,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }

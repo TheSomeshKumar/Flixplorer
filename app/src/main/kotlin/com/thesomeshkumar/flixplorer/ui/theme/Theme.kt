@@ -100,13 +100,22 @@ fun FlixplorerComposeTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.surfaceColorAtElevation(3.dp).toArgb()
-            window.navigationBarColor = colorScheme.surfaceColorAtElevation(3.dp).toArgb()
+            window.statusBarColor = colorScheme
+                .surfaceColorAtElevation(3.dp)
+                .toArgb()
+            window.navigationBarColor = colorScheme
+                .surfaceColorAtElevation(3.dp)
+                .toArgb()
             val isLightAppearance = !darkTheme
-            WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = isLightAppearance
-                isAppearanceLightNavigationBars = isLightAppearance
-            }
+            WindowCompat
+                .getInsetsController(
+                    window,
+                    view
+                )
+                .apply {
+                    isAppearanceLightStatusBars = isLightAppearance
+                    isAppearanceLightNavigationBars = isLightAppearance
+                }
         }
     }
 

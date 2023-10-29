@@ -38,7 +38,12 @@ fun TvShowScreen(
     val tvShowUiState by viewModel.tvShowState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
-    TvShowScreenContent(tvShowUiState, scrollState, modifier, onItemClick)
+    TvShowScreenContent(
+        tvShowUiState,
+        scrollState,
+        modifier,
+        onItemClick
+    )
 }
 
 @SuppressLint("UnrememberedMutableState")
@@ -72,7 +77,9 @@ fun TvShowScreenContent(
     when {
         hasItems -> {
             Column(
-                modifier = modifier.fillMaxSize().verticalScroll(scrollState)
+                modifier = modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
             ) {
                 MediaCarousel(
                     list = airingTodayTvShowLazyItems,
@@ -98,11 +105,17 @@ fun TvShowScreenContent(
         }
 
         isLoadingError.first -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 val loadStateError = isLoadingError.second!!
                 val error =
                     (loadStateError.error as RemoteSourceException).getError(LocalContext.current)
-                ErrorView(errorText = error, modifier = Modifier.fillMaxSize())
+                ErrorView(
+                    errorText = error,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }

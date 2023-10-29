@@ -32,16 +32,25 @@ class DetailViewModel @Inject constructor(
             ?.toInt()
 
         if (mediaType != null && mediaId != null) {
-            getDetails(mediaType, mediaId)
+            getDetails(
+                mediaType,
+                mediaId
+            )
         } else {
             throw IllegalArgumentException("mediaType & mediaId is required!")
         }
     }
 
-    fun getDetails(mediaType: String, mediaId: Int) {
+    fun getDetails(
+        mediaType: String,
+        mediaId: Int
+    ) {
         viewModelScope.launch {
             flixRepository
-                .getDetails(mediaType, mediaId)
+                .getDetails(
+                    mediaType,
+                    mediaId
+                )
                 .asResult()
                 .collect { result ->
                     _uiState.update {

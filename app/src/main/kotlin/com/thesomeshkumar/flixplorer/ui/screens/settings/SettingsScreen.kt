@@ -101,7 +101,9 @@ fun SettingsScreen(
                 bottomSheetState = bottomSheetState,
                 darkModeState = useDarkMode,
                 openBottomSheet = { openBottomSheet = false },
-                onModeChange = { selectedMode -> settingViewModel.updateUseDarkMode(selectedMode) }
+                onModeChange = { selectedMode ->
+                    settingViewModel.updateUseDarkMode(selectedMode)
+                }
             )
         }
     }
@@ -120,7 +122,10 @@ fun SettingsItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = settingTitle, style = MaterialTheme.typography.bodyLarge)
+        Text(
+            text = settingTitle,
+            style = MaterialTheme.typography.bodyLarge
+        )
         settingActionComponent()
     }
 }

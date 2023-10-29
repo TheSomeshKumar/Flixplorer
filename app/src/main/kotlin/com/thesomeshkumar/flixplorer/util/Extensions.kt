@@ -34,7 +34,11 @@ fun Double.roundTo(decimalPlaces: Int): String = "%.${decimalPlaces}f".format(th
 fun Int.minuteToRelativeTime(): String {
     val hours: Int = this / 60
     val minutes: Int = this % 60
-    return String.format("%dh:%02dm", hours, minutes)
+    return String.format(
+        "%dh:%02dm",
+        hours,
+        minutes
+    )
 }
 
 fun String.toYear(): String {
@@ -45,8 +49,7 @@ fun String.toYear(): String {
 fun Iterable<LazyPagingItems<*>>.isAnyRefreshing(): Boolean =
     any { it.loadState.refresh is LoadState.Loading }
 
-fun Iterable<LazyPagingItems<*>>.hasItems(): Boolean =
-    any { it.itemCount > 0 }
+fun Iterable<LazyPagingItems<*>>.hasItems(): Boolean = any { it.itemCount > 0 }
 
 fun Iterable<LazyPagingItems<*>>.isAnyError(): Pair<Boolean, LoadState.Error?> {
     return if (any { it.loadState.refresh is LoadState.Error }) {
@@ -62,24 +65,34 @@ fun Iterable<LazyPagingItems<*>>.refreshAll() {
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-fun Modifier.carouselTransition(page: Int, pagerState: PagerState) =
-    graphicsLayer {
-        val pageOffset =
-            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+fun Modifier.carouselTransition(
+    page: Int,
+    pagerState: PagerState
+) = graphicsLayer {
+    val pageOffset =
+        ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
 
-        val transformation = lerp(
-            start = 0.8f,
-            stop = 1f,
-            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+    val transformation = lerp(
+        start = 0.8f,
+        stop = 1f,
+        fraction = 1f - pageOffset.coerceIn(
+            0f,
+            1f
         )
-        alpha = transformation
-        scaleY = transformation
-    }
+    )
+    alpha = transformation
+    scaleY = transformation
+}
 
 fun Context.openYoutubeLink(url: String) {
-    val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$url"))
-    val intentBrowser =
-        Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$url"))
+    val intentApp = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("vnd.youtube:$url")
+    )
+    val intentBrowser = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("http://www.youtube.com/watch?v=$url")
+    )
     try {
         this.startActivity(intentApp)
     } catch (ex: ActivityNotFoundException) {

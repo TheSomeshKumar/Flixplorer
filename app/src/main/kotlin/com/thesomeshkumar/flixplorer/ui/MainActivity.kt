@@ -26,22 +26,29 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(
+            window,
+            false
+        )
         val viewModel: SettingsViewModel by viewModels()
 
         setContent {
             val useMaterial3: State<Boolean> = viewModel.useMaterial3.collectAsState(
                 initial = true
             )
-            val darkThemePref: State<String> = viewModel.useDarkMode.collectAsState(
-                initial = AppTheme.SYSTEM_DEFAULT.string
-            )
+            val darkThemePref: State<String> =
+                viewModel.useDarkMode.collectAsState(
+                    initial = AppTheme.SYSTEM_DEFAULT.string
+                )
             val useDarkMode = when (darkThemePref.value) {
                 AppTheme.LIGHT.string -> false
                 AppTheme.DARK.string -> true
                 else -> isSystemInDarkTheme()
             }
-            FlixplorerComposeTheme(dynamicColor = useMaterial3.value, darkTheme = useDarkMode) {
+            FlixplorerComposeTheme(
+                dynamicColor = useMaterial3.value,
+                darkTheme = useDarkMode
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

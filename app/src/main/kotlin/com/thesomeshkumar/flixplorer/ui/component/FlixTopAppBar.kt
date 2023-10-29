@@ -1,7 +1,7 @@
 package com.thesomeshkumar.flixplorer.ui.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,23 +28,34 @@ fun FlixTopAppBar(
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         },
         navigationIcon = {
             onNavigationUp?.let { navigationUpAction ->
                 IconButton(onClick = { navigationUpAction() }) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
                 }
             }
         },
-        colors =
-        TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                3.dp
+            )
         ),
         actions = {
             onSettingsClick?.let { settingsClickAction ->
                 IconButton(onClick = { settingsClickAction() }) {
-                    Icon(imageVector = Icons.Filled.Settings, contentDescription = "Settings")
+                    Icon(
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = "Settings"
+                    )
                 }
             }
         },
