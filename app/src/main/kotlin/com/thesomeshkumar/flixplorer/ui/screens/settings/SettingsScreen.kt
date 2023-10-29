@@ -42,9 +42,9 @@ fun SettingsScreen(
     settingViewModel: SettingsViewModel = hiltViewModel(),
     onNavigationUp: () -> Unit
 ) {
-    val useMaterial3 = settingViewModel.useMaterial3.value.collectAsState(initial = true)
+    val useMaterial3 = settingViewModel.useMaterial3.collectAsState(initial = true)
     val useDarkMode =
-        settingViewModel.useDarkMode.value.collectAsState(initial = AppTheme.SYSTEM_DEFAULT.string)
+        settingViewModel.useDarkMode.collectAsState(initial = AppTheme.SYSTEM_DEFAULT.string)
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
 
@@ -61,7 +61,8 @@ fun SettingsScreen(
 
         Box(modifier = Modifier.padding(paddingValues)) {
             Column(
-                modifier = Modifier.padding(all = dimensionResource(id = R.dimen.normal_padding))
+                modifier = Modifier
+                    .padding(all = dimensionResource(id = R.dimen.normal_padding))
                     .fillMaxSize()
             ) {
                 SettingsItem(
@@ -70,9 +71,11 @@ fun SettingsScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_chevron_down),
                             contentDescription = stringResource(R.string.setting_theme),
-                            modifier = Modifier.clickable {
-                                openBottomSheet = !openBottomSheet
-                            }.rotate(rotateAnimation.value)
+                            modifier = Modifier
+                                .clickable {
+                                    openBottomSheet = !openBottomSheet
+                                }
+                                .rotate(rotateAnimation.value)
                         )
                     }
                 )
@@ -111,7 +114,8 @@ fun SettingsItem(
     settingActionComponent: @Composable () -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .height(dimensionResource(id = R.dimen.setting_item_height)),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

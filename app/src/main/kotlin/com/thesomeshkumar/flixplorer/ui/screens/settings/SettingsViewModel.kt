@@ -1,7 +1,5 @@
 package com.thesomeshkumar.flixplorer.ui.screens.settings
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
@@ -15,8 +13,8 @@ class SettingsViewModel @Inject constructor(
     private val flixRepository: FlixplorerRepository
 ) : ViewModel() {
 
-    val useMaterial3: State<Flow<Boolean>> = mutableStateOf(flixRepository.readUseMaterial3())
-    val useDarkMode: State<Flow<String>> = mutableStateOf(flixRepository.readUseDarkMode())
+    val useMaterial3: Flow<Boolean> = flixRepository.readUseMaterial3()
+    val useDarkMode: Flow<String> = flixRepository.readUseDarkMode()
 
     fun updateUseM3(useMaterial3: Boolean) {
         viewModelScope.launch {

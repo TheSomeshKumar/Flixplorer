@@ -37,32 +37,47 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder().client(okHttpClient).baseUrl(Constants.TMDB_BASE_URL)
+        return Retrofit
+            .Builder()
+            .client(okHttpClient)
+            .baseUrl(Constants.TMDB_BASE_URL)
             .addConverterFactory(
                 json.asConverterFactory("application/json".toMediaType())
-            ).build()
+            )
+            .build()
     }
 
     @Singleton
     @Provides
     fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient().newBuilder().callTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS).addInterceptor(loggingInterceptor)
+        return OkHttpClient()
+            .newBuilder()
+            .callTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
-                val original = chain.request().newBuilder().build()
+                val original = chain
+                    .request()
+                    .newBuilder()
+                    .build()
 
                 val originalHttpUrl: HttpUrl = original.url
 
-                val url =
-                    originalHttpUrl.newBuilder().addQueryParameter("api_key", BuildConfig.TMDB_KEY)
-                        .build()
+                val url = originalHttpUrl
+                    .newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.TMDB_KEY)
+                    .build()
 
-                val requestBuilder: Request.Builder = original.newBuilder().url(url)
+                val requestBuilder: Request.Builder = original
+                    .newBuilder()
+                    .url(url)
 
                 val newRequest: Request = requestBuilder.build()
                 chain.proceed(newRequest)
-            }.build()
+            }
+            .build()
     }
 
     @Singleton
