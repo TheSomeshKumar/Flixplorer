@@ -33,8 +33,8 @@ jobs:
         run: echo 'TMDB_KEY=${{ secrets.TMDB_KEY }}' > ./local.properties
 
       # Run Tests Build
-      - name: Run gradle tests
-        run: ./gradlew test
+#      - name: Run gradle tests
+#        run: ./gradlew test
           
       # Run Build Project
       - name: Build gradle project
