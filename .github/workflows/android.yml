@@ -23,6 +23,12 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
+        
+      - name: Update Username from Secrets
+        env:
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+        run: echo TMDB_KEY="$TMDB_KEY" > ./local.properties
+
       # Run Tests Build
       - name: Run gradle tests
         run: ./gradlew test
