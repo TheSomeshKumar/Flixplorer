@@ -27,7 +27,7 @@ jobs:
 
       - name: Access TMDB_KEY
         env:
-          TMDB_KEY: $
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
         run: echo TMDB_KEY="$TMDB_KEY" > ./local.properties
 
       # Run Tests Build
