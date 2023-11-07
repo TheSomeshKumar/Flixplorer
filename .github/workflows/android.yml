@@ -36,10 +36,10 @@ jobs:
       - name: Run gradle tests
         run: ./gradlew test
         env:
-          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
           
       # Run Build Project
       - name: Build gradle project
         run: ./gradlew build
         env:
-          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
