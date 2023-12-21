@@ -10,8 +10,8 @@
     <dimen name="detail_screen_poster_height">250dp</dimen>
     <dimen name="setting_item_height">50dp</dimen>
 
-    <dimen name="video_item_width">220dp</dimen>
-    <dimen name="video_item_height">110dp</dimen>
+    <dimen name="video_item_width">260dp</dimen>
+    <dimen name="video_item_height">130dp</dimen>
 
     <dimen name="lottie_error_image_size">200dp</dimen>
 </resources>

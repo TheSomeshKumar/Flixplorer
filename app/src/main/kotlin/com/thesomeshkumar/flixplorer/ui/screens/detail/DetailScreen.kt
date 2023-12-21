@@ -200,6 +200,11 @@ fun DetailContent(
                 )
             )
 
+            VideoRow(
+                title = stringResource(R.string.trailer),
+                list = details.videos,
+                onItemClicked = { context.openYoutubeLink(it.key) }
+            )
             PeopleRow(
                 title = stringResource(R.string.casts),
                 list = details.credits.cast,
@@ -210,12 +215,6 @@ fun DetailContent(
                 title = stringResource(R.string.crew),
                 list = details.credits.crew,
                 onItemClicked = {}
-            )
-
-            VideoRow(
-                title = stringResource(R.string.trailer),
-                list = details.videos,
-                onItemClicked = { context.openYoutubeLink(it.key) }
             )
         }
     }
