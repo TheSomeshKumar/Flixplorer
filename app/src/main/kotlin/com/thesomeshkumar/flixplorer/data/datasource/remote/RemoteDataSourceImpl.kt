@@ -8,7 +8,6 @@ import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
 import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
 import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
 import com.thesomeshkumar.flixplorer.data.paging.AiringTodayTvShowSource
-import com.thesomeshkumar.flixplorer.data.paging.NowPlayingMoviesSource
 import com.thesomeshkumar.flixplorer.data.paging.PopularMoviesSource
 import com.thesomeshkumar.flixplorer.data.paging.PopularTvShowSource
 import com.thesomeshkumar.flixplorer.data.paging.TopRatedMoviesSource
@@ -25,14 +24,6 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
                 UpcomingMoviesSource(api = apis)
-            }
-        ).flow
-
-    override fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>> =
-        Pager(
-            config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
-            pagingSourceFactory = {
-                NowPlayingMoviesSource(api = apis)
             }
         ).flow
 

@@ -55,13 +55,11 @@ fun MoviesScreenContent(
     onItemClick: (HomeMediaUI) -> Unit
 ) {
     val upcomingMoviesLazyItems = movieState.upcoming.collectAsLazyPagingItems()
-    val nowPlayingMoviesLazyItems = movieState.nowPlaying.collectAsLazyPagingItems()
     val popularMoviesLazyItems = movieState.popular.collectAsLazyPagingItems()
     val topRatedMoviesLazyItems = movieState.topRated.collectAsLazyPagingItems()
 
     val movieItems = listOf(
         upcomingMoviesLazyItems,
-        nowPlayingMoviesLazyItems,
         popularMoviesLazyItems,
         topRatedMoviesLazyItems
     )
@@ -86,12 +84,6 @@ fun MoviesScreenContent(
                 MediaCarousel(
                     list = upcomingMoviesLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_movies),
-                    onItemClicked = { onItemClick(it) }
-                )
-
-                MediaRow(
-                    title = stringResource(R.string.now_playing),
-                    list = nowPlayingMoviesLazyItems,
                     onItemClicked = { onItemClick(it) }
                 )
                 MediaRow(

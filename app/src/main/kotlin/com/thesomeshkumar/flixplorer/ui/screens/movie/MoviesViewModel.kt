@@ -21,9 +21,6 @@ class MoviesViewModel @Inject constructor(private val flixRepository: Flixplorer
                 upcoming = flixRepository
                     .getUpcomingMovies()
                     .cachedIn(viewModelScope),
-                nowPlaying = flixRepository
-                    .getNowPlayingMovies()
-                    .cachedIn(viewModelScope),
                 popular = flixRepository
                     .getPopularMovies()
                     .cachedIn(viewModelScope),

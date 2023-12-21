@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
     fun getUpcomingMovies(): Flow<PagingData<MovieDTO.Movie>>
-    fun getNowPlayingMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>>
     fun getMovieDetails(movieId: Int): Flow<MovieDetailsDTO>

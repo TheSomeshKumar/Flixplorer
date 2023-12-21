@@ -15,9 +15,6 @@ interface ApiService {
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(@Query("page") page: Int = 0): MovieDTO
 
-    @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(@Query("page") page: Int = 0): MovieDTO
-
     @GET("movie/popular")
     suspend fun getPopularMovies(@Query("page") page: Int = 0): MovieDTO
 

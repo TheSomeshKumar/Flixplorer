@@ -40,14 +40,6 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getNowPlayingMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
-        .getNowPlayingMovies()
-        .map {
-            it.map { movieDto ->
-                movieDto.mapToUI()
-            }
-        }
-
     fun getPopularMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
         .getPopularMovies()
         .map {
