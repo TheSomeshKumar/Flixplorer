@@ -11,7 +11,7 @@ Powered by
 
 ## Features 🕹
 
-- Follows [Guidlines on Recommended Architecture](https://developer.android.com/jetpack/guide)
+- Follows [Guidlines on Recommended Architecture](https://developer.android.com/topic/architecture#recommended-app-arch)
 - 100% Kotlin
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - [Coroutines](https://developer.android.com/kotlin/coroutines) - Coroutines provide us an easy way
