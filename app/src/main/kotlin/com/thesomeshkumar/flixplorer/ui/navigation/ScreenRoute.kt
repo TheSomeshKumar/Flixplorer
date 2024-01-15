@@ -29,7 +29,7 @@ sealed class BottomBarScreen(
 sealed class MainScreenRoutes(internal open val route: String) {
     data object MediaDetail :
         MainScreenRoutes(
-            route = "mediaDetail" + "/{$ARG_MEDIA_TYPE}" + "/{$ARG_MEDIA_ID}" + "/{$ARG_MEDIA_NAME}" + "/{$ARG_MEDIA_BACKDROP}" + "/{$ARG_MEDIA_POSTER}"
+            route = "mediaDetail/{$ARG_MEDIA_TYPE}/{$ARG_MEDIA_ID}/{$ARG_MEDIA_NAME}/{$ARG_MEDIA_BACKDROP}/{$ARG_MEDIA_POSTER}"
         ) {
         fun withArgs(
             type: String,

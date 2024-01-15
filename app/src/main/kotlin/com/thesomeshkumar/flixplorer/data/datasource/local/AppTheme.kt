@@ -5,8 +5,7 @@ enum class AppTheme(val string: String) {
 
     companion object {
         fun getList(): List<String> {
-            return AppTheme
-                .values()
+            return entries
                 .map {
                     it.string
                 }
