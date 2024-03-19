@@ -26,8 +26,7 @@ android {
     }
 
     buildTypes {
-        val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_KEY")
-            ?: System.getenv("TMDB_KEY")
+        val key: String = gradleLocalProperties(rootDir, providers).getProperty("TMDB_KEY")
         forEach {
             it.buildConfigField("String", "TMDB_KEY", "\"$key\"")
         }
