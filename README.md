@@ -25,7 +25,7 @@ Powered by
 - [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - Pagination library for Jetpack compose 
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) Preferences like API with coroutine & Flow support
 - [Coil](https://coil-kt.github.io/coil/compose/) Image loading library for Compose
-- [Detekt] (https://github.com/detekt/detekt) Code smell analysis for Kotlin projects
+- [Detekt](https://github.com/detekt/detekt) Code smell analysis for Kotlin projects
 
 ## Work In Progress 🚧
 - ~~Animations~~✅
