@@ -14,8 +14,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit4.MockKRule
 import io.mockk.verify
-import java.io.IOException
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -29,6 +27,8 @@ import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFailure
+import java.io.IOException
+import java.net.SocketTimeoutException
 
 class DetailViewModelTest {
     @get:Rule
@@ -46,7 +46,9 @@ class DetailViewModelTest {
 
     @Test
     fun `when view model initialized correctly expect Loading ui state`() = runTest {
-        createViewModel()
+                 createViewModel()
+
+
         expectThat(viewModel.uiState.value).isA<DetailUiState.Loading>()
         verify(exactly = 1) { repository.getDetails(mediaType, mediaId) }
     }

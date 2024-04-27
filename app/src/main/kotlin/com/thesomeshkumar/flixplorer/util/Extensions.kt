@@ -13,15 +13,16 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
-import java.time.LocalDate
-import kotlin.math.absoluteValue
 import okhttp3.ResponseBody
+import java.time.LocalDate
+import java.util.Locale
+import kotlin.math.absoluteValue
 
 fun RemoteSourceException.getError(context: Context): String {
     return when (messageResource) {
-        is Int -> return context.getString(messageResource)
-        is ResponseBody? -> return messageResource!!.string()
-        is String -> return messageResource
+        is Int -> context.getString(messageResource)
+        is ResponseBody? -> messageResource!!.string()
+        is String -> messageResource
         else -> context.getString(R.string.error_unexpected_message)
     }
 }
@@ -35,7 +36,8 @@ fun Int.minuteToRelativeTime(): String {
     val hours: Int = this / 60
     val minutes: Int = this % 60
     return String.format(
-        "%dh:%02dm",
+        locale = Locale.ENGLISH,
+        format = "%dh:%02dm",
         hours,
         minutes
     )
@@ -95,7 +97,7 @@ fun Context.openYoutubeLink(url: String) {
     )
     try {
         this.startActivity(intentApp)
-    } catch (ex: ActivityNotFoundException) {
+    } catch (ignore: ActivityNotFoundException) {
         this.startActivity(intentBrowser)
     }
 }

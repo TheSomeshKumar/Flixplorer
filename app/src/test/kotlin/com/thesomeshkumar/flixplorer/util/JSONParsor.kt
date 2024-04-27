@@ -1,8 +1,8 @@
 package com.thesomeshkumar.flixplorer.util
 
-import java.io.Reader
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import java.io.Reader
 
 @OptIn(ExperimentalSerializationApi::class)
 val json = Json {

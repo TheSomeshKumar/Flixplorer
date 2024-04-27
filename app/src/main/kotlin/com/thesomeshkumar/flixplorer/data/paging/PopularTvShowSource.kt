@@ -24,8 +24,8 @@ class PopularTvShowSource @Inject constructor(
                 prevKey = if (nextPage == 1) null else nextPage - 1,
                 nextKey = if (popularTvShows.results.isEmpty()) null else popularTvShows.page + 1
             )
-        } catch (e: Exception) {
-            LoadResult.Error(throwable = RequestErrorHandler.getRequestError(e))
+        } catch (ignore: Exception) {
+            LoadResult.Error(throwable = RequestErrorHandler.getRequestError(ignore))
         }
     }
 }

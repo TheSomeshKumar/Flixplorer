@@ -8,9 +8,9 @@ import com.thesomeshkumar.flixplorer.data.model.mapToUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
 import com.thesomeshkumar.flixplorer.util.Constants
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class FlixplorerRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,

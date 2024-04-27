@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class TvShowViewModel @Inject constructor(private val flixRepository: FlixplorerRepository) :

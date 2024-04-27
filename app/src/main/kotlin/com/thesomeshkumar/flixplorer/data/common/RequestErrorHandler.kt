@@ -1,9 +1,9 @@
 package com.thesomeshkumar.flixplorer.data.common
 
 import com.thesomeshkumar.flixplorer.R
-import java.net.SocketTimeoutException
 import okio.IOException
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 object RequestErrorHandler {
     private const val HTTP_CODE_CLIENT_START = 400

@@ -140,8 +140,8 @@ fun DetailContent(
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 modifier = Modifier
-                    .height(backdropHeight.div(1.5f))
-                    .width(backdropHeight.div(2f))
+                    .height(backdropHeight.div(other = 1.5f))
+                    .width(backdropHeight.div(other = 2f))
                     .padding(start = dimensionResource(id = R.dimen.normal_padding))
                     .constrainAs(posterRef) {
                         top.linkTo(backdropRef.bottom)

@@ -82,14 +82,17 @@ fun List<GenreDTO>.mapToUI(): GenreUI {
     )
 }
 
-fun CreditsDTO.mapToUI() = CreditUI(
-    cast = cast
-        .take(10)
-        .mapCast(),
-    crew = crew
-        .take(10)
-        .mapCrew()
-)
+fun CreditsDTO.mapToUI(): CreditUI {
+    val totalItemToTake = 10
+    return CreditUI(
+        cast = cast
+            .take(totalItemToTake)
+            .mapCast(),
+        crew = crew
+            .take(totalItemToTake)
+            .mapCrew()
+    )
+}
 
 fun List<CreditsDTO.Crew>.mapCrew(): List<PeopleUI> {
     return map { crew: CreditsDTO.Crew ->

@@ -33,7 +33,7 @@ fun RatingBar(
     color: Color = flix_color_rating_filled
 ) {
     Row(modifier = modifier.wrapContentSize()) {
-        (1..5).forEach { step ->
+        for (step in 1..5) {
             val stepRating = when {
                 rating > step -> 1f
                 step.rem(rating) < 1 -> rating - (step - 1f)
@@ -133,7 +133,7 @@ fun RatingBarPreview() {
             .background(Color.White)
     ) {
         RatingBar(
-            3.8f,
+            rating = 3.8f,
             modifier = Modifier.height(20.dp)
         )
     }
