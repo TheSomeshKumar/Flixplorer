@@ -46,9 +46,7 @@ class DetailViewModelTest {
 
     @Test
     fun `when view model initialized correctly expect Loading ui state`() = runTest {
-                 createViewModel()
-
-
+        createViewModel()
         expectThat(viewModel.uiState.value).isA<DetailUiState.Loading>()
         verify(exactly = 1) { repository.getDetails(mediaType, mediaId) }
     }
