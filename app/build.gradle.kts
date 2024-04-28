@@ -122,4 +122,7 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    debugImplementation(libs.chucker.library)
+    releaseImplementation(libs.chucker.library.no.np)
 }

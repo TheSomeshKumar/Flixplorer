@@ -30,6 +30,8 @@ turbine = "1.1.0"
 strikt = "0.34.1"
 mockk = "1.13.10"
 detekt = "1.23.6"
+chucker-lib = "4.0.0"
+chucker-lib-no-op = "4.0.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -69,6 +71,8 @@ coil-video = { group = "io.coil-kt", name = "coil-video", version.ref = "coil" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
 detekt_formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+chucker_library = { group = "com.github.chuckerteam.chucker", name="library",  version.ref = "chucker-lib" }
+chucker_library_no_np = { group = "com.github.chuckerteam.chucker", name="library-no-op", version.ref = "chucker-lib-no-op" }
 
 
 #Test

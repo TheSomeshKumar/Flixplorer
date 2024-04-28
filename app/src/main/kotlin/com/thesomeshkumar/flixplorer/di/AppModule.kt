@@ -1,6 +1,7 @@
 package com.thesomeshkumar.flixplorer.di
 
 import android.app.Application
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.thesomeshkumar.flixplorer.BuildConfig
 import com.thesomeshkumar.flixplorer.data.datasource.local.UserPreferences
@@ -49,7 +50,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor, application: Application): OkHttpClient {
         val defaultTimeout = 30L
         return OkHttpClient()
             .newBuilder()
@@ -58,6 +59,11 @@ object AppModule {
             .readTimeout(defaultTimeout, TimeUnit.SECONDS)
             .writeTimeout(defaultTimeout, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(
+                ChuckerInterceptor(context = application.applicationContext).apply {
+                    this.redactHeader("api_key")
+                }
+            )
             .addInterceptor { chain ->
                 val original = chain
                     .request()
