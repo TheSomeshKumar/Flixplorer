@@ -1,5 +1,9 @@
 package com.thesomeshkumar.flixplorer.ui.component
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,15 +31,18 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MediaRow(
+fun SharedTransitionScope.MediaRow(
     title: String,
     list: LazyPagingItems<HomeMediaUI>,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit
+    onItemClicked: (HomeMediaUI) -> Unit,
 ) {
     Column {
         if (list.itemCount > 0) {
@@ -55,6 +62,7 @@ fun MediaRow(
                 list[index]?.let {
                     MediaCard(
                         it,
+                        animatedVisibilityScope,
                         listItemModifier,
                         onItemClicked
                     )
@@ -73,11 +81,13 @@ fun MediaRow(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MediaCard(
+fun SharedTransitionScope.MediaCard(
     homeMediaUI: HomeMediaUI,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit
+    onItemClicked: (HomeMediaUI) -> Unit,
 ) {
     ElevatedCard(
         onClick = { onItemClicked(homeMediaUI) },
@@ -85,6 +95,13 @@ fun MediaCard(
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
             .width(dimensionResource(id = R.dimen.home_grid_card_width))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
+            .sharedElement(
+                state = rememberSharedContentState(key = "poster-${homeMediaUI.id}"),
+                animatedVisibilityScope = animatedVisibilityScope,
+                boundsTransform = { _, _ ->
+                    tween(durationMillis = Constants.ANIM_TIME_SHORT)
+                }
+            )
     ) {
         Column {
             AsyncImage(
@@ -93,9 +110,7 @@ fun MediaCard(
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.height(
-                    dimensionResource(id = R.dimen.home_grid_poster_height)
-                )
+                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )
             Text(
                 text = homeMediaUI.name,
@@ -107,7 +122,6 @@ fun MediaCard(
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2
-
             )
         }
     }

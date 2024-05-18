@@ -1,6 +1,9 @@
 package com.thesomeshkumar.flixplorer.ui.screens.tvshow
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,11 +32,13 @@ import com.thesomeshkumar.flixplorer.util.hasItems
 import com.thesomeshkumar.flixplorer.util.isAnyError
 import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun TvShowScreen(
+fun SharedTransitionScope.TvShowScreen(
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: TvShowViewModel = hiltViewModel(),
-    onItemClick: (HomeMediaUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit,
 ) {
     val tvShowUiState by viewModel.tvShowState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -41,29 +46,31 @@ fun TvShowScreen(
     TvShowScreenContent(
         tvShowUiState,
         scrollState,
+        animatedVisibilityScope,
         modifier,
         onItemClick
     )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun TvShowScreenContent(
+fun SharedTransitionScope.TvShowScreenContent(
     tvShowUiState: TvShowScreenState,
     scrollState: ScrollState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
-    onItemClick: (HomeMediaUI) -> Unit
+    onItemClick: (HomeMediaUI) -> Unit,
 ) {
     val airingTodayTvShowLazyItems = tvShowUiState.airingToday.collectAsLazyPagingItems()
     val popularTvShowsLazyItems = tvShowUiState.popular.collectAsLazyPagingItems()
     val topRatedTvShowLazyItems = tvShowUiState.topRated.collectAsLazyPagingItems()
 
-    val tvShowItems =
-        listOf(
-            airingTodayTvShowLazyItems,
-            popularTvShowsLazyItems,
-            topRatedTvShowLazyItems
-        )
+    val tvShowItems = listOf(
+        airingTodayTvShowLazyItems,
+        popularTvShowsLazyItems,
+        topRatedTvShowLazyItems
+    )
     val isScreenLoading by derivedStateOf {
         tvShowItems.isAnyRefreshing()
     }
@@ -85,17 +92,20 @@ fun TvShowScreenContent(
                 MediaCarousel(
                     list = airingTodayTvShowLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_tv_shows),
+                    animatedVisibilityScope = animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
 
                 MediaRow(
                     title = stringResource(R.string.popular),
                     list = popularTvShowsLazyItems,
+                    animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
                 MediaRow(
                     title = stringResource(R.string.top_rated),
                     list = topRatedTvShowLazyItems,
+                    animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
             }

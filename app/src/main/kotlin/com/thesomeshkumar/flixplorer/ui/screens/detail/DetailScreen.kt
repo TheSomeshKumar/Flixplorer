@@ -5,6 +5,10 @@
 
 package com.thesomeshkumar.flixplorer.ui.screens.detail
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,18 +57,20 @@ import com.thesomeshkumar.flixplorer.ui.component.PeopleRow
 import com.thesomeshkumar.flixplorer.ui.component.RatingBar
 import com.thesomeshkumar.flixplorer.ui.component.VideoRow
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
+import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.openYoutubeLink
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun DetailsScreen(
+fun SharedTransitionScope.DetailsScreen(
     name: String,
     backdrop: String,
     poster: String,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: DetailViewModel = hiltViewModel(),
-    onNavigationUp: () -> Unit
+    onNavigationUp: () -> Unit,
 ) {
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -95,14 +101,13 @@ fun DetailsScreen(
                 is DetailUiState.Success -> {
                     val details: DetailUI =
                         (consolidatedDetailUiState.value as DetailUiState.Success).details
-                    DetailContent(backdrop, poster, details)
+                    DetailContent(backdrop, poster, details, animatedVisibilityScope)
                 }
 
                 is DetailUiState.Error -> {
-                    val error =
-                        (consolidatedDetailUiState.value as DetailUiState.Error).remoteSourceException.getError(
-                            LocalContext.current
-                        )
+                    val error = (consolidatedDetailUiState.value as DetailUiState.Error)
+                        .remoteSourceException
+                        .getError(LocalContext.current)
                     ErrorView(
                         errorText = error,
                         modifier = Modifier.fillMaxSize()
@@ -113,13 +118,14 @@ fun DetailsScreen(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun DetailContent(
+fun SharedTransitionScope.DetailContent(
     backdrop: String,
     poster: String,
     details: DetailUI,
-    modifier: Modifier = Modifier
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
@@ -135,6 +141,13 @@ fun DetailContent(
                 modifier = Modifier
                     .height(backdropHeight)
                     .fillMaxWidth()
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "backdrop-${details.id}"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _, _ ->
+                            tween(durationMillis = Constants.ANIM_TIME_SHORT)
+                        }
+                    )
                     .constrainAs(backdropRef) {}
             )
             ElevatedCard(
@@ -143,6 +156,13 @@ fun DetailContent(
                     .height(backdropHeight.div(other = 1.5f))
                     .width(backdropHeight.div(other = 2f))
                     .padding(start = dimensionResource(id = R.dimen.normal_padding))
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "poster-${details.id}"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _, _ ->
+                            tween(durationMillis = Constants.ANIM_TIME_SHORT)
+                        }
+                    )
                     .constrainAs(posterRef) {
                         top.linkTo(backdropRef.bottom)
                         bottom.linkTo(backdropRef.bottom)
@@ -154,7 +174,8 @@ fun DetailContent(
                     contentDescription = null,
                     placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                     error = painterResource(id = R.drawable.ic_load_error),
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.FillBounds,
+
                 )
             }
 

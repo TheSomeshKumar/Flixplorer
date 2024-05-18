@@ -1,5 +1,8 @@
 package com.thesomeshkumar.flixplorer.ui.component
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -42,13 +45,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(
-    ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class,
+    ExperimentalSharedTransitionApi::class
 )
 @Composable
-fun MediaCarousel(
+fun SharedTransitionScope.MediaCarousel(
     list: LazyPagingItems<HomeMediaUI>,
     totalItemsToShow: Int = 10,
     carouselLabel: String = "",
+    animatedVisibilityScope: AnimatedVisibilityScope,
     autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
     onItemClicked: (HomeMediaUI) -> Unit
 ) {
@@ -94,7 +99,10 @@ fun MediaCarousel(
                             pagerState
                         )
                     ) {
-                        CarouselBox(it)
+                        CarouselBox(
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            item = it
+                        )
                     }
                 }
             }
@@ -109,8 +117,12 @@ fun MediaCarousel(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CarouselBox(item: HomeMediaUI) {
+fun SharedTransitionScope.CarouselBox(
+    item: HomeMediaUI,
+    animatedVisibilityScope: AnimatedVisibilityScope
+) {
     Box {
         AsyncImage(
             model = item.backdropPath.toFullImageUrl(),
@@ -123,6 +135,13 @@ fun CarouselBox(item: HomeMediaUI) {
                     dimensionResource(id = R.dimen.home_grid_poster_height)
                 )
                 .fillMaxWidth()
+                .sharedElement(
+                    state = rememberSharedContentState(key = "backdrop-${item.id}"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = Constants.ANIM_TIME_SHORT)
+                    }
+                )
         )
         val gradient = remember {
             Brush.verticalGradient(

@@ -1,6 +1,9 @@
 package com.thesomeshkumar.flixplorer.ui.screens.movie
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,8 +32,10 @@ import com.thesomeshkumar.flixplorer.util.hasItems
 import com.thesomeshkumar.flixplorer.util.isAnyError
 import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MoviesScreen(
+fun SharedTransitionScope.MoviesScreen(
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: MoviesViewModel = hiltViewModel(),
     onItemClick: (HomeMediaUI) -> Unit
@@ -41,16 +46,19 @@ fun MoviesScreen(
     MoviesScreenContent(
         movieState,
         scrollState,
+        animatedVisibilityScope,
         modifier,
         onItemClick
     )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun MoviesScreenContent(
+fun SharedTransitionScope.MoviesScreenContent(
     movieState: MovieScreenState,
     scrollState: ScrollState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     onItemClick: (HomeMediaUI) -> Unit
 ) {
@@ -84,16 +92,19 @@ fun MoviesScreenContent(
                 MediaCarousel(
                     list = upcomingMoviesLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_movies),
+                    animatedVisibilityScope = animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
                 MediaRow(
                     title = stringResource(R.string.popular),
                     list = popularMoviesLazyItems,
+                    animatedVisibilityScope = animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
                 MediaRow(
                     title = stringResource(R.string.top_rated),
                     list = topRatedMoviesLazyItems,
+                    animatedVisibilityScope = animatedVisibilityScope,
                     onItemClicked = { onItemClick(it) }
                 )
             }
