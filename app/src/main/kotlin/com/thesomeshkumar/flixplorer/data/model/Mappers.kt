@@ -13,21 +13,21 @@ import com.thesomeshkumar.flixplorer.util.toYear
 fun TVShowDTO.TVShow.mapToUI() = HomeMediaUI(
     id = id,
     name = name,
-    posterPath = posterPath ?: Constants.NONE,
-    backdropPath = backdropPath ?: Constants.NONE,
+    posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
+    backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
     overview = overview.ifBlank { Constants.NONE }
 )
 
 fun MovieDTO.Movie.mapToUI() = HomeMediaUI(
     id = id,
     name = title,
-    posterPath = posterPath ?: Constants.NONE,
-    backdropPath = backdropPath ?: Constants.NONE,
+    posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
+    backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
     overview = overview.ifBlank { Constants.NONE }
 )
 
 fun MovieDetailsDTO.mapToUI() = DetailUI(
-    backdropPath = backdropPath ?: Constants.NONE,
+    backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
     genres = genres.mapToUI(),
     homepage = homepage,
     id = id,
@@ -35,7 +35,7 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
     originalTitle = originalTitle,
     overview = overview ?: Constants.NONE,
     popularity = popularity,
-    posterPath = posterPath ?: Constants.NONE,
+    posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
     releaseDate = releaseDate.toYear(),
     status = status,
     tagline = tagline ?: Constants.NONE,

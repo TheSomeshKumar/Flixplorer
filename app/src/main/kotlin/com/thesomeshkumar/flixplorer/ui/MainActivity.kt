@@ -93,6 +93,7 @@ fun MainActivityPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             HomeScreen()
+            HomeScreen()
         }
     }
 }
