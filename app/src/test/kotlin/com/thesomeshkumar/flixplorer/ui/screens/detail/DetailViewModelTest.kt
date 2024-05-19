@@ -7,7 +7,6 @@ import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
 import com.thesomeshkumar.flixplorer.data.model.mapToUI
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenRoutes
 import com.thesomeshkumar.flixplorer.util.MainDispatcherRule
 import com.thesomeshkumar.flixplorer.util.parseJson
 import io.mockk.every
@@ -153,8 +152,8 @@ class DetailViewModelTest {
     private fun createViewModel(mediaType: String? = this.mediaType, mediaId: Int = this.mediaId) {
         val savedState = SavedStateHandle(
             mapOf(
-                MainScreenRoutes.ARG_MEDIA_TYPE to mediaType,
-                MainScreenRoutes.ARG_MEDIA_ID to mediaId.toString()
+                "type" to mediaType,
+                "id" to mediaId.toString()
             )
         )
         viewModel = DetailViewModel(savedState, repository)

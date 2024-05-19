@@ -1,6 +1,7 @@
 package com.thesomeshkumar.flixplorer.ui.navigation
 
 import com.thesomeshkumar.flixplorer.R
+import kotlinx.serialization.Serializable
 
 object NavGraph {
     const val BOTTOM_BAR_GRAPH = "bottom_bar_graph"
@@ -26,49 +27,14 @@ sealed class BottomBarScreen(
     )
 }
 
-sealed class MainScreenRoutes(internal open val route: String) {
-    data object MediaDetail :
-        MainScreenRoutes(
-            route = "mediaDetail/{$ARG_MEDIA_TYPE}/{$ARG_MEDIA_ID}/{$ARG_MEDIA_NAME}/" +
-                "{$ARG_MEDIA_BACKDROP}/{$ARG_MEDIA_POSTER}"
+@Serializable
+data class FlixDetails(
+    val type: String,
+    val id: String,
+    val name: String,
+    val backdrop: String,
+    val poster: String
+)
 
-        ) {
-        fun withArgs(
-            type: String,
-            id: String,
-            name: String,
-            backdrop: String,
-            poster: String
-        ): String = route
-            .replace(
-                "{$ARG_MEDIA_TYPE}",
-                type
-            )
-            .replace(
-                "{$ARG_MEDIA_ID}",
-                id
-            )
-            .replace(
-                "{$ARG_MEDIA_NAME}",
-                name
-            )
-            .replace(
-                "{$ARG_MEDIA_BACKDROP}",
-                backdrop
-            )
-            .replace(
-                "{$ARG_MEDIA_POSTER}",
-                poster
-            )
-    }
-
-    data object SettingsScreen : MainScreenRoutes(route = "settings")
-
-    companion object {
-        const val ARG_MEDIA_TYPE: String = "type"
-        const val ARG_MEDIA_ID: String = "id"
-        const val ARG_MEDIA_NAME: String = "name"
-        const val ARG_MEDIA_BACKDROP: String = "backdrop"
-        const val ARG_MEDIA_POSTER: String = "poster"
-    }
-}
+@Serializable
+object SettingsScreen

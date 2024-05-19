@@ -4,9 +4,11 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.thesomeshkumar.flixplorer.ui.screens.detail.DetailsScreen
 import com.thesomeshkumar.flixplorer.ui.screens.movie.MoviesScreen
 import com.thesomeshkumar.flixplorer.ui.screens.settings.SettingsScreen
@@ -31,16 +33,12 @@ fun MainScreenNavGraph(
                     modifier = modifier
                 ) {
                     navController.navigate(
-                        MainScreenRoutes.MediaDetail.withArgs(
-                            Constants.MEDIA_TYPE_MOVIE,
-                            it.id.toString(),
-                            it.name,
-                            it.backdropPath.removePrefix(
-                                "/"
-                            ),
-                            it.posterPath.removePrefix(
-                                "/"
-                            )
+                        FlixDetails(
+                            type = Constants.MEDIA_TYPE_MOVIE,
+                            id = it.id.toString(),
+                            name = it.name,
+                            backdrop = it.backdropPath.removePrefix("/"),
+                            poster = it.posterPath.removePrefix("/")
                         )
                     )
                 }
@@ -52,29 +50,22 @@ fun MainScreenNavGraph(
                     modifier = modifier
                 ) {
                     navController.navigate(
-                        MainScreenRoutes.MediaDetail.withArgs(
+                        FlixDetails(
                             type = Constants.MEDIA_TYPE_TV_SHOW,
                             id = it.id.toString(),
                             name = it.name,
-                            backdrop = it.backdropPath.removePrefix(
-                                "/"
-                            ),
-                            poster = it.posterPath.removePrefix(
-                                "/"
-                            )
+                            backdrop = it.backdropPath.removePrefix("/"),
+                            poster = it.posterPath.removePrefix("/")
                         )
                     )
                 }
             }
 
-            composable(route = MainScreenRoutes.MediaDetail.route) { navBackStackEntry ->
-                val name =
-                    navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_NAME) ?: ""
-                val backdrop =
-                    navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_BACKDROP)
-                        ?: ""
-                val poster =
-                    navBackStackEntry.arguments?.getString(MainScreenRoutes.ARG_MEDIA_POSTER) ?: ""
+            composable<FlixDetails> { arguments: NavBackStackEntry ->
+                val args = arguments.toRoute<FlixDetails>()
+                val name = args.name
+                val backdrop = args.backdrop
+                val poster = args.poster
 
                 DetailsScreen(
                     name = name,
@@ -87,12 +78,10 @@ fun MainScreenNavGraph(
                 )
             }
 
-            composable(route = MainScreenRoutes.SettingsScreen.route) {
-                SettingsScreen(
-                    onNavigationUp = {
-                        navController.popBackStack()
-                    }
-                )
+            composable<SettingsScreen> {
+                SettingsScreen(onNavigationUp = {
+                    navController.popBackStack()
+                })
             }
         }
     }

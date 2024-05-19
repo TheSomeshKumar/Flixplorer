@@ -3,12 +3,13 @@ package com.thesomeshkumar.flixplorer.ui.screens.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import com.thesomeshkumar.flixplorer.data.common.Result
 import com.thesomeshkumar.flixplorer.data.common.asResult
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenRoutes
+import com.thesomeshkumar.flixplorer.ui.navigation.FlixDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,11 +27,9 @@ class DetailViewModel @Inject constructor(
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
     init {
-        val mediaType = savedStateHandle.get<String>(MainScreenRoutes.ARG_MEDIA_TYPE)
-        val mediaId = savedStateHandle.get<String>(MainScreenRoutes.ARG_MEDIA_ID)?.toInt()
-
-        requireNotNull(mediaType) { "mediaType is required!" }
-        requireNotNull(mediaId) { "mediaId is required!" }
+        val args = savedStateHandle.toRoute<FlixDetails>()
+        val mediaType = args.type
+        val mediaId = args.id.toInt()
 
         getDetails(mediaType, mediaId)
     }

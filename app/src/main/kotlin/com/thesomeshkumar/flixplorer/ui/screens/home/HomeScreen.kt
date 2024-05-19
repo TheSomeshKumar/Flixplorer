@@ -25,7 +25,7 @@ import com.thesomeshkumar.flixplorer.ui.component.FlixTopAppBar
 import com.thesomeshkumar.flixplorer.ui.navigation.BottomBarScreen
 import com.thesomeshkumar.flixplorer.ui.navigation.FlixplorerBottomBar
 import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenNavGraph
-import com.thesomeshkumar.flixplorer.ui.navigation.MainScreenRoutes
+import com.thesomeshkumar.flixplorer.ui.navigation.SettingsScreen
 import com.thesomeshkumar.flixplorer.util.Constants
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +56,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
             }
         ) {
             FlixTopAppBar(stringResource(id = R.string.app_name), onSettingsClick = {
-                navController.navigate(MainScreenRoutes.SettingsScreen.route)
+                navController.navigate(SettingsScreen)
             })
         }
     }, bottomBar = {
