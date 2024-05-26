@@ -34,7 +34,7 @@ class DetailViewModel @Inject constructor(
         getDetails(mediaType, mediaId)
     }
 
-    fun getDetails(
+    private fun getDetails(
         mediaType: String,
         mediaId: Int,
     ) {

@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -66,7 +65,6 @@ fun Iterable<LazyPagingItems<*>>.refreshAll() {
     return forEach { it.refresh() }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 fun Modifier.carouselTransition(
     page: Int,
     pagerState: PagerState

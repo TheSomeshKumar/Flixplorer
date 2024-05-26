@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalAnimationApi::class)
-
 package com.thesomeshkumar.flixplorer.ui.screens.home
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically

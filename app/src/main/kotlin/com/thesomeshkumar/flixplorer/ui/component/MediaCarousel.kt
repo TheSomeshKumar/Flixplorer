@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Box
@@ -45,7 +44,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(
-    ExperimentalFoundationApi::class,
     ExperimentalSharedTransitionApi::class
 )
 @Composable
