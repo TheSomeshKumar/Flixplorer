@@ -1,34 +1,34 @@
 [versions]
-agp = "8.4.1"
-kotlin = "1.9.23"
-ksp = "1.9.23-1.0.20"
+agp = "8.5.0"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.22"
 retrofit = "2.11.0"
 okhttp = "5.0.0-alpha.14"
-serialization = "1.6.3"
+serialization = "1.7.0"
 serialization-convertor = "1.0.0"
 hilt = "2.51.1"
 hilt-navigation = "1.2.0"
 core-ktx = "1.13.1"
-compose = "1.6.7"
+compose = "1.6.8"
 constraint-layout = "1.0.1"
-compose-navigation = "2.8.0-beta01"
-compose-animation = "1.7.0-beta01"
+compose-navigation = "2.8.0-beta03"
+compose-animation = "1.7.0-beta03"
 activity-compose = "1.9.0"
 compose-material3 = "1.2.1"
 datastore-preference = "1.1.1"
-lifecycle-runtime = "2.7.0"
-lottie = "6.4.0"
+lifecycle-runtime = "2.8.2"
+lottie = "6.4.1"
 coil = "2.6.0"
 coroutines = "1.8.1"
 desuger = "2.0.4"
-paging = "3.2.1"
-paging-compose = "3.2.1"
+paging = "3.3.0"
+paging-compose = "3.3.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 turbine = "1.1.0"
 strikt = "0.34.1"
-mockk = "1.13.10"
+mockk = "1.13.11"
 detekt = "1.23.6"
 chucker-lib = "4.0.0"
 chucker-lib-no-op = "4.0.0"
@@ -95,10 +95,12 @@ mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockk" 
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
 
 
 [bundles]

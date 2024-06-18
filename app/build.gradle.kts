@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
@@ -49,10 +50,9 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.13"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE-notice.md,LICENSE.md}"
@@ -71,6 +71,11 @@ android {
         }
         animationsDisabled = true
     }
+}
+
+composeCompiler {
+    enableStrongSkippingMode = true
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 dependencies {
