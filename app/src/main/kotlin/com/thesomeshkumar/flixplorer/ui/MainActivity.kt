@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -34,10 +34,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(
-            window,
-            false
-        )
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val viewModel: SettingsViewModel by viewModels()
 
         setContent {
@@ -59,23 +56,24 @@ class MainActivity : ComponentActivity() {
             val launcher =
                 rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (ContextCompat.checkSelfPermission(
-                        context, Manifest.permission.POST_NOTIFICATIONS
-                    ) == PackageManager.PERMISSION_DENIED
-                ) {
-                    SideEffect {
+            LaunchedEffect(Unit) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.POST_NOTIFICATIONS,
+                        ) == PackageManager.PERMISSION_DENIED
+                    ) {
                         launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
                     }
                 }
             }
             FlixplorerComposeTheme(
                 dynamicColor = useMaterial3.value,
-                darkTheme = useDarkMode
+                darkTheme = useDarkMode,
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     HomeScreen(navController = rememberNavController())
                 }
@@ -90,7 +88,7 @@ fun MainActivityPreview() {
     FlixplorerComposeTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.background,
         ) {
             HomeScreen()
             HomeScreen()
