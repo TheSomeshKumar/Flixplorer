@@ -25,27 +25,15 @@ subprojects {
     }
 }
 
-// ☝️ on top here your other content of build.gradle.kts file
+tasks.register("installGitHooks") {
+    val gitHooksDir = File(rootDir, ".git/hooks")
+    val preCommitFile = File(gitHooksDir, "pre-commit")
+    val preCommitScript = File(rootDir, "scripts/pre-commit.sh")
 
-tasks.register("copyGitHooks", Copy::class.java) {
-    description = "Copies the git hooks from /git-hooks to the .git folder."
-    group = "git hooks"
-    from("$rootDir/scripts/pre-commit")
-    into("$rootDir/.git/hooks/")
-}
-tasks.register("installGitHooks", Exec::class.java) {
-    description = "Installs the pre-commit git hooks from /git-hooks."
-    group = "git hooks"
-    workingDir = rootDir
-    commandLine = listOf("chmod")
-    args("-R", "+x", ".git/hooks/")
-    dependsOn("copyGitHooks")
-    doLast {
-        logger.info("Git hook installed successfully.")
-    }
+    preCommitScript.copyTo(preCommitFile, true)
+    preCommitFile.setExecutable(true)
 }
 
-afterEvaluate {
-    tasks.getByPath(":app:preBuild").dependsOn(":installGitHooks")
-}
+tasks.getByPath(":app:preBuild").dependsOn(":installGitHooks")
+
 true // Needed to make the Suppress annotation work for the plugins block
