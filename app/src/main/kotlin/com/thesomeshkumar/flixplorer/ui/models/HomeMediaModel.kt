@@ -3,7 +3,7 @@ package com.thesomeshkumar.flixplorer.ui.models
 import androidx.annotation.Keep
 
 @Keep
-data class HomeMediaUI(
+data class HomeMediaModel(
     val id: Int,
     val name: String,
     val posterPath: String,

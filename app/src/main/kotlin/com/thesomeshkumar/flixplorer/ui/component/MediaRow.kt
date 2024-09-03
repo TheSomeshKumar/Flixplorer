@@ -30,7 +30,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
@@ -38,11 +38,11 @@ import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 @Composable
 fun SharedTransitionScope.MediaRow(
     title: String,
-    list: LazyPagingItems<HomeMediaUI>,
+    list: LazyPagingItems<HomeMediaModel>,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit,
+    onItemClicked: (HomeMediaModel) -> Unit,
 ) {
     Column {
         if (list.itemCount > 0) {
@@ -84,19 +84,19 @@ fun SharedTransitionScope.MediaRow(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.MediaCard(
-    homeMediaUI: HomeMediaUI,
+    homeMediaModel: HomeMediaModel,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
-    onItemClicked: (HomeMediaUI) -> Unit,
+    onItemClicked: (HomeMediaModel) -> Unit,
 ) {
     ElevatedCard(
-        onClick = { onItemClicked(homeMediaUI) },
+        onClick = { onItemClicked(homeMediaModel) },
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
             .width(dimensionResource(id = R.dimen.home_grid_card_width))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
             .sharedElement(
-                state = rememberSharedContentState(key = "poster-${homeMediaUI.id}"),
+                state = rememberSharedContentState(key = "poster-${homeMediaModel.id}"),
                 animatedVisibilityScope = animatedVisibilityScope,
                 boundsTransform = { _, _ ->
                     tween(durationMillis = Constants.ANIM_TIME_SHORT)
@@ -105,7 +105,7 @@ fun SharedTransitionScope.MediaCard(
     ) {
         Column {
             AsyncImage(
-                model = homeMediaUI.posterPath.toFullImageUrl(),
+                model = homeMediaModel.posterPath.toFullImageUrl(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                 error = painterResource(id = R.drawable.ic_load_error),
@@ -113,7 +113,7 @@ fun SharedTransitionScope.MediaCard(
                 modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
             )
             Text(
-                text = homeMediaUI.name,
+                text = homeMediaModel.name,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.small_padding))
                     .fillMaxSize()

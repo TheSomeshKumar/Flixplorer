@@ -3,14 +3,14 @@ package com.thesomeshkumar.flixplorer.data.model
 import com.thesomeshkumar.flixplorer.ui.models.CreditUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
 import com.thesomeshkumar.flixplorer.ui.models.GenreUI
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
 import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.minuteToRelativeTime
 import com.thesomeshkumar.flixplorer.util.toYear
 
-fun TVShowDTO.TVShow.mapToUI() = HomeMediaUI(
+fun TVShowDTO.TVShow.mapToUI() = HomeMediaModel(
     id = id,
     name = name,
     posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
@@ -18,7 +18,7 @@ fun TVShowDTO.TVShow.mapToUI() = HomeMediaUI(
     overview = overview.ifBlank { Constants.NONE }
 )
 
-fun MovieDTO.Movie.mapToUI() = HomeMediaUI(
+fun MovieDTO.Movie.mapToUI() = HomeMediaModel(
     id = id,
     name = title,
     posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,

@@ -35,7 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.ui.theme.flix_color_translucent_black
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.carouselTransition
@@ -48,12 +48,12 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun SharedTransitionScope.MediaCarousel(
-    list: LazyPagingItems<HomeMediaUI>,
+    list: LazyPagingItems<HomeMediaModel>,
     totalItemsToShow: Int = 10,
     carouselLabel: String = "",
     animatedVisibilityScope: AnimatedVisibilityScope,
     autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
-    onItemClicked: (HomeMediaUI) -> Unit
+    onItemClicked: (HomeMediaModel) -> Unit
 ) {
     val pageCount = list.itemCount.coerceAtMost(totalItemsToShow)
     val pagerState: PagerState = rememberPagerState(pageCount = { pageCount })
@@ -88,7 +88,7 @@ fun SharedTransitionScope.MediaCarousel(
                 ),
                 pageSpacing = dimensionResource(id = R.dimen.normal_padding)
             ) { page: Int ->
-                val item: HomeMediaUI? = list[page]
+                val item: HomeMediaModel? = list[page]
                 item?.let {
                     Card(
                         onClick = { onItemClicked(it) },
@@ -118,7 +118,7 @@ fun SharedTransitionScope.MediaCarousel(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.CarouselBox(
-    item: HomeMediaUI,
+    item: HomeMediaModel,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Box {

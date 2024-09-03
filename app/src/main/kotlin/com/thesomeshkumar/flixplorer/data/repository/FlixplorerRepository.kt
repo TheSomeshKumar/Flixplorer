@@ -6,7 +6,7 @@ import com.thesomeshkumar.flixplorer.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flixplorer.data.datasource.remote.RemoteDataSource
 import com.thesomeshkumar.flixplorer.data.model.mapToUI
 import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.util.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -32,7 +32,7 @@ class FlixplorerRepository @Inject constructor(
         userPreferences.updateUseDarkMode(useDarkMode)
     }
 
-    fun getUpcomingMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getUpcomingMovies(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getUpcomingMovies()
         .map {
             it.map { movieDto ->
@@ -40,7 +40,7 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getPopularMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getPopularMovies(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getPopularMovies()
         .map {
             it.map { movieDto ->
@@ -48,7 +48,7 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getTopMovies(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getTopMovies(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getTopMovies()
         .map {
             it.map { movieDto ->
@@ -56,7 +56,7 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getAiringTodayTvShows(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getAiringTodayTvShows()
         .map {
             it.map { tvShowDto ->
@@ -64,7 +64,7 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getPopularTvShows(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getPopularTvShows(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getPopularTvShows()
         .map {
             it.map { tvShowDto ->
@@ -72,7 +72,7 @@ class FlixplorerRepository @Inject constructor(
             }
         }
 
-    fun getTopRatedTvShows(): Flow<PagingData<HomeMediaUI>> = remoteDataSource
+    fun getTopRatedTvShows(): Flow<PagingData<HomeMediaModel>> = remoteDataSource
         .getTopRatedTvShows()
         .map {
             it.map { tvShowDto ->

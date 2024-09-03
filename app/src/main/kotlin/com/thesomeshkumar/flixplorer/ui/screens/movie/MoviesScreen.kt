@@ -26,7 +26,7 @@ import com.thesomeshkumar.flixplorer.ui.component.ErrorView
 import com.thesomeshkumar.flixplorer.ui.component.LoadingView
 import com.thesomeshkumar.flixplorer.ui.component.MediaCarousel
 import com.thesomeshkumar.flixplorer.ui.component.MediaRow
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaUI
+import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.util.getError
 import com.thesomeshkumar.flixplorer.util.hasItems
 import com.thesomeshkumar.flixplorer.util.isAnyError
@@ -38,7 +38,7 @@ fun SharedTransitionScope.MoviesScreen(
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: MoviesViewModel = hiltViewModel(),
-    onItemClick: (HomeMediaUI) -> Unit
+    onItemClick: (HomeMediaModel) -> Unit
 ) {
     val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -60,7 +60,7 @@ fun SharedTransitionScope.MoviesScreenContent(
     scrollState: ScrollState,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
-    onItemClick: (HomeMediaUI) -> Unit
+    onItemClick: (HomeMediaModel) -> Unit
 ) {
     val upcomingMoviesLazyItems = movieState.upcoming.collectAsLazyPagingItems()
     val popularMoviesLazyItems = movieState.popular.collectAsLazyPagingItems()
