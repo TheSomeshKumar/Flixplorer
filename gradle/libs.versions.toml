@@ -1,26 +1,26 @@
 [versions]
-agp = "8.5.2"
-kotlin = "2.0.10"
-ksp = "2.0.10-1.0.24"
+agp = "8.7.0"
+kotlin = "2.0.20"
+ksp = "2.0.20-1.0.24"
 retrofit = "2.11.0"
 okhttp = "5.0.0-alpha.14"
-serialization = "1.7.1"
+serialization = "1.7.2"
 serialization-convertor = "1.0.0"
 hilt = "2.52"
 hilt-navigation = "1.2.0"
 core-ktx = "1.13.1"
-compose = "1.7.0-rc01"
+compose = "1.7.3"
 constraint-layout = "1.0.1"
-compose-navigation = "2.8.0-rc01"
-compose-animation = "1.7.0-rc01"
-activity-compose = "1.9.1"
-compose-material3 = "1.3.0-rc01"
+compose-navigation = "2.8.2"
+compose-animation = "1.7.3"
+activity-compose = "1.9.2"
+compose-material3 = "1.3.0"
 datastore-preference = "1.1.1"
-lifecycle-runtime = "2.8.4"
+lifecycle-runtime = "2.8.6"
 lottie = "6.5.0"
 coil = "2.7.0"
-coroutines = "1.9.0-RC"
-desuger = "2.1.1"
+coroutines = "1.9.0"
+desuger = "2.1.2"
 paging = "3.3.2"
 paging-compose = "3.3.2"
 junit = "4.13.2"
@@ -32,6 +32,7 @@ mockk = "1.13.12"
 detekt = "1.23.6"
 chucker-lib = "4.0.0"
 chucker-lib-no-op = "4.0.0"
+sandwich = "2.0.9"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -71,6 +72,7 @@ coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-video = { group = "io.coil-kt", name = "coil-video", version.ref = "coil" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
+sandwich = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwich" }
 detekt_formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 chucker_library = { group = "com.github.chuckerteam.chucker", name="library",  version.ref = "chucker-lib" }
 chucker_library_no_np = { group = "com.github.chuckerteam.chucker", name="library-no-op", version.ref = "chucker-lib-no-op" }

@@ -13,7 +13,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,7 +27,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @OptIn(ExperimentalSerializationApi::class)
     private var json = Json {
         explicitNulls = false
         coerceInputValues = true
@@ -50,7 +48,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor, application: Application): OkHttpClient {
+    fun provideOkhttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        application: Application
+    ): OkHttpClient {
         val defaultTimeout = 30L
         return OkHttpClient()
             .newBuilder()

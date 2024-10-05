@@ -175,7 +175,6 @@ fun SharedTransitionScope.DetailContent(
                     placeholder = painterResource(id = R.drawable.ic_load_placeholder),
                     error = painterResource(id = R.drawable.ic_load_error),
                     contentScale = ContentScale.FillBounds,
-
                 )
             }
 

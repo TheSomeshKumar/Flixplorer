@@ -74,7 +74,6 @@ android {
 }
 
 composeCompiler {
-    enableStrongSkippingMode = true
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
@@ -115,6 +114,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.video)
     implementation(libs.lottie.compose)
+    implementation(libs.sandwich)
 
     testImplementation(libs.junit)
     testImplementation(libs.coroutine.test)
