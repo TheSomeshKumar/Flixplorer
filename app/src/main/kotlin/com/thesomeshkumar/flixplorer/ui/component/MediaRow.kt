@@ -96,7 +96,7 @@ fun SharedTransitionScope.MediaCard(
             .width(dimensionResource(id = R.dimen.home_grid_card_width))
             .height(dimensionResource(id = R.dimen.home_grid_card_height))
             .sharedElement(
-                state = rememberSharedContentState(key = "poster-${homeMediaModel.id}"),
+                sharedContentState = rememberSharedContentState(key = "poster-${homeMediaModel.id}"),
                 animatedVisibilityScope = animatedVisibilityScope,
                 boundsTransform = { _, _ ->
                     tween(durationMillis = Constants.ANIM_TIME_SHORT)

@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.datastore)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icon)
     implementation(libs.compose.ui)

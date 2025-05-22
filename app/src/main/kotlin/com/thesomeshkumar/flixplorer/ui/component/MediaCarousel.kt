@@ -134,7 +134,7 @@ fun SharedTransitionScope.CarouselBox(
                 )
                 .fillMaxWidth()
                 .sharedElement(
-                    state = rememberSharedContentState(key = "backdrop-${item.id}"),
+                    sharedContentState = rememberSharedContentState(key = "backdrop-${item.id}"),
                     animatedVisibilityScope = animatedVisibilityScope,
                     boundsTransform = { _, _ ->
                         tween(durationMillis = Constants.ANIM_TIME_SHORT)

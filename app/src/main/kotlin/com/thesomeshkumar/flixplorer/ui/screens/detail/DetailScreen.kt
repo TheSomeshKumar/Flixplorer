@@ -142,7 +142,7 @@ fun SharedTransitionScope.DetailContent(
                     .height(backdropHeight)
                     .fillMaxWidth()
                     .sharedElement(
-                        state = rememberSharedContentState(key = "backdrop-${details.id}"),
+                        sharedContentState = rememberSharedContentState(key = "backdrop-${details.id}"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         boundsTransform = { _, _ ->
                             tween(durationMillis = Constants.ANIM_TIME_SHORT)
@@ -157,7 +157,7 @@ fun SharedTransitionScope.DetailContent(
                     .width(backdropHeight.div(other = 2f))
                     .padding(start = dimensionResource(id = R.dimen.normal_padding))
                     .sharedElement(
-                        state = rememberSharedContentState(key = "poster-${details.id}"),
+                        sharedContentState = rememberSharedContentState(key = "poster-${details.id}"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         boundsTransform = { _, _ ->
                             tween(durationMillis = Constants.ANIM_TIME_SHORT)
