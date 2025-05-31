@@ -5,25 +5,20 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
+import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -32,72 +27,53 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.ui.theme.flix_color_translucent_black
 import com.thesomeshkumar.flixplorer.util.Constants
-import com.thesomeshkumar.flixplorer.util.carouselTransition
 import com.thesomeshkumar.flixplorer.util.toFullImageUrl
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-@OptIn(
-    ExperimentalSharedTransitionApi::class
-)
+// Define your color if it's not part of MaterialTheme.colorScheme
+val flix_color_translucent_black = Color(0x99000000)
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SharedTransitionScope.MediaCarousel(
+fun SharedTransitionScope.MediaCarouselM3(
     list: LazyPagingItems<HomeMediaModel>,
-    totalItemsToShow: Int = 10,
+    totalItemsToShow: Int = 20,
     carouselLabel: String = "",
     animatedVisibilityScope: AnimatedVisibilityScope,
-    autoScrollDuration: Long = Constants.CAROUSEL_AUTO_SCROLL_TIMER,
     onItemClicked: (HomeMediaModel) -> Unit
 ) {
-    val pageCount = list.itemCount.coerceAtMost(totalItemsToShow)
-    val pagerState: PagerState = rememberPagerState(pageCount = { pageCount })
-    val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
-    if (isDragged.not()) {
-        with(pagerState) {
-            if (pageCount > 0) {
-                var currentPageKey by remember { mutableIntStateOf(0) }
-                LaunchedEffect(key1 = currentPageKey) {
-                    launch {
-                        delay(timeMillis = autoScrollDuration)
-                        val nextPage = (currentPage + 1).mod(pageCount)
-                        animateScrollToPage(
-                            page = nextPage,
-                            animationSpec = tween(
-                                durationMillis = Constants.ANIM_TIME_LONG
-                            )
-                        )
-                        currentPageKey = nextPage
-                    }
-                }
-            }
-        }
-    }
+    val itemCount = list.itemCount.coerceAtMost(totalItemsToShow)
+    val carouselState = rememberCarouselState(initialItem = 0) { itemCount }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box {
-            HorizontalPager(
-                state = pagerState,
+            HorizontalMultiBrowseCarousel(
+                state = carouselState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(id = R.dimen.home_grid_poster_height)), // Adjust height as needed
+                itemSpacing = dimensionResource(id = R.dimen.normal_padding),
                 contentPadding = PaddingValues(
                     horizontal = dimensionResource(id = R.dimen.double_padding)
                 ),
-                pageSpacing = dimensionResource(id = R.dimen.normal_padding)
-            ) { page: Int ->
-                val item: HomeMediaModel? = list[page]
+                // This makes items snap into place when scrolled
+                preferredItemWidth = 300.dp
+            ) { itemIndex: Int ->
+                val item: HomeMediaModel? = list[itemIndex]
                 item?.let {
                     Card(
                         onClick = { onItemClicked(it) },
-                        modifier = Modifier.carouselTransition(
-                            page,
-                            pagerState
-                        )
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .maskClip(MaterialTheme.shapes.medium) // Apply a shape if desired
                     ) {
-                        CarouselBox(
+                        CarouselBoxM3(
                             animatedVisibilityScope = animatedVisibilityScope,
                             item = it
                         )
@@ -105,11 +81,11 @@ fun SharedTransitionScope.MediaCarousel(
                 }
             }
         }
-
         if (carouselLabel.isNotBlank()) {
             Text(
                 text = carouselLabel,
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.normal_padding))
             )
         }
     }
@@ -117,7 +93,7 @@ fun SharedTransitionScope.MediaCarousel(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.CarouselBox(
+fun SharedTransitionScope.CarouselBoxM3(
     item: HomeMediaModel,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
@@ -149,7 +125,6 @@ fun SharedTransitionScope.CarouselBox(
                 )
             )
         }
-
         Text(
             text = item.name,
             color = Color.White,

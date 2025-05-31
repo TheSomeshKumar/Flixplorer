@@ -14,6 +14,7 @@ import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import okhttp3.ResponseBody
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.absoluteValue
 
@@ -42,9 +43,9 @@ fun Int.minuteToRelativeTime(): String {
     )
 }
 
-fun String.toYear(): String {
+fun String.toDefaultFormattedDate(): String {
     val localDate = LocalDate.parse(this)
-    return localDate.year.toString()
+    return localDate.format(DateTimeFormatter.ofPattern("dd MMMM, yyyy"))
 }
 
 fun Iterable<LazyPagingItems<*>>.isAnyRefreshing(): Boolean =

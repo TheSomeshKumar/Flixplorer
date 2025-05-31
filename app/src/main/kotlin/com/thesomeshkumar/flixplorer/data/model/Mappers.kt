@@ -8,7 +8,7 @@ import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
 import com.thesomeshkumar.flixplorer.ui.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.minuteToRelativeTime
-import com.thesomeshkumar.flixplorer.util.toYear
+import com.thesomeshkumar.flixplorer.util.toDefaultFormattedDate
 
 fun TVShowDTO.TVShow.mapToUI() = HomeMediaModel(
     id = id,
@@ -36,7 +36,7 @@ fun MovieDetailsDTO.mapToUI() = DetailUI(
     overview = overview ?: Constants.NONE,
     popularity = popularity,
     posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
-    releaseDate = releaseDate.toYear(),
+    releaseDate = releaseDate.toDefaultFormattedDate(),
     status = status,
     tagline = tagline ?: Constants.NONE,
     title = title,
@@ -57,7 +57,7 @@ fun TvShowDetailsDTO.mapToUI() = DetailUI(
     overview = overview,
     popularity = popularity,
     posterPath = posterPath ?: Constants.NONE,
-    releaseDate = firstAirDate.toYear(),
+    releaseDate = firstAirDate.toDefaultFormattedDate(),
     status = status,
     tagline = tagline,
     title = name,

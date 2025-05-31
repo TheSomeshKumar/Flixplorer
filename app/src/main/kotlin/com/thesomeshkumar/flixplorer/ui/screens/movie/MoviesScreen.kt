@@ -24,7 +24,7 @@ import com.thesomeshkumar.flixplorer.R
 import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
 import com.thesomeshkumar.flixplorer.ui.component.ErrorView
 import com.thesomeshkumar.flixplorer.ui.component.LoadingView
-import com.thesomeshkumar.flixplorer.ui.component.MediaCarousel
+import com.thesomeshkumar.flixplorer.ui.component.MediaCarouselM3
 import com.thesomeshkumar.flixplorer.ui.component.MediaRow
 import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
 import com.thesomeshkumar.flixplorer.util.getError
@@ -89,7 +89,7 @@ fun SharedTransitionScope.MoviesScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                MediaCarousel(
+                MediaCarouselM3(
                     list = upcomingMoviesLazyItems,
                     carouselLabel = stringResource(R.string.upcoming_movies),
                     animatedVisibilityScope = animatedVisibilityScope,
