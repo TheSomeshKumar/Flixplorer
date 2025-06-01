@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.data.common
+package com.thesomeshkumar.flixplorer.core.network.error
 
 sealed class RemoteSourceException(val messageResource: Any?) : RuntimeException() {
     class Connection(messageResource: Int) : RemoteSourceException(messageResource)

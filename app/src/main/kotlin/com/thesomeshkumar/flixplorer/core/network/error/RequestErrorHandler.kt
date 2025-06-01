@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.data.common
+package com.thesomeshkumar.flixplorer.core.network.error
 
 import com.thesomeshkumar.flixplorer.R
 import okio.IOException

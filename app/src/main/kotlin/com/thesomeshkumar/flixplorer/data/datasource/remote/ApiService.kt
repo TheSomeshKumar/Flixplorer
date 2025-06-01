@@ -1,9 +1,9 @@
 package com.thesomeshkumar.flixplorer.data.datasource.remote
 
-import com.thesomeshkumar.flixplorer.data.model.MovieDTO
-import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
-import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

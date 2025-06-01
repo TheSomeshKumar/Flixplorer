@@ -1,7 +1,14 @@
 @file:Suppress("MagicNumber")
 
-package com.thesomeshkumar.flixplorer.data.model
+package com.thesomeshkumar.flixplorer.data.model.mapper
 
+import com.thesomeshkumar.flixplorer.data.model.dto.CreditsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.GenreDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.Movie
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.VideoDTO
 import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
 import com.thesomeshkumar.flixplorer.presentation.models.GenreUI
 import com.thesomeshkumar.flixplorer.presentation.models.MediaListItemUI

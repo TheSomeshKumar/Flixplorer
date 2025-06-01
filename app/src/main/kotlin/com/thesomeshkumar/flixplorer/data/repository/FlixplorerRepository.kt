@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.thesomeshkumar.flixplorer.data.datasource.local.UserPreferences
 import com.thesomeshkumar.flixplorer.data.datasource.remote.RemoteDataSource
-import com.thesomeshkumar.flixplorer.data.model.mapToUI
+import com.thesomeshkumar.flixplorer.data.model.mapper.mapToUI
 import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
 import com.thesomeshkumar.flixplorer.presentation.models.MediaListItemUI
 import com.thesomeshkumar.flixplorer.util.Constants

@@ -1,10 +1,10 @@
 package com.thesomeshkumar.flixplorer.data.datasource.remote
 
 import androidx.paging.PagingData
-import com.thesomeshkumar.flixplorer.data.model.Movie
-import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
-import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.Movie
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {

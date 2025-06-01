@@ -1,7 +1,7 @@
 package com.thesomeshkumar.flixplorer.core.common
 
-import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
-import com.thesomeshkumar.flixplorer.data.common.RequestErrorHandler
+import com.thesomeshkumar.flixplorer.core.network.error.RemoteSourceException
+import com.thesomeshkumar.flixplorer.core.network.error.RequestErrorHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

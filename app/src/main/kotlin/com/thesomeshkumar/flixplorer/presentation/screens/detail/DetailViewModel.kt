@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.thesomeshkumar.flixplorer.core.common.Result
 import com.thesomeshkumar.flixplorer.core.common.asResult
-import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
+import com.thesomeshkumar.flixplorer.core.network.error.RemoteSourceException
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
 import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
 import com.thesomeshkumar.flixplorer.presentation.navigation.FlixDetails

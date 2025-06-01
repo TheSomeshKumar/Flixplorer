@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
+import com.thesomeshkumar.flixplorer.core.network.error.RemoteSourceException
 import com.thesomeshkumar.flixplorer.presentation.common.ErrorView
 import com.thesomeshkumar.flixplorer.presentation.common.LoadingView
 import com.thesomeshkumar.flixplorer.presentation.common.MediaCarouselM3

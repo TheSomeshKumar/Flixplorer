@@ -2,9 +2,9 @@ package com.thesomeshkumar.flixplorer.presentation.screens.detail
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
-import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.mapToUI
+import com.thesomeshkumar.flixplorer.core.network.error.RemoteSourceException
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.mapper.mapToUI
 import com.thesomeshkumar.flixplorer.data.repository.FlixplorerRepository
 import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
 import com.thesomeshkumar.flixplorer.util.MainDispatcherRule

@@ -1,4 +1,4 @@
-package com.thesomeshkumar.flixplorer.data.model
+package com.thesomeshkumar.flixplorer.data.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

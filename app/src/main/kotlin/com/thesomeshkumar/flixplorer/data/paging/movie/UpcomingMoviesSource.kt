@@ -1,13 +1,13 @@
-package com.thesomeshkumar.flixplorer.data.paging
+package com.thesomeshkumar.flixplorer.data.paging.movie
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.thesomeshkumar.flixplorer.data.common.RequestErrorHandler
+import com.thesomeshkumar.flixplorer.core.network.error.RequestErrorHandler
 import com.thesomeshkumar.flixplorer.data.datasource.remote.ApiService
-import com.thesomeshkumar.flixplorer.data.model.Movie
+import com.thesomeshkumar.flixplorer.data.model.dto.Movie
 import javax.inject.Inject
 
-class TopRatedMoviesSource @Inject constructor(
+class UpcomingMoviesSource @Inject constructor(
     private val api: ApiService
 ) : PagingSource<Int, Movie>() {
 
@@ -18,9 +18,9 @@ class TopRatedMoviesSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return try {
             val nextPage = params.key ?: 1
-            val popularMovies = api.getTopRatedMovies(nextPage)
+            val popularMovies = api.getUpcomingMovies(nextPage)
             LoadResult.Page(
-                data = popularMovies.results,
+                data = popularMovies.results.shuffled(),
                 prevKey = if (nextPage == 1) null else nextPage - 1,
                 nextKey = if (popularMovies.results.isEmpty()) null else popularMovies.page + 1
             )
