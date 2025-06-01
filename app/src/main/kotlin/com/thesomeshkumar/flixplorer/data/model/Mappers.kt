@@ -1,122 +1,87 @@
+@file:Suppress("MagicNumber")
+
 package com.thesomeshkumar.flixplorer.data.model
 
-import com.thesomeshkumar.flixplorer.ui.models.CreditUI
-import com.thesomeshkumar.flixplorer.ui.models.DetailUI
-import com.thesomeshkumar.flixplorer.ui.models.GenreUI
-import com.thesomeshkumar.flixplorer.ui.models.HomeMediaModel
-import com.thesomeshkumar.flixplorer.ui.models.PeopleUI
-import com.thesomeshkumar.flixplorer.ui.models.VideoUI
+import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
+import com.thesomeshkumar.flixplorer.presentation.models.GenreUI
+import com.thesomeshkumar.flixplorer.presentation.models.MediaListItemUI
+import com.thesomeshkumar.flixplorer.presentation.models.PeopleUI
+import com.thesomeshkumar.flixplorer.presentation.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
-import com.thesomeshkumar.flixplorer.util.minuteToRelativeTime
 import com.thesomeshkumar.flixplorer.util.toDefaultFormattedDate
 
-fun TVShowDTO.TVShow.mapToUI() = HomeMediaModel(
+fun TVShowDTO.TVShow.mapToUI() = MediaListItemUI(
     id = id,
-    name = name,
+    title = name,
+    overview = overview.ifBlank { Constants.NONE },
     posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
     backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
-    overview = overview.ifBlank { Constants.NONE }
+    voteAverage = voteAverage,
+    releaseDate = firstAirDate.toDefaultFormattedDate(),
+    mediaType = Constants.MEDIA_TYPE_TV_SHOW
 )
 
-fun MovieDTO.Movie.mapToUI() = HomeMediaModel(
+fun Movie.mapToUI() = MediaListItemUI(
     id = id,
-    name = title,
+    title = title,
+    overview = overview.ifBlank { Constants.NONE },
     posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
     backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
-    overview = overview.ifBlank { Constants.NONE }
+    voteAverage = voteAverage,
+    releaseDate = releaseDate.toDefaultFormattedDate(),
+    mediaType = Constants.MEDIA_TYPE_MOVIE
 )
 
 fun MovieDetailsDTO.mapToUI() = DetailUI(
-    backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
-    genres = genres.mapToUI(),
-    homepage = homepage,
     id = id,
-    originalLanguage = originalLanguage,
-    originalTitle = originalTitle,
-    overview = overview ?: Constants.NONE,
-    popularity = popularity,
-    posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
-    releaseDate = releaseDate.toDefaultFormattedDate(),
-    status = status,
-    tagline = tagline ?: Constants.NONE,
     title = title,
+    overview = overview ?: Constants.NONE,
+    posterPath = posterPath?.removePrefix("/") ?: Constants.NONE,
+    backdropPath = backdropPath?.removePrefix("/") ?: Constants.NONE,
     voteAverage = voteAverage,
-    voteCount = voteCount,
-    runtime = runtime?.minuteToRelativeTime(),
+    releaseDate = releaseDate.toDefaultFormattedDate(),
+    genres = genres.map { it.mapToUI() }.first(),
+    credits = credits.cast.take(10).map { it.mapToPeopleUI() },
+    crews = credits.crew.take(10).map { it.mapToPeopleUI() },
     videos = videos.videos.mapToUI(),
-    credits = credits.mapToUI()
+    runtime = runtime,
+    tagline = tagline ?: Constants.NONE
 )
 
 fun TvShowDetailsDTO.mapToUI() = DetailUI(
-    backdropPath = backdropPath ?: Constants.NONE,
-    genres = genres.mapToUI(),
-    homepage = homepage,
     id = id,
-    originalLanguage = originalLanguage,
-    originalTitle = originalName,
-    overview = overview,
-    popularity = popularity,
-    posterPath = posterPath ?: Constants.NONE,
-    releaseDate = firstAirDate.toDefaultFormattedDate(),
-    status = status,
-    tagline = tagline,
     title = name,
+    overview = overview,
+    posterPath = posterPath ?: Constants.NONE,
+    backdropPath = backdropPath ?: Constants.NONE,
     voteAverage = voteAverage,
-    voteCount = voteCount,
-    runtime = episodeRunTime
-        .firstOrNull()
-        ?.minuteToRelativeTime(),
+    releaseDate = firstAirDate.toDefaultFormattedDate(),
+    genres = genres.map { it.mapToUI() }.first(),
+    credits = credits.cast.take(10).map { it.mapToPeopleUI() },
+    crews = credits.crew.take(10).map { it.mapToPeopleUI() },
     videos = videos.videos.mapToUI(),
-    credits = credits.mapToUI()
+    runtime = episodeRunTime.firstOrNull(),
+    tagline = tagline ?: Constants.NONE
 )
 
-fun List<GenreDTO>.mapToUI(): GenreUI {
-    return map {
-        GenreUI(
-            id = it.id,
-            name = it.name
-        )
-    }.firstOrNull() ?: GenreUI(
-        0,
-        Constants.NONE
-    )
-}
+fun GenreDTO.mapToUI() = GenreUI(
+    id = id,
+    name = name
+)
 
-fun CreditsDTO.mapToUI(): CreditUI {
-    val totalItemToTake = 10
-    return CreditUI(
-        cast = cast
-            .take(totalItemToTake)
-            .mapCast(),
-        crew = crew
-            .take(totalItemToTake)
-            .mapCrew()
-    )
-}
+fun CreditsDTO.Cast.mapToPeopleUI() = PeopleUI(
+    id = id,
+    name = name,
+    profilePath = profilePath,
+    character = character,
+)
 
-fun List<CreditsDTO.Crew>.mapCrew(): List<PeopleUI> {
-    return map { crew: CreditsDTO.Crew ->
-        PeopleUI(
-            id = crew.id,
-            creditId = crew.creditId,
-            name = crew.name,
-            role = crew.job,
-            profilePath = crew.profilePath
-        )
-    }
-}
-
-fun List<CreditsDTO.Cast>.mapCast(): List<PeopleUI> {
-    return map { cast: CreditsDTO.Cast ->
-        PeopleUI(
-            id = cast.id,
-            creditId = cast.creditId,
-            name = cast.name,
-            role = cast.character,
-            profilePath = cast.profilePath
-        )
-    }
-}
+fun CreditsDTO.Crew.mapToPeopleUI() = PeopleUI(
+    id = id,
+    name = name,
+    profilePath = profilePath,
+    character = knownForDepartment,
+)
 
 fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
     return this
@@ -127,10 +92,11 @@ fun List<VideoDTO.Videos>.mapToUI(): List<VideoUI> {
         )
         .map { video ->
             VideoUI(
-                video.id,
-                video.key,
-                video.name,
-                video.type
+                id = video.id,
+                key = video.key,
+                name = video.name,
+                site = video.site,
+                type = video.type
             )
         }
 }

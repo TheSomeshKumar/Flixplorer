@@ -33,7 +33,7 @@ data class TvShowDetailsDTO(
     @SerialName("seasons") val seasons: List<Season>,
     @SerialName("spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     @SerialName("status") val status: String,
-    @SerialName("tagline") val tagline: String,
+    @SerialName("tagline") val tagline: String?,
     @SerialName("type") val type: String,
     @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Long,

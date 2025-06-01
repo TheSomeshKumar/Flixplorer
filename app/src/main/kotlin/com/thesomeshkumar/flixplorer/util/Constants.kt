@@ -8,7 +8,6 @@ object Constants {
     const val ITEM_LOAD_PER_PAGE: Int = 10
     const val MEDIA_TYPE_MOVIE = "movie"
     const val MEDIA_TYPE_TV_SHOW = "tv"
-    const val CAROUSEL_AUTO_SCROLL_TIMER: Long = 3000L
     const val VIDEO_TYPE_TRAILER: String = "Trailer"
     const val ANIM_TIME_SHORT: Int = 300
     const val ANIM_TIME_MEDIUM: Int = 500

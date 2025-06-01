@@ -4,18 +4,18 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.thesomeshkumar.flixplorer.data.common.RequestErrorHandler
 import com.thesomeshkumar.flixplorer.data.datasource.remote.ApiService
-import com.thesomeshkumar.flixplorer.data.model.MovieDTO
+import com.thesomeshkumar.flixplorer.data.model.Movie
 import javax.inject.Inject
 
 class TopRatedMoviesSource @Inject constructor(
     private val api: ApiService
-) : PagingSource<Int, MovieDTO.Movie>() {
+) : PagingSource<Int, Movie>() {
 
-    override fun getRefreshKey(state: PagingState<Int, MovieDTO.Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDTO.Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return try {
             val nextPage = params.key ?: 1
             val popularMovies = api.getTopRatedMovies(nextPage)
