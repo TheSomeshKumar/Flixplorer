@@ -6,7 +6,7 @@ import com.thesomeshkumar.flixplorer.data.model.dto.CreditsDTO
 import com.thesomeshkumar.flixplorer.data.model.dto.GenreDTO
 import com.thesomeshkumar.flixplorer.data.model.dto.Movie
 import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShow
 import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
 import com.thesomeshkumar.flixplorer.data.model.dto.VideoDTO
 import com.thesomeshkumar.flixplorer.presentation.models.DetailUI
@@ -17,7 +17,7 @@ import com.thesomeshkumar.flixplorer.presentation.models.VideoUI
 import com.thesomeshkumar.flixplorer.util.Constants
 import com.thesomeshkumar.flixplorer.util.toDefaultFormattedDate
 
-fun TVShowDTO.TVShow.mapToUI() = MediaListItemUI(
+fun TVShow.mapToUI() = MediaListItemUI(
     id = id,
     title = name,
     overview = overview.ifBlank { Constants.NONE },

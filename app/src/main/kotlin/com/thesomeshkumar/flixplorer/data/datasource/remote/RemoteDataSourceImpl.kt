@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.thesomeshkumar.flixplorer.data.model.dto.Movie
 import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShow
 import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
 import com.thesomeshkumar.flixplorer.data.paging.movie.PopularMoviesSource
 import com.thesomeshkumar.flixplorer.data.paging.movie.TopRatedMoviesSource
@@ -47,7 +47,7 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
         emit(apis.getMoviesDetails(movieId))
     }
 
-    override fun getAiringTodayTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+    override fun getAiringTodayTvShows(): Flow<PagingData<TVShow>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
@@ -55,7 +55,7 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
             }
         ).flow
 
-    override fun getPopularTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+    override fun getPopularTvShows(): Flow<PagingData<TVShow>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
@@ -63,7 +63,7 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
             }
         ).flow
 
-    override fun getTopRatedTvShows(): Flow<PagingData<TVShowDTO.TVShow>> =
+    override fun getTopRatedTvShows(): Flow<PagingData<TVShow>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
