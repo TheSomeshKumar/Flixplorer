@@ -11,7 +11,7 @@ import androidx.compose.ui.util.lerp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flixplorer.R
-import com.thesomeshkumar.flixplorer.data.common.RemoteSourceException
+import com.thesomeshkumar.flixplorer.core.network.error.RemoteSourceException
 import okhttp3.ResponseBody
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

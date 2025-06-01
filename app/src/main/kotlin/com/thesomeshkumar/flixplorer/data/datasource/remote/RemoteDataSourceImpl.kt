@@ -3,23 +3,23 @@ package com.thesomeshkumar.flixplorer.data.datasource.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.thesomeshkumar.flixplorer.data.model.MovieDTO
-import com.thesomeshkumar.flixplorer.data.model.MovieDetailsDTO
-import com.thesomeshkumar.flixplorer.data.model.TVShowDTO
-import com.thesomeshkumar.flixplorer.data.model.TvShowDetailsDTO
-import com.thesomeshkumar.flixplorer.data.paging.AiringTodayTvShowSource
-import com.thesomeshkumar.flixplorer.data.paging.PopularMoviesSource
-import com.thesomeshkumar.flixplorer.data.paging.PopularTvShowSource
-import com.thesomeshkumar.flixplorer.data.paging.TopRatedMoviesSource
-import com.thesomeshkumar.flixplorer.data.paging.TopRatedTvShowSource
-import com.thesomeshkumar.flixplorer.data.paging.UpcomingMoviesSource
+import com.thesomeshkumar.flixplorer.data.model.dto.Movie
+import com.thesomeshkumar.flixplorer.data.model.dto.MovieDetailsDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TVShowDTO
+import com.thesomeshkumar.flixplorer.data.model.dto.TvShowDetailsDTO
+import com.thesomeshkumar.flixplorer.data.paging.movie.PopularMoviesSource
+import com.thesomeshkumar.flixplorer.data.paging.movie.TopRatedMoviesSource
+import com.thesomeshkumar.flixplorer.data.paging.movie.UpcomingMoviesSource
+import com.thesomeshkumar.flixplorer.data.paging.tvshow.AiringTodayTvShowSource
+import com.thesomeshkumar.flixplorer.data.paging.tvshow.PopularTvShowSource
+import com.thesomeshkumar.flixplorer.data.paging.tvshow.TopRatedTvShowSource
 import com.thesomeshkumar.flixplorer.util.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
 
-    override fun getUpcomingMovies(): Flow<PagingData<MovieDTO.Movie>> =
+    override fun getUpcomingMovies(): Flow<PagingData<Movie>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
@@ -27,7 +27,7 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
             }
         ).flow
 
-    override fun getPopularMovies(): Flow<PagingData<MovieDTO.Movie>> =
+    override fun getPopularMovies(): Flow<PagingData<Movie>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
@@ -35,7 +35,7 @@ class RemoteDataSourceImpl(private val apis: ApiService) : RemoteDataSource {
             }
         ).flow
 
-    override fun getTopMovies(): Flow<PagingData<MovieDTO.Movie>> =
+    override fun getTopMovies(): Flow<PagingData<Movie>> =
         Pager(
             config = PagingConfig(pageSize = Constants.ITEM_LOAD_PER_PAGE),
             pagingSourceFactory = {
