@@ -84,7 +84,7 @@ data class TvShowDetailsDTO(
     @Serializable
     data class Network(
         @SerialName("id") val id: Int,
-        @SerialName("logo_path") val logoPath: String,
+        @SerialName("logo_path") val logoPath: String?,
         @SerialName("name") val name: String,
         @SerialName("origin_country") val originCountry: String
     )
