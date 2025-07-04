@@ -11,17 +11,25 @@ Flixplorer is built upon a pragmatic and effective **MVVM (Model-View-ViewModel)
 
 ### High-Level Architecture
 
-The application is primarily divided into two main layers:
+The application is primarily divided into two main layers: the **Presentation Layer** (the UI) and the **Data Layer** (data handling). The key to this architecture is that the Presentation Layer communicates only with the `Repository`, which acts as a clean API and single source of truth for all application data.
 
-- **Presentation Layer:** Handles everything related to the UI and user interaction.
-- **Data Layer:** Manages all data operations, including network requests and local data persistence.
+The `Repository` is responsible for managing and orchestrating the various data sources, such as the remote API and the local preferences storage. This ensures a clear separation of concerns and makes the overall architecture more robust and scalable.
 
 ```mermaid
 graph TD
-    A[Presentation Layer] --> B(Data Layer)
-    B --> C(Remote Datasource)
-    B --> D(Local Datasource)
+    subgraph "Presentation Layer"
+        A[ViewModels<br/>Composables]
+    end
 
+    subgraph "Data Layer"
+        C[Remote Datasource<br/>Retrofit/TMDb API]
+        D[Local Datasource<br/>DataStore]
+        B[Repository]
+        B --> C
+        B --> D
+    end
+
+    A --> B
 ```
 
 ### Presentation Layer
