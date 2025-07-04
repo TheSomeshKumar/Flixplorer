@@ -1,13 +1,9 @@
 # Flixplorer
-
-Jetpack Compose playground project based
-on [Recommended app architecture](https://developer.android.com/jetpack/guide)
+Flixploreris a cutting-edge, modern Android application built to demonstrate a robust and scalable architecture. It leverages the latest technologies and best practices in Android development to provide a seamless and feature-rich user experience for exploring movies and TV shows.
 
 Powered by
 
 <img width="260" alt="TMDB Logo" src="https://github.com/TheSomeshKumar/Flixplorer/assets/13759258/a1bf8723-f5b7-43a7-8118-22bc1e203301">
-
-
 
 ## Features 🕹
 
@@ -45,3 +41,109 @@ local `local.properties` file like this
 ```
 TMDB_KEY=<REPLACE_WITH_YOUR_API_KEY>
 ```
+
+
+# Architecture
+
+The application follows the **MVVM (Model-View-ViewModel)** architectural pattern, which is highly recommended by Google for building robust and maintainable Android apps. The codebase is organized into three main layers: **Data**, **Domain**, and **Presentation**.
+
+## High-Level Architecture Diagram
+
+```mermaid
+graph TD
+    A[Presentation Layer] --> B(Domain Layer)
+    B --> C(Data Layer)
+    C --> D{Remote Datasource}
+    C --> E{Local Datasource}
+
+    subgraph Presentation Layer
+        A
+    end
+
+    subgraph Domain Layer
+        B
+    end
+
+    subgraph Data Layer
+        C
+    end
+
+    subgraph Datasources
+        D
+        E
+    end
+```
+
+### Presentation Layer
+
+The Presentation Layer is responsible for everything related to the user interface. It's built using **Jetpack Compose**, Google's modern toolkit for building native Android UI.
+
+- **Views (Composable Functions):** The UI is composed of stateless composable functions that are lightweight and easy to test.
+- **ViewModel:** Each screen has a corresponding ViewModel that holds the UI state and business logic. The ViewModels expose data to the UI using **Kotlin Flows** and are responsible for handling user interactions.
+- **State Management:** The UI state is managed using `StateFlow` and `SharedFlow` to ensure a reactive and consistent user experience.
+- **Navigation:** Navigation between screens is handled by **Jetpack Navigation Compose**, which provides a type-safe and declarative way to navigate between composables.
+
+### Domain Layer
+
+The Domain Layer contains the core business logic of the application. It's independent of any other layer and is responsible for defining the application's use cases.
+
+- **Use Cases (Interactors):** Each use case represents a single business rule. For example, `GetPopularMoviesUseCase` would be responsible for fetching a list of popular movies.
+- **Models:** The Domain Layer defines the core data models of the application. These models are independent of any specific data source.
+
+### Data Layer
+
+The Data Layer is responsible for providing data to the application. It's composed of **Repositories** and **Data Sources**.
+
+- **Repositories:** The repositories are the single source of truth for the application's data. They are responsible for abstracting the data sources from the rest of the app.
+- **Data Sources:** The application uses two types of data sources:
+    - **Remote Data Source:** Fetches data from the **TMDb (The Movie Database) API** using **Retrofit** and **OkHttp**.
+    - **Local Data Source:** Caches data locally using **Jetpack DataStore**.
+
+### Dependency Injection
+
+Dependency injection is implemented using **Hilt**, a dependency injection library for Android that simplifies the process of providing dependencies to different parts of the application.
+
+### Asynchronous Programming
+
+All asynchronous operations are handled using **Kotlin Coroutines**, which simplifies asynchronous programming and helps to avoid callback hell.
+
+### Image Loading
+
+Image loading is handled by **Coil**, a modern image loading library for Android that is fast, efficient, and easy to use.
+
+### Sequence Diagram: Fetching Popular Movies
+
+Here's a sequence diagram that illustrates how the different components of the application interact to fetch a list of popular movies:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant View
+    participant ViewModel
+    participant UseCase
+    participant Repository
+    participant RemoteDataSource
+    participant LocalDataSource
+
+    User->>View: Opens the app
+    View->>ViewModel: Requests popular movies
+    ViewModel->>UseCase: Executes GetPopularMoviesUseCase
+    UseCase->>Repository: Gets popular movies
+    Repository->>LocalDataSource: Checks for cached data
+    LocalDataSource-->>Repository: Returns cached data (if available)
+    alt Data is not cached
+        Repository->>RemoteDataSource: Fetches popular movies from API
+        RemoteDataSource-->>Repository: Returns popular movies
+        Repository->>LocalDataSource: Caches the new data
+    end
+    Repository-->>UseCase: Returns popular movies
+    UseCase-->>ViewModel: Returns popular movies
+    ViewModel-->>View: Updates the UI with the list of popular movies
+```
+
+This architecture ensures that the application is:
+
+- **Scalable:** New features can be added easily without affecting the existing codebase.
+- **Testable:** Each component can be tested independently.
+- **Maintainable:** The code is easy to understand and modify.
+- **Robust:** The application is resilient to errors and can handle network failures gracefully.
