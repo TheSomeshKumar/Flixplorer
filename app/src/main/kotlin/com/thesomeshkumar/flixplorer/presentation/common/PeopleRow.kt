@@ -66,8 +66,8 @@ fun PeopleCard(
         onClick = { onItemClicked(peopleItem) },
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.normal_padding_half))
-            .width(dimensionResource(id = R.dimen.home_grid_card_width))
-            .height(dimensionResource(id = R.dimen.home_grid_card_height))
+            .width(dimensionResource(id = R.dimen.people_card_width))
+            .height(dimensionResource(id = R.dimen.people_card_height))
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImageWithPlaceholder(

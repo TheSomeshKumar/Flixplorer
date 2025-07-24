@@ -34,16 +34,18 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.MoviesScreen(
+fun MoviesScreen(
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: MoviesViewModel = hiltViewModel(),
-    onItemClick: (MediaListItemUI) -> Unit
+    onItemClick: (MediaListItemUI) -> Unit,
 ) {
     val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
     MoviesScreenContent(
+        sharedTransitionScope,
         movieState,
         scrollState,
         animatedVisibilityScope,
@@ -55,7 +57,8 @@ fun SharedTransitionScope.MoviesScreen(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun SharedTransitionScope.MoviesScreenContent(
+fun MoviesScreenContent(
+    sharedTransitionScope: SharedTransitionScope,
     movieState: MovieScreenState,
     scrollState: ScrollState,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -89,24 +92,29 @@ fun SharedTransitionScope.MoviesScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                MediaCarouselM3(
-                    list = upcomingMoviesLazyItems,
-                    carouselLabel = stringResource(R.string.upcoming_movies),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
-                MediaRow(
-                    title = stringResource(R.string.popular),
-                    list = popularMoviesLazyItems,
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
-                MediaRow(
-                    title = stringResource(R.string.top_rated),
-                    list = topRatedMoviesLazyItems,
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
+                with(sharedTransitionScope) {
+                    MediaCarouselM3(
+                        list = upcomingMoviesLazyItems,
+                        carouselLabel = stringResource(R.string.upcoming_movies),
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
+                    MediaRow(
+                        title = stringResource(R.string.popular),
+                        list = popularMoviesLazyItems,
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
+                    MediaRow(
+                        title = stringResource(R.string.top_rated),
+                        list = topRatedMoviesLazyItems,
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
+                }
             }
         }
 
