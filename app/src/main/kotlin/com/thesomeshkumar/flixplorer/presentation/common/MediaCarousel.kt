@@ -39,52 +39,55 @@ val flix_color_translucent_black = Color(0x99000000)
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SharedTransitionScope.MediaCarouselM3(
+fun MediaCarouselM3(
     list: LazyPagingItems<MediaListItemUI>,
     totalItemsToShow: Int = 20,
     carouselLabel: String = "",
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onItemClicked: (MediaListItemUI) -> Unit
 ) {
     val itemCount = list.itemCount.coerceAtMost(totalItemsToShow)
     val carouselState = rememberCarouselState(initialItem = 0) { itemCount }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Box {
-            HorizontalMultiBrowseCarousel(
-                state = carouselState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.home_grid_poster_height)), // Adjust height as needed
-                itemSpacing = dimensionResource(id = R.dimen.normal_padding),
-                contentPadding = PaddingValues(
-                    horizontal = dimensionResource(id = R.dimen.double_padding)
-                ),
-                // This makes items snap into place when scrolled
-                preferredItemWidth = 300.dp
-            ) { itemIndex: Int ->
-                val item: MediaListItemUI? = list[itemIndex]
-                item?.let {
-                    Card(
-                        onClick = { onItemClicked(it) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .maskClip(MaterialTheme.shapes.medium) // Apply a shape if desired
-                    ) {
-                        CarouselBoxM3(
-                            animatedVisibilityScope = animatedVisibilityScope,
-                            item = it
-                        )
+    with(sharedTransitionScope) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box {
+                HorizontalMultiBrowseCarousel(
+                    state = carouselState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(dimensionResource(id = R.dimen.home_grid_poster_height)), // Adjust height as needed
+                    itemSpacing = dimensionResource(id = R.dimen.normal_padding),
+                    contentPadding = PaddingValues(
+                        horizontal = dimensionResource(id = R.dimen.double_padding)
+                    ),
+                    // This makes items snap into place when scrolled
+                    preferredItemWidth = 300.dp
+                ) { itemIndex: Int ->
+                    val item: MediaListItemUI? = list[itemIndex]
+                    item?.let {
+                        Card(
+                            onClick = { onItemClicked(it) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .maskClip(MaterialTheme.shapes.medium) // Apply a shape if desired
+                        ) {
+                            CarouselBoxM3(
+                                animatedVisibilityScope = animatedVisibilityScope,
+                                item = it
+                            )
+                        }
                     }
                 }
             }
-        }
-        if (carouselLabel.isNotBlank()) {
-            Text(
-                text = carouselLabel,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.normal_padding))
-            )
+            if (carouselLabel.isNotBlank()) {
+                Text(
+                    text = carouselLabel,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(top = dimensionResource(id = R.dimen.normal_padding))
+                )
+            }
         }
     }
 }

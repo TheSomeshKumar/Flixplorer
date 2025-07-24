@@ -30,22 +30,25 @@ fun MainScreenNavGraph(
             composable(route = BottomBarScreen.Movies.route) {
                 MoviesScreen(
                     animatedVisibilityScope = this,
-                    modifier = modifier
-                ) {
-                    navController.navigate(
-                        FlixDetails(
-                            type = Constants.MEDIA_TYPE_MOVIE,
-                            id = it.id.toString(),
-                            name = it.title,
-                            backdrop = it.backdropPath.removePrefix("/"),
-                            poster = it.posterPath.removePrefix("/")
+                    modifier = modifier,
+                    onItemClick = {
+                        navController.navigate(
+                            FlixDetails(
+                                type = Constants.MEDIA_TYPE_MOVIE,
+                                id = it.id.toString(),
+                                name = it.title,
+                                backdrop = it.backdropPath.removePrefix("/"),
+                                poster = it.posterPath.removePrefix("/")
+                            )
                         )
-                    )
-                }
+                    },
+                    sharedTransitionScope = this@SharedTransitionLayout
+                )
             }
 
             composable(route = BottomBarScreen.TvShows.route) {
                 TvShowScreen(
+                    sharedTransitionScope = this@SharedTransitionLayout,
                     animatedVisibilityScope = this,
                     modifier = modifier
                 ) {

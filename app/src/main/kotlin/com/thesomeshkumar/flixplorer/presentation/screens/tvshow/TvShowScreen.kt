@@ -34,7 +34,8 @@ import com.thesomeshkumar.flixplorer.util.isAnyRefreshing
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.TvShowScreen(
+fun TvShowScreen(
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: TvShowViewModel = hiltViewModel(),
@@ -44,20 +45,22 @@ fun SharedTransitionScope.TvShowScreen(
     val scrollState = rememberScrollState()
 
     TvShowScreenContent(
-        tvShowUiState,
-        scrollState,
-        animatedVisibilityScope,
-        modifier,
-        onItemClick
+        tvShowUiState = tvShowUiState,
+        scrollState = scrollState,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
+        modifier = modifier,
+        onItemClick = onItemClick
     )
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun SharedTransitionScope.TvShowScreenContent(
+fun TvShowScreenContent(
     tvShowUiState: TvShowScreenState,
     scrollState: ScrollState,
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     onItemClick: (MediaListItemUI) -> Unit,
@@ -89,25 +92,30 @@ fun SharedTransitionScope.TvShowScreenContent(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                MediaCarouselM3(
-                    list = airingTodayTvShowLazyItems,
-                    carouselLabel = stringResource(R.string.upcoming_tv_shows),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
+                with(sharedTransitionScope) {
+                    MediaCarouselM3(
+                        list = airingTodayTvShowLazyItems,
+                        carouselLabel = stringResource(R.string.upcoming_tv_shows),
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
 
-                MediaRow(
-                    title = stringResource(R.string.popular),
-                    list = popularTvShowsLazyItems,
-                    animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
-                MediaRow(
-                    title = stringResource(R.string.top_rated),
-                    list = topRatedTvShowLazyItems,
-                    animatedVisibilityScope,
-                    onItemClicked = { onItemClick(it) }
-                )
+                    MediaRow(
+                        title = stringResource(R.string.popular),
+                        list = popularTvShowsLazyItems,
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
+                    MediaRow(
+                        title = stringResource(R.string.top_rated),
+                        list = topRatedTvShowLazyItems,
+                        sharedTransitionScope = this,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClicked = { onItemClick(it) }
+                    )
+                }
             }
         }
 

@@ -1,7 +1,9 @@
 package com.thesomeshkumar.flixplorer.presentation.common
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -9,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ElevatedCard
@@ -21,8 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flixplorer.R
@@ -32,9 +32,10 @@ import com.thesomeshkumar.flixplorer.util.toFullImageUrl
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SharedTransitionScope.MediaRow(
+fun MediaRow(
     title: String,
     list: LazyPagingItems<MediaListItemUI>,
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     listItemModifier: Modifier = Modifier,
@@ -57,10 +58,11 @@ fun SharedTransitionScope.MediaRow(
             items(list.itemCount) { index ->
                 list[index]?.let {
                     MediaCard(
-                        it,
-                        animatedVisibilityScope,
-                        listItemModifier,
-                        onItemClicked
+                        mediaListItemUI = it,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        modifier = listItemModifier,
+                        onItemClicked = onItemClicked
                     )
                 }
             }
@@ -75,43 +77,59 @@ fun SharedTransitionScope.MediaRow(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.MediaCard(
-    mediaListItemUI: MediaListItemUI,
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun MediaCard(
     modifier: Modifier = Modifier,
+    mediaListItemUI: MediaListItemUI,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onItemClicked: (MediaListItemUI) -> Unit,
 ) {
-    ElevatedCard(
-        onClick = { onItemClicked(mediaListItemUI) },
-        modifier = modifier
-            .padding(dimensionResource(id = R.dimen.normal_padding_half))
-            .width(dimensionResource(id = R.dimen.home_grid_card_width))
-            .height(dimensionResource(id = R.dimen.home_grid_card_height))
-            .sharedElement(
-                sharedContentState = rememberSharedContentState(key = "poster-${mediaListItemUI.id}"),
-                animatedVisibilityScope = animatedVisibilityScope,
-                boundsTransform = { _, _ ->
-                    tween(durationMillis = Constants.ANIM_TIME_SHORT)
-                }
-            )
-    ) {
-        Column {
+    with(sharedTransitionScope) {
+        ElevatedCard(
+            onClick = { onItemClicked(mediaListItemUI) },
+            modifier = modifier
+                .padding(dimensionResource(id = R.dimen.normal_padding_half))
+                .width(dimensionResource(id = R.dimen.home_grid_card_width))
+                .height(dimensionResource(id = R.dimen.home_grid_card_height))
+                .sharedElement(
+                    sharedContentState = rememberSharedContentState(key = "poster-${mediaListItemUI.id}"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = Constants.ANIM_TIME_SHORT)
+                    }
+                )
+        ) {
             AsyncImageWithPlaceholder(
                 model = mediaListItemUI.posterPath.toFullImageUrl(),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.height(dimensionResource(id = R.dimen.home_grid_poster_height))
+                modifier = Modifier.fillMaxSize(),
             )
-            Text(
-                text = mediaListItemUI.title,
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.small_padding))
-                    .fillMaxSize()
-                    .wrapContentHeight(align = Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
+        }
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+@Composable
+fun MediaCard_Preview() {
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            MediaCard(
+                mediaListItemUI = MediaListItemUI(
+                    id = 1,
+                    title = "The Shawshank Redemption",
+                    posterPath = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
+                    backdropPath = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
+                    mediaType = Constants.MEDIA_TYPE_MOVIE,
+                    overview = "Two imprisoned men bond over a number of years, finding " +
+                        "solace and eventual redemption through acts of common decency.",
+                    voteAverage = 4.3,
+                    releaseDate = "1994-09-23",
+                ),
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this,
+                onItemClicked = {}
             )
         }
     }
