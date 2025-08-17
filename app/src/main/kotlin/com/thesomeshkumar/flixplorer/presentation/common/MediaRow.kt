@@ -1,9 +1,7 @@
 package com.thesomeshkumar.flixplorer.presentation.common
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -22,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.thesomeshkumar.flixplorer.R
@@ -104,32 +101,6 @@ fun MediaCard(
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize(),
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Preview
-@Composable
-fun MediaCard_Preview() {
-    SharedTransitionLayout {
-        AnimatedVisibility(visible = true) {
-            MediaCard(
-                mediaListItemUI = MediaListItemUI(
-                    id = 1,
-                    title = "The Shawshank Redemption",
-                    posterPath = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
-                    backdropPath = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
-                    mediaType = Constants.MEDIA_TYPE_MOVIE,
-                    overview = "Two imprisoned men bond over a number of years, finding " +
-                        "solace and eventual redemption through acts of common decency.",
-                    voteAverage = 4.3,
-                    releaseDate = "1994-09-23",
-                ),
-                sharedTransitionScope = this@SharedTransitionLayout,
-                animatedVisibilityScope = this,
-                onItemClicked = {}
             )
         }
     }

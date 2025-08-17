@@ -72,9 +72,10 @@ object NetworkModule {
             .addInterceptor(networkConnectionInterceptor)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(
-                ChuckerInterceptor(context = context).apply {
-                    this.redactHeader("api_key")
-                }
+                ChuckerInterceptor(context = context)
+                    .apply {
+                        redactHeader("api_key")
+                    }
             )
             .addInterceptor { chain ->
                 val original = chain
