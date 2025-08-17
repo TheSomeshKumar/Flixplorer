@@ -1,9 +1,9 @@
 # Flixplorer
-Flixploreris a cutting-edge, modern Android application built to demonstrate a robust and scalable architecture. It leverages the latest technologies and best practices in Android development to provide a seamless and feature-rich user experience for exploring movies and TV shows.
+Flixplorer is an Android application built to demonstrate a robust and scalable architecture. It leverages the latest technologies and best practices in Android development to provide a seamless and feature-rich user experience for exploring movies and TV shows.
 
 Powered by
 
-<img width="260" alt="TMDB Logo" src="https://github.com/TheSomeshKumar/Flixplorer/assets/13759258/a1bf8723-f5b7-43a7-8118-22bc1e203301">
+<img width="200" alt="TMDB Logo" src="https://github.com/TheSomeshKumar/Flixplorer/assets/13759258/a1bf8723-f5b7-43a7-8118-22bc1e203301">
 
 ## Architecture
 
